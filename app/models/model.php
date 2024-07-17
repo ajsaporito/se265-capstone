@@ -1,5 +1,5 @@
 <?php
 
-include __DIR__ . 'app/config/db.php';
+include __DIR__ . '\..\config\db.php';
 
 // Create model files for each table
