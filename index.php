@@ -13,5 +13,4 @@ if (array_key_exists($uri, $routes)) {
   require $routes[$uri];
 } else {
   require 'app/views/404.php';
-  
 }
