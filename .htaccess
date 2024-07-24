@@ -1,12 +1,19 @@
 <IfModule mod_rewrite.c>
   RewriteEngine On
 
-  # Allow index.php to access everything
-  RewriteRule ^index\.php$ - [L]
+  # Disable directory listing
+  Options -Indexes
 
-  # Block direct access to PHP files
-  RewriteRule \.php$ - [F,L]
-  
+  # Block access to app/ and docs/ directories
+  RewriteRule ^(app|docs) - [F,L]
+
+  # Block access to files starting with a '.'
+  RewriteRule ^\. - [F,L]
+
+  # Allow loading of files and directories
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+
   # Redirect all requests to index.php
   RewriteRule ^ index.php [L]
 </IfModule>
