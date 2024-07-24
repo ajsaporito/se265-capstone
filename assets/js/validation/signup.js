@@ -32,7 +32,7 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
   }
 
   function createAccount() {
-
+   //TODO: Get the form to submit to server when all fields are valid on the front end
   }
 
   if (errorCt === 3) {
