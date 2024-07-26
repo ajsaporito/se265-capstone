@@ -2,16 +2,15 @@
 
 include __DIR__ . '\..\..\models\users.php';
 
+$errorCt = 0;
 $errorMsg = '';
 
 if (isset($_POST['signUpBtn'])) {
-  if ($errorCt == 0) {
-    session_start();
-    $_SESSION['user'] = $username;
-
-    $password = sha1($password);
-    signUp($username, $email, $password);
-    header('Location: /se265-capstone/verify-email');
-  }
+  $username = $_POST['username'];
+  $_SESSION['user'] = $username;
+  $email = $_POST['email'];
+  $password = $_POST['password'];
+  signUp($username, $email, $password);
 }
+
 require 'app/views/auth/signup.php';

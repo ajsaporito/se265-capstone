@@ -1,5 +1,10 @@
 <?php $title = 'Home';
 include 'partials/header.php';
 include 'partials/navbar.php'; ?>
-<p class="text-center mt-4">This will be the landing page once users are logged in</p>
+<main class="flex-grow-1">
+  <div class="container py-5">
+    <h1>Welcome to Dev Spot</h1>
+    <p>The main page</p>
+  </div>
+</main>
 <?php include 'partials/footer.php'; ?>

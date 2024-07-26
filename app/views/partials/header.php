@@ -11,5 +11,5 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <title><?php echo isset($title) ? $title : 'Page Not Found'; ?></title>
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 <noscript>You need to enable JavaScript to run this app.</noscript>
