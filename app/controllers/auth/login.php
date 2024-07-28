@@ -13,7 +13,6 @@ if (isset($_POST['loginBtn'])) {
   if (count($user) > 0) {
     session_start();
     $_SESSION['user'] = $username;
-    $_SESSION['id'] = $id;
     header('Location: /se265-capstone');
   } else {
     $errorMsg = 'Invalid username, email, or password. Please try again.';

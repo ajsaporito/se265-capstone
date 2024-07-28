@@ -1,13 +1,5 @@
 <?php
-session_start();
-
-if (!isset($_SESSION['logged_in'])) {
-  header('Location: /se265-capstone');
-}
-
-session_unset(); 
 session_destroy();
-
 $redirect = false;
 
 if (!headers_sent()) {

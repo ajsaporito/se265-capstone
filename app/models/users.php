@@ -29,6 +29,20 @@ function getUser($id) {
   return $result;
 }
 
+function userExists($username, $email) {
+  global $db;
+
+  $sql = $db->prepare("SELECT * FROM Users WHERE username = :u OR email = :e");
+  $sql->bindValue(':u', $username);
+  $sql->bindValue(':e', $email);
+
+  if ($sql->execute() && $sql->rowCount() > 0) {
+    $result = $sql->fetch(PDO::FETCH_ASSOC);
+  }
+
+  return $result;
+}
+
 function signUp($username, $email, $password) {
   global $db;
 
