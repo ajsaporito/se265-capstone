@@ -7,14 +7,14 @@
 
 ## Overview
 
-This project is the capstone project for the SE265 course at New England Tech. Coded by AJ Saporito and Tristen Jussaume, the site uses PHP and MySQL for the backend, and Bootstrap and jQuery for the frontend. Users on this site can post or request to work on jobs related to software development.
+This site is the capstone project for the SE265 course at New England Tech. Coded by AJ Saporito and Tristen Jussaume, the site uses PHP and MySQL for the backend, and Bootstrap and jQuery for the frontend. Users on this site can post or request to work on jobs related to software development.
 
 ## Setup
 
 1. **Clone the Repository:**
 
     ```sh
-    git clone https://github.com/yourusername/se265-capstone.git
+    git clone https://github.com/ajsaporito/se265-capstone.git
     ```
 
 2. **Navigate to the Project Directory:**
@@ -39,6 +39,8 @@ This project is the capstone project for the SE265 course at New England Tech. C
       password = your_database_password
       dbname = your_database_name
       ```
+
+      - Copy the `db.sql` file in the `docs` directory and execute the query to create the tables.
 
 5. **Run the Application:**
 
