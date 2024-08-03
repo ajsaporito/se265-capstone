@@ -1,6 +1,6 @@
 <?php
 
-include __DIR__ . '\..\config\db.php';
+include CONFIG_PATH . 'db.php';
 
 function getAllUsers() {
   global $db;

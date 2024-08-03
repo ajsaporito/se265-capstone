@@ -1,6 +1,6 @@
 <?php
 
-include __DIR__ . '\..\..\models\users.php';
+include MODEL_PATH . 'users.php';
 
 $errorMsg = '';
 
@@ -23,4 +23,4 @@ if (isset($_POST['loginBtn'])) {
   $password = '';
 }
 
-require 'app/views/auth/login.php';
+require 'app/views/user/login.php';

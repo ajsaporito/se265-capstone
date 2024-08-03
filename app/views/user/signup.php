@@ -1,7 +1,7 @@
 <?php
 $title = 'Sign Up';
-include __DIR__ . '/../partials/header.php';
-include __DIR__ . '/../partials/navbar.php';
+include PARTIAL_PATH . 'header.php';
+include PARTIAL_PATH . 'navbar.php';
 ?>
 <main class="flex-grow-1">
   <div class="container py-5">
@@ -43,4 +43,4 @@ include __DIR__ . '/../partials/navbar.php';
   });
 </script>
 <script src="/se265-capstone/assets/js/signup.js"></script>
-<?php include __DIR__ . '/../partials/footer.php'; ?>
+<?php include PARTIAL_PATH . 'footer.php'; ?>

@@ -2,8 +2,6 @@ $(document).ready(function() {
   $('#signUpForm').on('submit', function(e) {
     let isValid = true;
     let errorMsgs = '';
-
-    $('#errorContainer').html('').removeClass('text-danger');
     
     const username = $('#username').val().trim();
     const usernamePattern = /^(?!\.)(?!.*\.$)[a-z0-9._]{3,20}$/;

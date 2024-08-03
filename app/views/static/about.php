@@ -1,7 +1,7 @@
 <?php
 $title = 'About';
-include __DIR__ . '/../partials/header.php';
-include __DIR__ . '/../partials/navbar.php';
+include PARTIAL_PATH . 'header.php';
+include PARTIAL_PATH . 'navbar.php';
 ?>
 <main class="flex-grow-1">
   <div class="container py-5">
@@ -9,4 +9,4 @@ include __DIR__ . '/../partials/navbar.php';
     <p>All about us</p>
   </div>
 </main>
-<?php include __DIR__ . '/../partials/footer.php'; ?>
+<?php include PARTIAL_PATH . 'footer.php'; ?>
