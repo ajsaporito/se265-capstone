@@ -5,4 +5,4 @@
   exit();
 } */
 
-require VIEW_PATH . 'home.php';
+require VIEW_PATH . 'people.php';

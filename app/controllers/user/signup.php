@@ -16,4 +16,4 @@ if (isset($_POST['signUpBtn'])) {
   $password = '';
 }
 
-require 'app/views/user/signup.php';
+require VIEW_PATH . 'user/signup.php';

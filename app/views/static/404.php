@@ -1,6 +1,5 @@
 <?php
 include PARTIAL_PATH . 'header.php';
-include PARTIAL_PATH . 'navbar.php';
 ?>
 <main class="flex-grow-1">
   <div class="container py-5">

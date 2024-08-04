@@ -2,4 +2,4 @@
 
 // Email verification
 
-require 'app/views/user/verify-email.php';
+require VIEW_PATH . 'user/verify-email.php';

@@ -1,10 +1,10 @@
 <?php
-$title = 'About';
+$title = 'Find People';
 include PARTIAL_PATH . 'header.php';
 ?>
 <main class="flex-grow-1">
   <div class="container py-5">
-    <h1>About Page</h1>
+    <h1>Find People</h1>
   </div>
 </main>
 <?php include PARTIAL_PATH . 'footer.php'; ?>

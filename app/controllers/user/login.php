@@ -23,4 +23,4 @@ if (isset($_POST['loginBtn'])) {
   $password = '';
 }
 
-require 'app/views/user/login.php';
+require VIEW_PATH . 'user/login.php';

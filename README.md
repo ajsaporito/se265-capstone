@@ -4,10 +4,11 @@
 ![Bootstrap](https://img.shields.io/badge/bootstrap-%5E5.0-blueviolet)
 ![jQuery](https://img.shields.io/badge/jquery-%5E3.6.0-blue)
 ![MySQL](https://img.shields.io/badge/mysql-%5E8.0.0-orange)
+[![forthebadge](https://forthebadge.com/images/badges/powered-by-coders-sweat.svg)](https://forthebadge.com)
 
 ## Overview
 
-This site is the capstone project for the SE265 course at New England Tech. Coded by AJ Saporito and Tristen Jussaume, the site uses PHP and MySQL for the backend, and Bootstrap and jQuery for the frontend. Users on this site can post or request to work on jobs related to software development.
+This site is the capstone project for the SE265 course at New England Tech, coded by AJ Saporito and Tristen Jussaume. Users on this site can post or request to work on jobs related to software development, and can review other users.
 
 ## Setup
 
@@ -17,17 +18,11 @@ This site is the capstone project for the SE265 course at New England Tech. Code
     git clone https://github.com/ajsaporito/se265-capstone.git
     ```
 
-2. **Navigate to the Project Directory:**
+2. **Set Up Your Web Server:**
 
-    ```sh
-    cd se265-capstone
-    ```
+    - For XAMPP, move the project to the `htdocs` directory.
 
-3. **Set Up Your Web Server:**
-
-    - For XAMPP, move the project to the `htdocs` directory or set up a virtual host.
-
-4. **Configure the Database:**
+3. **Configure the Database:**
 
     - Create a file named `dbconfig.ini` in the `config` directory and add your database configuration:
 
@@ -42,7 +37,7 @@ This site is the capstone project for the SE265 course at New England Tech. Code
 
       - Copy the `db.sql` file in the `docs` directory and execute the query to create the tables.
 
-5. **Run the Application:**
+4. **Run the Application:**
 
     - Start your web server and navigate to `http://localhost/se265-capstone` in your web browser.
 
