@@ -36,7 +36,7 @@ This site is the capstone project for the SE265 course at New England Tech, code
       dbname = your_database_name
       ```
 
-      - Copy the `db.sql` file in the `docs` directory and execute the query to create the tables.
+   - Copy the `db.sql` file in the `docs` directory and execute the query to create the tables.
 
 4. **Run the Application:**
 
