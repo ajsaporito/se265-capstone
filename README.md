@@ -4,6 +4,7 @@
 ![Bootstrap](https://img.shields.io/badge/bootstrap-%5E5.0-blueviolet)
 ![jQuery](https://img.shields.io/badge/jquery-%5E3.6.0-blue)
 ![MySQL](https://img.shields.io/badge/mysql-%5E8.0.0-orange)
+<br>
 [![forthebadge](https://forthebadge.com/images/badges/powered-by-coders-sweat.svg)](https://forthebadge.com)
 
 ## Overview
