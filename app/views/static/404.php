@@ -12,4 +12,3 @@ include PARTIAL_PATH . 'header.php';
     </div>
   </div>
 </main>
-<?php include PARTIAL_PATH . 'footer.php'; ?>
