@@ -1,7 +1,4 @@
 <?php
-
-include MODEL_PATH . 'users.php';
-
 $title = 'Edit Profile';
 include PARTIAL_PATH . 'header.php';
 ?>
