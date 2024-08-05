@@ -1,4 +1,4 @@
-<footer style="background-color: #3c4245;" class="py-3 mt-4 oxygen-light">
+<footer style="background-color: #3c4245;" class="py-3 oxygen-light">
   <div class="container">
     <ul class="nav justify-content-center border-bottom pb-3 mb-3">
       <li class="nav-item">

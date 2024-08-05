@@ -1,35 +1,22 @@
 @charset "UTF-8";
 
-@media (max-width: 1199px) {
-  .navbar-nav .nav-link, .nav-btn {
-    font-size: 14px;
-  }
-
-  .search-container input[type="text"] {
-    width: 152px; 
-  }
-}
-
-@media (max-width: 991px) {
-  .offcanvas-body .navbar-nav .nav-link,
-  .offcanvas-body .nav-btn {
-    font-size: 18px; 
-  }
-
-  .search-container {
-    margin-bottom: 1rem;
-  }
-
-  .search-container input {
-    width: 208px;
-  }
-}
-
 .search-container:focus-within {
-  
   box-shadow: 0 0 0 2px #714bc9;
 }
 
 #searchBtnBorder {
   border-color: #3c4245 !important;
+}
+
+.dropdown-item.active {
+  background-color: #ebebeb !important;
+  color: #000 !important;
+}
+
+.dropdown-item:active {
+  color: #000 !important;
+}
+
+.dropdown-item:hover {
+  background-color: #ebebeb !important;
 }

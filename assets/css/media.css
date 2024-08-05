@@ -1,0 +1,36 @@
+@charset "UTF-8";
+
+@media (max-width: 1200px) {
+  .navbar-nav .nav-link, .nav-btn {
+    font-size: 14px;
+  }
+
+  .search-container input[type="text"] {
+    width: 152px; 
+  }
+}
+
+@media (max-width: 991px) {
+  .offcanvas-body .navbar-nav .nav-link,
+  .offcanvas-body .nav-btn {
+    font-size: 18px; 
+  }
+
+  .search-container {
+    margin: 5rem 0;
+  }
+
+  .search-container input[type="text"] {
+    width: 208px;
+  }
+}
+
+@media (max-width: 576px) {
+  .navbar-brand {
+    padding: 0 1em;
+  }
+
+  footer .container {
+    padding: 0 3em;
+  }
+}
