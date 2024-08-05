@@ -4,6 +4,7 @@
 ![Bootstrap](https://img.shields.io/badge/bootstrap-%5E5.0-blueviolet)
 ![jQuery](https://img.shields.io/badge/jquery-%5E3.6.0-blue)
 ![MySQL](https://img.shields.io/badge/mysql-%5E8.0.0-orange)
+<br>
 [![forthebadge](https://forthebadge.com/images/badges/powered-by-coders-sweat.svg)](https://forthebadge.com)
 
 ## Overview
@@ -35,7 +36,7 @@ This site is the capstone project for the SE265 course at New England Tech, code
       dbname = your_database_name
       ```
 
-      - Copy the `db.sql` file in the `docs` directory and execute the query to create the tables.
+   - Copy the `db.sql` file in the `docs` directory and execute the query to create the tables.
 
 4. **Run the Application:**
 
