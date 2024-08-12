@@ -1,5 +1,12 @@
 @charset "UTF-8";
 
+@media (min-width: 1201px) {
+  #searchResults {
+    width: 237px;
+  }
+} 
+
+
 @media (max-width: 1200px) {
   .navbar-nav .nav-link, .nav-btn {
     font-size: 14px;
@@ -20,8 +27,16 @@
     margin: 5rem 0;
   }
 
+  #searchResults {
+    margin-bottom: 3rem !important;
+  }
+
   .search-container input[type="text"] {
     width: 208px;
+  }
+
+  #searchResults {
+    width: 152px;
   }
 }
 
@@ -30,7 +45,8 @@
     padding: 0 1em;
   }
 
-  footer .container {
+  footer .container,
+  #contentContainer {
     padding: 0 3em;
   }
 }

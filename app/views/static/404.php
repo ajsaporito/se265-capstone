@@ -12,3 +12,5 @@ include PARTIAL_PATH . 'header.php';
     </div>
   </div>
 </main>
+</body>
+</html>

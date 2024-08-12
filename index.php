@@ -2,14 +2,13 @@
 include __DIR__ . '\app\config\debug.php';
 include __DIR__ . '\app\config\paths.php';
 
-session_start();
-
 $uri = rtrim(parse_url($_SERVER['REQUEST_URI'])['path'], '/');
 
 $routes = [
-  '/se265-capstone' => 'main@renderHome',
+  '/se265-capstone' => 'main@renderDashboard',
   '/se265-capstone/jobs' => 'main@renderJobs',
   '/se265-capstone/people' => 'main@renderPeople',
+  '/se265-capstone/search' => 'main@renderSearch',
   '/se265-capstone/about' => 'main@renderAbout',
   '/se265-capstone/contact' => 'main@renderContact',
 
@@ -17,7 +16,6 @@ $routes = [
   '/se265-capstone/signup' => 'user@renderSignup',
   '/se265-capstone/logout' => 'user@renderLogout',
   '/se265-capstone/edit-profile' => 'user@renderEditProfile',
-  '/se265-capstone/verify-email' => 'user@renderVerifyEmail',
 ];
 
 try {

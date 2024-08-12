@@ -19,11 +19,11 @@ function getUser($id) {
   global $db;
   $result = [];
 
-  $sql = $db->prepare("SELECT * FROM Users WHERE id = :id");
-  $sql->bindValue(':id', $id);
+  $stmt = $db->prepare("SELECT * FROM Users WHERE id = :id");
+  $stmt->bindValue(':id', $id);
 
-  if ($sql->execute() && $sql->rowCount() > 0) {
-    $result = $sql->fetch(PDO::FETCH_ASSOC);
+  if ($stmt->execute() && $stmt->rowCount() > 0) {
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
   }
 
   return $result;
@@ -43,12 +43,13 @@ function userExists($username, $email) {
   return $result;
 }
 
-function signUp($username, $email, $password) {
+function signUp($firstName, $lastName, $username, $email, $password) {
   global $db;
-
   $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-  $stmt = $db->prepare("INSERT INTO Users (username, email, password) VALUES (:u, :e, :p)");
+  $stmt = $db->prepare("INSERT INTO Users (first_name, last_name, username, email, password) VALUES (:f, :l, :u, :e, :p)");
+  $stmt->bindValue(':f', $firstName);
+  $stmt->bindValue(':l', $lastName);
   $stmt->bindValue(':u', $username);
   $stmt->bindValue(':e', $email);
   $stmt->bindValue(':p', $hashedPassword);
@@ -56,14 +57,15 @@ function signUp($username, $email, $password) {
   return $stmt->execute();
 }
 
-function logIn($username, $email, $password) {
+function logIn($username, $password) {
   global $db;
   $result = [];
 
-  $stmt = $db->prepare("SELECT * FROM Users WHERE username = :u AND email = :e AND password = :p");
+  $stmt = $db->prepare("SELECT * FROM Users WHERE username = :u AND password = :p");
   $stmt->bindValue(':u', $username);
-  $stmt->bindValue(':e', $email);
   $stmt->bindValue(':p', $password);
+
+  debug($stmt->execute());
 
   if ($stmt->execute() && $stmt->rowCount() > 0) {
     $result = $stmt->fetch(PDO::FETCH_ASSOC);

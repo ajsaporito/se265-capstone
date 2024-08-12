@@ -1,0 +1,23 @@
+@charset "UTF-8";
+
+#searchBtnBorder {
+  border-color: #3c4245 !important;
+}
+
+.dropdown-item.active {
+  background-color: #ebebeb !important;
+  color: #000 !important;
+}
+
+.dropdown-item:active {
+  color: #000 !important;
+}
+
+.dropdown-item:hover {
+  background-color: #ebebeb !important;
+}
+
+
+#searchResults {
+  border-radius: 0 0 1rem 1rem !important;
+}

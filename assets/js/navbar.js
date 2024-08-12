@@ -16,7 +16,7 @@ $(document).ready(function () {
         left: offset.left + width - $('.dropdown-menu').outerWidth() + 'px'
       };
 
-      $('.dropdown-menu').css(dropDownstyle).appendTo('form').show();
+      $('.dropdown-menu').css(dropDownstyle).appendTo('#searchForm').show();
     } else {
       dropdownVisible = false;
       $('.dropdown-menu').hide().appendTo($(this).parent());
@@ -54,5 +54,28 @@ $(document).ready(function () {
 
     $('#searchBox').attr('placeholder', placeholderText).val('');
     $('.dropdown-menu').hide().appendTo($('#dropdownMenuButton').parent());
+  });
+
+  $('#searchBox').on('keyup', function (e) {
+    let search = $(this).val();
+
+    if (search !== '') {
+      $.ajax({
+        url: '/se265-capstone/search',
+        type: 'POST',
+        data: { search: search },
+        success: function(response) {
+          $('#searchResults').removeClass('d-none');
+          $('#searchResults').html(response);
+        },
+        error: function(xhr, status, error) {
+          console.log('Status: ' + status);
+          console.log('Error: ' + error);
+          console.log('Response Text: ' + xhr.responseText);
+        }
+      });
+    } else {
+      $('#searchResults').css('display', 'none');
+    }
   });
 });
