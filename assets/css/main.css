@@ -1,0 +1,24 @@
+@charset "UTF-8";
+
+.main-form-input:focus {
+  border-color: #e3e3e3 !important;
+}
+
+#showPassword {
+  transform: scale(1.2);
+  margin: 0 10px 0 -1rem;
+  cursor: pointer;
+}
+
+#showPassword:checked {
+  accent-color: #6643b5;
+}
+
+#showPassword:focus {
+  accent-color: #6643b5;
+  border: none;
+}
+
+.signup-input-error {
+  border: 1px solid rgba(220, 53, 69, 0.5) !important;
+}
