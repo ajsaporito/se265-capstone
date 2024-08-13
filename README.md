@@ -9,7 +9,7 @@
 
 ## Overview
 
-This site is the capstone project for the SE265 course at New England Tech, coded by AJ Saporito and Tristen Jussaume. Users on this site can post or request to work on jobs related to software development, and can review other users.
+This site is the capstone project for the SE265 course at New England Tech, coded by AJ Saporito and Tristen Jussaume. Users on this site can post or request to work on jobs related to software development. Additionally, when a user is satisfied with their job and the results, they have the option to leave a review towards whoever worked on it.
 
 ## Setup
 

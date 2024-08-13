@@ -15,18 +15,19 @@ function getAllUsers() {
   return $result;
 }
 
-function getUser($id) {
+function getUserId($username) {
   global $db;
   $result = [];
 
-  $stmt = $db->prepare("SELECT * FROM Users WHERE id = :id");
-  $stmt->bindValue(':id', $id);
+  $stmt = $db->prepare("SELECT user_id FROM Users WHERE username = :u");
+  $stmt->bindValue(':u', $username);
 
   if ($stmt->execute() && $stmt->rowCount() > 0) {
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $result['user_id'];
   }
 
-  return $result;
+  return null;
 }
 
 function userExists($username, $email) {

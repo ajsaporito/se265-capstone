@@ -1,7 +1,7 @@
 <?php
 
 function renderDashboard() {
-  if (!isset($_SESSION['user'])) {
+  if (!isset($_SESSION['user_id'])) {
     header('Location: /se265-capstone/login');
     exit();
   }
@@ -10,7 +10,7 @@ function renderDashboard() {
 }
 
 function renderJobs() {
-  if (!isset($_SESSION['user'])) {
+  if (!isset($_SESSION['user_id'])) {
     header('Location: /se265-capstone/login');
     exit();
   }
@@ -19,7 +19,7 @@ function renderJobs() {
 }
 
 function renderPeople() {
-  if (!isset($_SESSION['user'])) {
+  if (!isset($_SESSION['user_id'])) {
     header('Location: /se265-capstone/login');
     exit();
   }
@@ -28,7 +28,7 @@ function renderPeople() {
 }
 
 function renderSearch() {
-  if (!isset($_SESSION['user'])) {
+  if (!isset($_SESSION['user_id'])) {
     header('Location: /se265-capstone/login');
     exit();
   }

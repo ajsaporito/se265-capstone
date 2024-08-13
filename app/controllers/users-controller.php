@@ -1,6 +1,11 @@
 <?php
 
 function renderLogin() {
+  if (isset($_SESSION['user_id'])) {
+    header('Location: /se265-capstone');
+    exit();
+  } 
+
   include MODEL_PATH . 'users.php';
 
   if (isset($_POST['username']) && isset($_POST['password'])) {
@@ -10,7 +15,8 @@ function renderLogin() {
     $result = logIn($username, $password);
 
     if ($result['success']) {
-      $_SESSION['user'] = $username;
+      $userId = getUserId($username);
+      $_SESSION['user_id'] = $userId;
       echo json_encode(['success' => true, 'message' => 'Login successful']);
     } else {
       if ($result['message'] == 'Username not found') {
@@ -26,6 +32,13 @@ function renderLogin() {
 }
 
 function renderSignUp() {
+  if (isset($_SESSION['user_id'])) {
+    header('Location: /se265-capstone');
+    exit();
+  }
+
+  // TODO: Add AJAX to check if username and email are already taken
+  
   include MODEL_PATH . 'users.php';
 
   if (isset($_POST['signUpBtn'])) {
@@ -36,7 +49,8 @@ function renderSignUp() {
     $password = $_POST['password'];
   
     signUp($firstName, $lastName, $username, $email, $password);
-    $_SESSION['user'] = $username;
+    $userId = getUserId($username);
+    $_SESSION['user_id'] = $userId;
     header('Location: /se265-capstone');
     exit();
   } 
@@ -52,7 +66,7 @@ function renderLogout() {
 }
 
 function renderEditProfile() {
-  if (!isset($_SESSION['user'])) {
+  if (!isset($_SESSION['user_id'])) {
     header('Location: /se265-capstone/login');
     exit();
   }
