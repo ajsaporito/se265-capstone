@@ -1,18 +1,9 @@
 <?php
 include __DIR__ . '\app\config\debug.php';
-include __DIR__ . '\app\config\paths.php';
+include __DIR__ . '\app\config\config.php';
 
 session_start();
-
-// Log out user if inactive for 15 minutes
-if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity']) > 900) {
-  session_unset();
-  session_destroy();
-  header('Location: /se265-capstone/login');
-  exit();
-} else {
-  $_SESSION['last_activity'] = time();
-}
+checkInactivity();
 
 $uri = rtrim(parse_url($_SERVER['REQUEST_URI'])['path'], '/');
 

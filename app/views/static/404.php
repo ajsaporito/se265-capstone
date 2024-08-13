@@ -7,7 +7,7 @@ include PARTIAL_PATH . 'header.php';
       <div class="text-center">
         <h1 class="display-1">404</h1>
         <p class="mb-4 lead">The page you are looking for was not found.</p>
-        <a href="/se265-capstone" class="fw-light">Back to Home</a>
+        <a href="/se265-capstone" class="fw-light">Go back</a>
       </div>
     </div>
   </div>

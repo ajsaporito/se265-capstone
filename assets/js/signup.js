@@ -116,6 +116,17 @@ $(document).ready(function() {
       $('#confirmPasswordError').html('');
     }
 
+    // TODO: Add AJAX call to check if username or email already exists
+    $.ajax({
+      type: 'POST',
+      url: 'url',
+      data: 'data',
+      dataType: 'json',
+      success: function (response) {
+        
+      }
+    });
+
     // Clear errors when typed in again
     $('#firstName').on('keyup', function() {
       if ($(this).hasClass('signup-input-error')) {

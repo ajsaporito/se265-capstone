@@ -1,5 +1,5 @@
 <?php
-$isLoggedIn = isset($_SESSION['user']);
+$isLoggedIn = isset($_SESSION['user_id']);
 
 function activePage($page) {
   $currentPage = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
