@@ -1,12 +1,5 @@
 @charset "UTF-8";
 
-@media (min-width: 1201px) {
-  #searchResults {
-    width: 237px;
-  }
-} 
-
-
 @media (max-width: 1200px) {
   .navbar-nav .nav-link, .nav-btn {
     font-size: 14px;
@@ -27,6 +20,7 @@
     margin: 5rem 0;
   }
 
+  /* TODO: search results not done */
   #searchResults {
     margin-bottom: 3rem !important;
   }
@@ -35,6 +29,7 @@
     width: 208px;
   }
 
+  /* TODO: search results not done */
   #searchResults {
     width: 152px;
   }

@@ -5,7 +5,7 @@ include PARTIAL_PATH . 'navbar.php';
 ?>
 <main id="contentContainer" class="flex-grow-1">
   <div class="container py-5 oxygen-regular">
-    <div class="card p-2">
+    <div class="card rounded-4 p-2">
       <div class="card-body mx-2">
         <h1 class="oxygen-bold">About Us</h1>
         <p class="lead">DevSpot doesn't exist, not yet at least...</p>

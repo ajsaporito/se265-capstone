@@ -3,6 +3,7 @@
 function renderDashboard() {
   if (!isset($_SESSION['user'])) {
     header('Location: /se265-capstone/login');
+    exit();
   }
 
   require VIEW_PATH . 'main/dashboard.php';
@@ -11,6 +12,7 @@ function renderDashboard() {
 function renderJobs() {
   if (!isset($_SESSION['user'])) {
     header('Location: /se265-capstone/login');
+    exit();
   }
 
   require VIEW_PATH . 'main/jobs.php';
@@ -19,6 +21,7 @@ function renderJobs() {
 function renderPeople() {
   if (!isset($_SESSION['user'])) {
     header('Location: /se265-capstone/login');
+    exit();
   }
 
   require VIEW_PATH . 'main/people.php';
@@ -27,6 +30,7 @@ function renderPeople() {
 function renderSearch() {
   if (!isset($_SESSION['user'])) {
     header('Location: /se265-capstone/login');
+    exit();
   }
   
   if (isset($_POST['search'])) {

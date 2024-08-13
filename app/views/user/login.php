@@ -21,20 +21,20 @@ include PARTIAL_PATH . 'navbar.php';
               <div class="row gy-3 overflow-hidden">
                 <div class="col-12">
                   <div class="form-floating mb-3">
-                    <input type="text" class="form-control shadow-none main-form-input" name="username" id="username" placeholder="Username" value="<?= $username ?>" autocomplete="">
+                    <input type="text" class="form-control shadow-none main-form-input" name="username" id="username" placeholder="Username" autocomplete="">
                     <label for="username" class="form-label text-muted">Username</label>
                     <span style="font-size: 14px;" id="usernameError" class="text-danger position-absolute m-1 oxygen-light"></span>
                   </div>
                 </div>
                 <div class="col-12">
-                  <div class="form-floating mb-3">
+                  <div class="form-floating mb-2">
                     <input type="password" class="form-control shadow-none main-form-input" name="password" id="password" placeholder="Password" autocomplete="">
                     <label for="password" class="form-label text-muted">Password</label>
                     <span style="font-size: 14px;" id="passwordError" class="text-danger position-absolute m-1 oxygen-light"></span>
                   </div>
                 </div>
                 <div class="col-12 oxygen-light">
-                  <div class="form-check my-2">
+                  <div class="form-check my-2 pt-2 ">
                     <input class="shadow-none" type="checkbox" name="showPassword" id="showPassword">
                     <label class="form-check-label text-secondary" for="showPassword">
                       Show Password
@@ -56,11 +56,6 @@ include PARTIAL_PATH . 'navbar.php';
                 </p>
               </div>
             </div>
-            <div id="errorContainer">
-              <?php if (isset($errorMsg)): ?>
-                <p class="text-danger"><?=$errorMsg ?></p>
-              <?php endif; ?>
-            </div>
           </div>
         </div>
       </div>
@@ -78,4 +73,5 @@ include PARTIAL_PATH . 'navbar.php';
     });
   });
 </script>
+<script src="/se265-capstone/assets/js/login.js"></script>
 <?php include PARTIAL_PATH . 'footer.php'; ?>

@@ -59,17 +59,20 @@ function signUp($firstName, $lastName, $username, $email, $password) {
 
 function logIn($username, $password) {
   global $db;
-  $result = [];
 
-  $stmt = $db->prepare("SELECT * FROM Users WHERE username = :u AND password = :p");
+  $stmt = $db->prepare("SELECT user_id, username, password FROM Users WHERE username = :u LIMIT 1");
   $stmt->bindValue(':u', $username);
-  $stmt->bindValue(':p', $password);
+  $stmt->execute();
 
-  debug($stmt->execute());
+  $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-  if ($stmt->execute() && $stmt->rowCount() > 0) {
-    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+  if ($user) {
+    if (password_verify($password, $user['password'])) {  
+      return ['success' => true, 'message' => 'Login successful'];
+    } else {
+      return ['success' => false, 'message' => 'Incorrect password'];
+    }
+  } else {
+    return ['success' => false, 'message' => 'Username not found'];
   }
-
-  return $result;
 }

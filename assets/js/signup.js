@@ -71,7 +71,7 @@ $(document).ready(function() {
     // Validate email
     if (email === '') {
       isValid = false;
-      emailError += 'Email is required.';
+      emailError += 'Email is required';
       $('#email').addClass('signup-input-error');
       $('#emailError').html(emailError);
     } else if (!emailPattern.test(email)) {
