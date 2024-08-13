@@ -1,7 +1,7 @@
 <?php
 
 function renderDashboard() {
-  if (!isset($_SESSION['user'])) {
+  if (isset($_SESSION['user'])) {
     header('Location: /se265-capstone/login');
   }
 

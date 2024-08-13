@@ -65,7 +65,7 @@ function logIn($username, $password) {
   $stmt->bindValue(':u', $username);
   $stmt->bindValue(':p', $password);
 
-  debug($stmt->execute());
+  //debug($stmt->execute());
 
   if ($stmt->execute() && $stmt->rowCount() > 0) {
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
