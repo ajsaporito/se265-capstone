@@ -2,14 +2,14 @@
 
 include CONFIG_PATH . 'db.php';
 
-// Function to get reviews by job ID
-function GetReviewsByJobId($job_id) {
+// Function to get reviews by job ID, with optional user check
+function GetReviewsByJobId($job_id, $user_id = null) {
     global $db;
 
     $results = [];
 
-    $stmt = $db->prepare(
-        "SELECT 
+    $query = "
+        SELECT 
             r.comments, 
             r.communication, 
             r.time_management, 
@@ -26,11 +26,22 @@ function GetReviewsByJobId($job_id) {
             Users u ON r.reviewer_id = u.user_id
         JOIN 
             Users u2 ON r.contractor_id = u2.user_id
+        JOIN 
+            Jobs j ON r.job_id = j.job_id
         WHERE 
-            r.job_id = :job_id;"
-    );
+            r.job_id = :job_id";
 
+    // Add user check if $user_id is provided
+    if ($user_id !== null) {
+        $query .= " AND (j.posted_by = :user_id OR j.contractor_id = :user_id)";
+    }
+
+    $stmt = $db->prepare($query);
     $stmt->bindParam(':job_id', $job_id, PDO::PARAM_INT);
+
+    if ($user_id !== null) {
+        $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+    }
 
     if ($stmt->execute() && $stmt->rowCount() > 0) {
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);

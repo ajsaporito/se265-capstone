@@ -21,9 +21,9 @@ function renderLogin() {
     }
     exit();
   }
-
-  require VIEW_PATH . 'user/login.php';
+  include VIEW_PATH . 'user/login.php';
 }
+
 
 function renderSignUp() {
   include MODEL_PATH . 'users.php';

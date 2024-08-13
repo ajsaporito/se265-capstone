@@ -76,3 +76,5 @@ function logIn($username, $password) {
     return ['success' => false, 'message' => 'Username not found'];
   }
 }
+
+?>

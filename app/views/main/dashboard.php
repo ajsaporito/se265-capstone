@@ -1,54 +1,52 @@
 <?php
+
 $title = 'Dashboard';
 include PARTIAL_PATH . 'header.php';
 include PARTIAL_PATH . 'navbar.php';
 include MODEL_PATH . 'reviews.php';
 
+
+
+// Store user_id in the session if not already set
+if (isset($_SESSION['username']) && !isset($_SESSION['user_id'])) {
+    global $db;
+    $username = $_SESSION['username'];
+    
+    // Fetch user_id based on username
+    $stmt = $db->prepare("SELECT user_id FROM Users WHERE username = :u LIMIT 1");
+    $stmt->bindValue(':u', $username);
+    $stmt->execute();
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($user) {
+        $_SESSION['user_id'] = $user['user_id'];
+        
+    } else {
+        echo "User not found. Please contact support.";
+        exit();
+    }
+    
+}
+
 $errors = [];
 $resultMessage = '';
 
-// Initializing variables
-$review_id = 0;
-$action = '';
-$comments = '';
-$communication = '';
-$time_management = '';
-$quality = '';
-$professionalism = '';
-$reviewer_name = '';
-$contractor_name = '';
+$logged_in_user_id = $_SESSION['user_id'] ?? null;
+$job_id = filter_input(INPUT_GET, 'job_id', FILTER_VALIDATE_INT);
+$reviews = [];
 
-if (isset($_GET['review_id'])) {
-    $review_id = filter_input(INPUT_GET, 'review_id', FILTER_VALIDATE_INT);
+if ($logged_in_user_id && $job_id) {
+    // Fetch reviews with user validation
+    $reviews = GetReviewsByJobId($job_id, $logged_in_user_id);
 
-    // Debugging: Print the review_id
-    echo '<pre>Review ID: ' . $review_id . '</pre>';
-
-    if ($review_id) {
-        // Fetch the review using the updated GetReviewById function
-        $review = GetReviewById($review_id);
-
-        // Debugging: Print the review data
-        echo '<pre>';
-        print_r($review);
-        echo '</pre>';
-
-        if ($review) {
-            $comments = $review['comments'] ?? '';
-            $communication = $review['communication'] ?? '';
-            $time_management = $review['time_management'] ?? '';
-            $quality = $review['quality'] ?? '';
-            $professionalism = $review['professionalism'] ?? '';
-            $reviewer_name = $review['reviewer_name'] ?? '';
-            $contractor_name = $review['contractor_name'] ?? '';
-        } else {
-            $resultMessage = "No review found with that ID.";
-        }
+    if (empty($reviews)) {
+        $resultMessage = "You do not have access to this job or there are no reviews.";
     }
+} else {
+    $resultMessage = "Invalid job ID or you are not logged in.";
 }
-
-
 ?>
+
 <main id="contentContainer" class="flex-grow-1">
   <div class="container py-5">
     <div class="container">
@@ -69,29 +67,39 @@ if (isset($_GET['review_id'])) {
           <div class="card w-100">
             <div class="card-body">
               <h5 class="card-title">Job Feedback</h5>
-              <div class="card mt-3">
-                <div class="card-body">
-                  <h6 class="card-subtitle mb-2 text-muted">Review 1</h6>
-                  <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vehicula, nunc eget auctor fermentum, orci libero tristique justo, at viverra libero justo nec felis.</p>
-                </div>
-              </div>
-              <div class="card mt-3">
-                <div class="card-body">
-                  <h6 class="card-subtitle mb-2 text-muted">Review 2</h6>
-                  <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vehicula, nunc eget auctor fermentum, orci libero tristique justo, at viverra libero justo nec felis.</p>
-                </div>
-              </div>
-              <div class="card mt-3">
-                <div class="card-body">
-                  <h6 class="card-subtitle mb-2 text-muted">Review 3</h6>
-                  <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vehicula, nunc eget auctor fermentum, orci libero tristique justo, at viverra libero justo nec felis.</p>
-                </div>
-              </div>
+              
+              <!-- Dynamically insert reviews here -->
+              <?php if (!empty($reviews) && is_array($reviews)): ?>
+                <?php foreach ($reviews as $review): ?>
+                  <div class="card mt-3">
+                    <div class="card-body">
+                      <h6 class="card-subtitle mb-2 text-muted">
+                        Reviewed by: <?php echo htmlspecialchars($review['reviewer_id']); ?>
+                      </h6>
+                      <p class="card-text">
+                        <strong>Communication:</strong> <?php echo htmlspecialchars($review['communication']); ?>/5<br>
+                        <strong>Time Management:</strong> <?php echo htmlspecialchars($review['time_management']); ?>/5<br>
+                        <strong>Quality:</strong> <?php echo htmlspecialchars($review['quality']); ?>/5<br>
+                        <strong>Professionalism:</strong> <?php echo htmlspecialchars($review['professionalism']); ?>/5<br>
+                      </p>
+                      <p class="card-text"><?php echo htmlspecialchars($review['comments']); ?></p>
+                    </div>
+                  </div>
+                <?php endforeach; ?>
+              <?php else: ?>
+                <p class="alert alert-warning">No reviews available for this job.</p>
+              <?php endif; ?>
+              
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
+
+
+
+
     <div class="row mt-4">
       <div class="col-12 d-flex align-items-stretch">
         <div class="card w-100">
@@ -164,40 +172,7 @@ if (isset($_GET['review_id'])) {
           </div>
         </div>
       </div>
-      <div class="container mt-5">
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">title</th>
-              <th scope="col">Last</th>
-              <th scope="col">Handle</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Walburg</td>
-              <td>Markymark@email.com</td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>James</td>
-              <td>Hetfield</td>
-              <td>JH@email.com</td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>Larry</td>
-              <td>the Bird</td>
-              <td>LarBird@email.com</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
+ 
 
 </main>
 <?php include PARTIAL_PATH . 'footer.php'; ?>
