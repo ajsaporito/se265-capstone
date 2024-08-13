@@ -3,7 +3,7 @@
 include CONFIG_PATH . 'db.php';
 
 // Function to get reviews by job ID, with optional user check
-function GetReviewsByJobId($job_id, $user_id = null) {
+function GetReviewsByJobId($job_id, $user_id) {
     global $db;
 
     $results = [];

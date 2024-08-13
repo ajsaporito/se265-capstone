@@ -6,28 +6,6 @@ include PARTIAL_PATH . 'navbar.php';
 include MODEL_PATH . 'reviews.php';
 
 
-
-// Store user_id in the session if not already set
-if (isset($_SESSION['username']) && !isset($_SESSION['user_id'])) {
-    global $db;
-    $username = $_SESSION['username'];
-    
-    // Fetch user_id based on username
-    $stmt = $db->prepare("SELECT user_id FROM Users WHERE username = :u LIMIT 1");
-    $stmt->bindValue(':u', $username);
-    $stmt->execute();
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    if ($user) {
-        $_SESSION['user_id'] = $user['user_id'];
-        
-    } else {
-        echo "User not found. Please contact support.";
-        exit();
-    }
-    
-}
-
 $errors = [];
 $resultMessage = '';
 
@@ -45,6 +23,11 @@ if ($logged_in_user_id && $job_id) {
 } else {
     $resultMessage = "Invalid job ID or you are not logged in.";
 }
+var_dump($job_id);
+var_dump($logged_in_user_id);
+var_dump($reviews);
+
+
 ?>
 
 <main id="contentContainer" class="flex-grow-1">
@@ -68,34 +51,34 @@ if ($logged_in_user_id && $job_id) {
             <div class="card-body">
               <h5 class="card-title">Job Feedback</h5>
               
-              <!-- Dynamically insert reviews here -->
-              <?php if (!empty($reviews) && is_array($reviews)): ?>
-                <?php foreach ($reviews as $review): ?>
-                  <div class="card mt-3">
-                    <div class="card-body">
-                      <h6 class="card-subtitle mb-2 text-muted">
-                        Reviewed by: <?php echo htmlspecialchars($review['reviewer_id']); ?>
-                      </h6>
-                      <p class="card-text">
-                        <strong>Communication:</strong> <?php echo htmlspecialchars($review['communication']); ?>/5<br>
-                        <strong>Time Management:</strong> <?php echo htmlspecialchars($review['time_management']); ?>/5<br>
-                        <strong>Quality:</strong> <?php echo htmlspecialchars($review['quality']); ?>/5<br>
-                        <strong>Professionalism:</strong> <?php echo htmlspecialchars($review['professionalism']); ?>/5<br>
-                      </p>
-                      <p class="card-text"><?php echo htmlspecialchars($review['comments']); ?></p>
-                    </div>
-                  </div>
-                <?php endforeach; ?>
-              <?php else: ?>
-                <p class="alert alert-warning">No reviews available for this job.</p>
-              <?php endif; ?>
-              
+                  <!-- Dynamically insert reviews here -->
+                  <?php if (!empty($reviews) && is_array($reviews)): ?>
+                    <?php foreach ($reviews as $review): ?>
+                      <div class="card mt-3">
+                        <div class="card-body">
+                          <h6 class="card-subtitle mb-2 text-muted">
+                            Reviewed by: <?php echo htmlspecialchars($review['reviewer_id']); ?>
+                          </h6>
+                          <p class="card-text">
+                            <strong>Communication:</strong> <?php echo htmlspecialchars($review['communication']); ?>/5<br>
+                            <strong>Time Management:</strong> <?php echo htmlspecialchars($review['time_management']); ?>/5<br>
+                            <strong>Quality:</strong> <?php echo htmlspecialchars($review['quality']); ?>/5<br>
+                            <strong>Professionalism:</strong> <?php echo htmlspecialchars($review['professionalism']); ?>/5<br>
+                          </p>
+                          <p class="card-text"><?php echo htmlspecialchars($review['comments']); ?></p>
+                        </div>
+                      </div>
+                    <?php endforeach; ?>
+                  <?php else: ?>
+                    <p class="alert alert-warning"><?php echo $resultMessage?></p>
+                  <?php endif; ?>
+                  
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
 
 
 
