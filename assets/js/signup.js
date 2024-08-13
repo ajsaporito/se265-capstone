@@ -15,7 +15,7 @@ $(document).ready(function() {
     const username = $('#username').val().trim();
     const usernamePattern = /^(?!\.)(?!.*\.$)[a-z0-9._]{3,20}$/;
     const email = $('#email').val().trim();
-    const emailPattern = /^([a-z\d-]+)@([a-z\d-]+)\.([a-z]{2,8})(\.[a-z]{2,8})?$/;
+    const emailPattern = /^([a-z\d-]+)@([a-z\d-]+)\.([a-z]{2,8})(\.[a-z]{1,8})?$/;
     const password = $('#password').val().trim();
     const passwordPattern = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/;
     const confirmPassword = $('#confirmPassword').val().trim();
@@ -60,7 +60,7 @@ $(document).ready(function() {
       $('#usernameError').html(usernameError);
     } else if (!usernamePattern.test(username)) {
       isValid = false;
-      usernameError += 'User name must be between 3-20 characters - only lowercase letters, numbers, ".", and "_"';
+      usernameError += 'Username must be between 3-20 characters (cannot start with or end with ".")';
       $('#username').addClass('signup-input-error');
       $('#usernameError').html(usernameError);
     } else {
@@ -116,14 +116,33 @@ $(document).ready(function() {
       $('#confirmPasswordError').html('');
     }
 
-    // TODO: Add AJAX call to check if username or email already exists
+    // Check if username and email are already taken
     $.ajax({
       type: 'POST',
-      url: 'url',
-      data: 'data',
+      url: '/se265-capstone/check-signup',
+      data: $('#signUpForm').serialize(),
       dataType: 'json',
       success: function (response) {
-        
+        isValid = false;
+        if (!response.success) {
+          if (response.usernameError !== '') {
+            $('#usernameError').html(response.usernameError);
+            $('#username').addClass('signup-input-error');
+          } else {
+            $('#username').removeClass('signup-input-error');
+            $('#usernameError').html('');
+          }
+    
+          if (response.emailError !== '') {
+            $('#emailError').html(response.emailError);
+            $('#email').addClass('signup-input-error');
+          } else {
+            $('#email').removeClass('signup-input-error');
+            $('#emailError').html('');
+          }
+        } else {
+          isValid = true;
+        }
       }
     });
 
@@ -170,6 +189,7 @@ $(document).ready(function() {
       }
     });
 
+    // Prevent form submission if there are errors
     if (!isValid) {
       e.preventDefault();
     }

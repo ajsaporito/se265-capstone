@@ -30,18 +30,30 @@ function getUserId($username) {
   return null;
 }
 
-function userExists($username, $email) {
+function userExistsByUsername($username) {
   global $db;
 
-  $sql = $db->prepare("SELECT * FROM Users WHERE username = :u OR email = :e");
+  $sql = $db->prepare("SELECT * FROM Users WHERE username = :u");
   $sql->bindValue(':u', $username);
+
+  if ($sql->execute() && $sql->rowCount() > 0) {
+    return ['success' => false, 'message' => 'Username is already taken'];
+  }
+
+  return ['success' => true, 'message' => ''];
+}
+
+function userExistsByEmail($email) {
+  global $db;
+
+  $sql = $db->prepare("SELECT * FROM Users WHERE email = :e");
   $sql->bindValue(':e', $email);
 
   if ($sql->execute() && $sql->rowCount() > 0) {
-    $result = $sql->fetch(PDO::FETCH_ASSOC);
+    return ['success' => false, 'message' => 'Email is already taken'];
   }
 
-  return $result;
+  return ['success' => true, 'message' => ''];
 }
 
 function signUp($firstName, $lastName, $username, $email, $password) {
@@ -69,7 +81,7 @@ function logIn($username, $password) {
 
   if ($user) {
     if (password_verify($password, $user['password'])) {  
-      return ['success' => true, 'message' => 'Login successful'];
+      return ['success' => true, 'message' => ''];
     } else {
       return ['success' => false, 'message' => 'Incorrect password'];
     }

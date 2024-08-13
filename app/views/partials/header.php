@@ -15,7 +15,7 @@
   <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
   <script src="assets/js/navbar.js"></script>
   <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <title><?php echo isset($title) ? $title : '404 Not Found'; ?></title>
+  <title><?php echo isset($title) ? $title : ''; ?></title>
 </head>
 <body style="background-color: #e3e3e3;" class="min-vh-100 d-flex flex-column">
 <noscript>You need to enable JavaScript to run this app.</noscript>

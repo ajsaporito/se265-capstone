@@ -9,16 +9,19 @@ $uri = rtrim(parse_url($_SERVER['REQUEST_URI'])['path'], '/');
 
 $routes = [
   '/se265-capstone' => 'main-controller@renderDashboard',
-  '/se265-capstone/jobs' => 'main-controller@renderJobs',
-  '/se265-capstone/people' => 'main-controller@renderPeople',
   '/se265-capstone/search' => 'main-controller@renderSearch',
   '/se265-capstone/about' => 'main-controller@renderAbout',
   '/se265-capstone/contact' => 'main-controller@renderContact',
 
   '/se265-capstone/login' => 'users-controller@renderLogin',
   '/se265-capstone/signup' => 'users-controller@renderSignup',
+  '/se265-capstone/check-signup' => 'users-controller@renderCheckSignup',
   '/se265-capstone/logout' => 'users-controller@renderLogout',
+  '/se265-capstone/people' => 'users-controller@renderPeople',
   '/se265-capstone/edit-profile' => 'users-controller@renderEditProfile',
+  '/se265-capstone/delete-profile' => 'users-controller@renderDeleteProfile',
+
+  '/se265-capstone/jobs' => 'jobs-controller@renderJobs',
 ];
 
 try {
