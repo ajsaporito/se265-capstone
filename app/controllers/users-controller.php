@@ -3,23 +3,23 @@
 function renderLogin() {
   include MODEL_PATH . 'users.php';
 
-  $errorMsg = '';
-
-  if (isset($_POST['loginBtn'])) {
+  if (isset($_POST['username']) && isset($_POST['password'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
-    
-    $user = logIn($username, $password);
 
-    if (count($user) > 0) {
+    $result = logIn($username, $password);
+
+    if ($result['success']) {
       $_SESSION['user'] = $username;
-      header('Location: /se265-capstone');
+      echo json_encode(['success' => true, 'message' => 'Login successful']);
     } else {
-      $errorMsg = 'Invalid username or password. Please try again.';
+      if ($result['message'] == 'Username not found') {
+        echo json_encode(['success' => false, 'usernameError' => 'Username not found', 'passwordError' => '']);
+      } elseif ($result['message'] == 'Incorrect password') {
+        echo json_encode(['success' => false, 'usernameError' => '', 'passwordError' => 'Incorrect password']);
+      }
     }
-  } else {
-    $username = '';
-    $password = '';
+    exit();
   }
 
   require VIEW_PATH . 'user/login.php';
@@ -36,15 +36,10 @@ function renderSignUp() {
     $password = $_POST['password'];
   
     signUp($firstName, $lastName, $username, $email, $password);
-    session_start();
-    $_SESSION['username'] = $username;
+    $_SESSION['user'] = $username;
     header('Location: /se265-capstone');
-  } else {
-    $firstName = '';
-    $lastName = '';
-    $username = '';
-    $email = '';
-  }
+    exit();
+  } 
 
   require VIEW_PATH . 'user/signup.php';
 }
@@ -53,16 +48,16 @@ function renderLogout() {
   session_unset();
   session_destroy();
   header('Location: /se265-capstone/login');
+  exit();
 }
 
 function renderEditProfile() {
   if (!isset($_SESSION['user'])) {
     header('Location: /se265-capstone/login');
+    exit();
   }
 
   include MODEL_PATH . 'users.php';
-
-  echo $_SESSION['user'];
 
   require VIEW_PATH . 'user/edit-profile.php';
 }

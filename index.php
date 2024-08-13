@@ -2,20 +2,32 @@
 include __DIR__ . '\app\config\debug.php';
 include __DIR__ . '\app\config\paths.php';
 
+session_start();
+
+// Log out user if inactive for 15 minutes
+if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity']) > 900) {
+  session_unset();
+  session_destroy();
+  header('Location: /se265-capstone/login');
+  exit();
+} else {
+  $_SESSION['last_activity'] = time();
+}
+
 $uri = rtrim(parse_url($_SERVER['REQUEST_URI'])['path'], '/');
 
 $routes = [
-  '/se265-capstone' => 'main@renderDashboard',
-  '/se265-capstone/jobs' => 'main@renderJobs',
-  '/se265-capstone/people' => 'main@renderPeople',
-  '/se265-capstone/search' => 'main@renderSearch',
-  '/se265-capstone/about' => 'main@renderAbout',
-  '/se265-capstone/contact' => 'main@renderContact',
+  '/se265-capstone' => 'main-controller@renderDashboard',
+  '/se265-capstone/jobs' => 'main-controller@renderJobs',
+  '/se265-capstone/people' => 'main-controller@renderPeople',
+  '/se265-capstone/search' => 'main-controller@renderSearch',
+  '/se265-capstone/about' => 'main-controller@renderAbout',
+  '/se265-capstone/contact' => 'main-controller@renderContact',
 
-  '/se265-capstone/login' => 'user@renderLogin',
-  '/se265-capstone/signup' => 'user@renderSignup',
-  '/se265-capstone/logout' => 'user@renderLogout',
-  '/se265-capstone/edit-profile' => 'user@renderEditProfile',
+  '/se265-capstone/login' => 'users-controller@renderLogin',
+  '/se265-capstone/signup' => 'users-controller@renderSignup',
+  '/se265-capstone/logout' => 'users-controller@renderLogout',
+  '/se265-capstone/edit-profile' => 'users-controller@renderEditProfile',
 ];
 
 try {

@@ -21,28 +21,28 @@ include PARTIAL_PATH . 'navbar.php';
               <div class="row gy-3 overflow-hidden">
                 <div class="col-12">
                   <div class="form-floating mb-3">
-                    <input type="text" class="form-control shadow-none main-form-input" name="firstName" id="firstName" placeholder="First Name" value="<?= $firstName ?>" autocomplete="">
+                    <input type="text" class="form-control shadow-none main-form-input" name="firstName" id="firstName" placeholder="First Name" autocomplete="">
                     <label for="firstName" class="form-label text-muted">First Name</label>
                     <span style="font-size: 14px;" id="firstNameError" class="text-danger position-absolute m-1 oxygen-light"></span>
                   </div>
                 </div>
                 <div class="col-12">
                   <div class="form-floating mb-3">
-                    <input type="text" class="form-control shadow-none main-form-input" name="lastName" id="lastName" placeholder="Last Name" value="<?= $lastName ?>" autocomplete="">
+                    <input type="text" class="form-control shadow-none main-form-input" name="lastName" id="lastName" placeholder="Last Name" autocomplete="">
                     <label for="lastName" class="form-label text-muted">Last Name</label>
                     <span style="font-size: 14px;" id="lastNameError" class="text-danger position-absolute m-1 oxygen-light"></span>
                   </div>
                 </div>
                 <div class="col-12">
                   <div class="form-floating mb-3">
-                    <input type="text" class="form-control shadow-none main-form-input" name="username" id="username" placeholder="Username" value="<?= $username ?>" autocomplete="">
+                    <input type="text" class="form-control shadow-none main-form-input" name="username" id="username" placeholder="Username" autocomplete="">
                     <label for="username" class="form-label text-muted">Username</label>
                     <span style="font-size: 14px;" id="usernameError" class="text-danger position-absolute m-1 oxygen-light"></span>
                   </div>
                 </div>
                 <div class="col-12">
                   <div class="form-floating mb-3">
-                    <input type="text" class="form-control shadow-none main-form-input" name="email" id="email" placeholder="Email" value="<?= $email ?>" autocomplete="">
+                    <input type="text" class="form-control shadow-none main-form-input" name="email" id="email" placeholder="Email" autocomplete="">
                     <label for="email" class="form-label text-muted">Email</label>
                     <span style="font-size: 14px;" id="emailError" class="text-danger position-absolute m-1 oxygen-light"></span>
                   </div>
@@ -83,11 +83,6 @@ include PARTIAL_PATH . 'navbar.php';
                   <a style="color: #6643b5;" class="text-decoration-none" href="/se265-capstone/login"><b>here</b></a>
                 </p>
               </div>
-            </div>
-            <div id="errorContainer">
-              <?php if (isset($errorMsg)): ?>
-                <p class="text-danger"><?=$errorMsg ?></p>
-              <?php endif; ?>
             </div>
           </div>
         </div>
