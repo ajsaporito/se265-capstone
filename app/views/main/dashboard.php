@@ -1,40 +1,14 @@
 <?php
-
 $title = 'Dashboard';
 include PARTIAL_PATH . 'header.php';
 include PARTIAL_PATH . 'navbar.php';
-include MODEL_PATH . 'reviews.php';
-
-
-$errors = [];
-$resultMessage = '';
-
-$logged_in_user_id = $_SESSION['user_id'] ?? null;
-$job_id = filter_input(INPUT_GET, 'job_id', FILTER_VALIDATE_INT);
-$reviews = [];
-
-if ($logged_in_user_id && $job_id) {
-    // Fetch reviews with user validation
-    $reviews = GetReviewsByJobId($job_id, $logged_in_user_id);
-
-    if (empty($reviews)) {
-        $resultMessage = "You do not have access to this job or there are no reviews.";
-    }
-} else {
-    $resultMessage = "Invalid job ID or you are not logged in.";
-}
-var_dump($job_id);
-var_dump($logged_in_user_id);
-var_dump($reviews);
-
-
 ?>
-
 <main id="contentContainer" class="flex-grow-1">
   <div class="container py-5">
     <div class="container">
       <div class="row">
         <h1>Dashboard</h1>
+        <a href="/se265-capstone/add-job">Add Job</a>
         <div class="col-lg-6 col-md-6 col-sm-12 d-flex align-items-stretch">
           <div class="card w-100">
             <div class="card-body">

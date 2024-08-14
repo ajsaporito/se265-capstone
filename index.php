@@ -27,6 +27,7 @@ $routes = [
   '/se265-capstone/delete-profile' => 'users-controller@renderDeleteProfile',
 
   '/se265-capstone/jobs' => 'jobs-controller@renderJobs',
+  '/se265-capstone/add-job' => 'jobs-controller@renderAddJob',
 ];
 
 try {
