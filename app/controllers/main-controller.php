@@ -9,24 +9,6 @@ function renderDashboard() {
   require VIEW_PATH . 'main/dashboard.php';
 }
 
-function renderJobs() {
-  if (!isset($_SESSION['user_id'])) {
-    header('Location: /se265-capstone/login');
-    exit();
-  }
-
-  require VIEW_PATH . 'main/jobs.php';
-}
-
-function renderPeople() {
-  if (!isset($_SESSION['user_id'])) {
-    header('Location: /se265-capstone/login');
-    exit();
-  }
-
-  require VIEW_PATH . 'main/people.php';
-}
-
 function renderSearch() {
   if (!isset($_SESSION['user_id'])) {
     header('Location: /se265-capstone/login');

@@ -2,6 +2,7 @@ $(document).ready(function() {
   $('#loginForm').on('submit', function(e) {
     e.preventDefault();
 
+    // Validate login credentials
     $.ajax({
       type: 'POST',
       url: '/se265-capstone/login',
@@ -27,7 +28,7 @@ $(document).ready(function() {
         }
       }
     });
-    
+
     // Clear errors when typed in again
     $('#username').on('keyup', function() {
       $(this).removeClass('signup-input-error');

@@ -1,15 +1,14 @@
 <?php
 
-define('BASE_PATH', __DIR__ . '/../');
-define('CONFIG_PATH', BASE_PATH . 'config/');
-define('MODEL_PATH', BASE_PATH . 'models/');
-define('VIEW_PATH', BASE_PATH . 'views/');
-define('PARTIAL_PATH', VIEW_PATH . 'partials/');
+function debug($data) {
+  echo '<pre>';
+  var_dump($data);
+  echo '</pre>';
+  die();
+}
 
-require_once CONFIG_PATH . 'db.php';
-
+// Destroy login session after 15 minutes of no page refresh
 function checkInactivity() {
-  // Destroy login session after 15 minutes of inactivity
   if (isset($_SESSION['last_activity']) &&
     (time() - $_SESSION['last_activity']) > 900 &&
     (isset($_SESSION['user_id']))) {
