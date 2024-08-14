@@ -1,5 +1,6 @@
 <?php
 $isLoggedIn = isset($_SESSION['user_id']);
+$userId = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
 
 function activePage($page) {
   $currentPage = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
@@ -31,7 +32,7 @@ function activePage($page) {
             <a class="nav-link <?= activePage('/se265-capstone/people'); ?>" href="/se265-capstone/people">Find People</a>
           </li>
           <li class="nav-item mx-2">
-            <a class="nav-link <?= activePage('/se265-capstone/edit-profile'); ?>" href="/se265-capstone/edit-profile">Edit Profile</a>
+            <a class="nav-link <?= activePage('/se265-capstone/edit-profile'); ?>" href="/se265-capstone/edit-profile?id=<?= $userId; ?>">Edit Profile</a>
           </li>
         </ul>
         <div class="d-flex flex-column flex-lg-row justify-content-center align-items-center gap-3">

@@ -1,12 +1,12 @@
 <?php
 
 function renderLogin() {
+  include MODEL_PATH . 'users.php';
+
   if (isset($_SESSION['user_id'])) {
     header('Location: /se265-capstone');
     exit();
   } 
-
-  include MODEL_PATH . 'users.php';
 
   if (isset($_POST['username']) && isset($_POST['password'])) {
     $username = $_POST['username'];
@@ -34,12 +34,12 @@ function renderLogin() {
 }
 
 function renderSignUp() {
+  include MODEL_PATH . 'users.php';
+
   if (isset($_SESSION['user_id'])) {
     header('Location: /se265-capstone');
     exit();
   }
-  
-  include MODEL_PATH . 'users.php';
 
   // Create new user and log them in when form hits the server
   // Fields are validated in the front end before this point
@@ -60,13 +60,14 @@ function renderSignUp() {
   require VIEW_PATH . 'users/signup.php';
 }
 
+// AJAX request 
 function renderCheckSignUp() {
+  include MODEL_PATH . 'users.php';
+
   if (isset($_SESSION['user_id'])) {
     header('Location: /se265-capstone');
     exit();
   }
-
-  include MODEL_PATH . 'users.php';
 
   $username = $_POST['username'];
   $email = $_POST['email'];
@@ -108,30 +109,53 @@ function renderPeople() {
 }
 
 function renderEditProfile() {
+  include MODEL_PATH . 'users.php';
+
   if (!isset($_SESSION['user_id'])) {
     header('Location: /se265-capstone/login');
     exit();
   }
 
-  include MODEL_PATH . 'users.php';
+  if ($_GET['id'] != $_SESSION['user_id']) {
+    header('Location: /se265-capstone');
+    exit();
+  }
+
+  if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    $users = getUserRecord($id);
+
+    $firstName = $users['first_name'];
+    $lastName = $users['last_name'];
+    $username = $users['username'];
+    $email = $users['email'];
+    $password = $users['password'];
+  }
 
   require VIEW_PATH . 'users/edit-profile.php';
 }
 
 function renderDeleteProfile() {
+  include MODEL_PATH . 'users.php';
+
   if (!isset($_SESSION['user_id'])) {
     header('Location: /se265-capstone/login');
     exit();
   }
 
-  include MODEL_PATH . 'users.php';
+  if ($_GET['id'] != $_SESSION['user_id']) {
+    header('Location: /se265-capstone');
+    exit();
+  }
 
-  $userId = $_SESSION['user_id'];
+  if (isset($_GET['id'])) {
+    deleteUser($id);
+    $id = $_GET['id'];
+    deleteUser($id);
 
-  //deleteUser($userId);
-
-  session_unset();
-  session_destroy();
-  header('Location: /se265-capstone/login');
-  exit();
+    session_unset();
+    session_destroy();
+    header('Location: /se265-capstone/login');
+    exit();
+  }
 }
