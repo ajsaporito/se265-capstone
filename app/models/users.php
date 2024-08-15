@@ -123,87 +123,19 @@ function changeUsername($id, $username) {
   return $result;
 }
 
-function changePassword($id, $password) {
-  global $db;
-  $result = [];
-
-  $binds = array(
-    ":id" => $id,
-    ":p" => $password
-  );
-
-  $sql = "UPDATE Users SET password = :p WHERE id = :id";
-  $stmt = $db->prepare($sql);
-
-  if ($stmt->execute($binds) && $stmt->rowCount() > 0) {
-    $result = "Data added";
-  }
-
-  return $result;
-}
-
-function deleteUser($id) {
+/* for public-profile */
+function getUserById($user_id) {
   global $db;
 
-  $sql = $db->prepare("DELETE FROM Users WHERE user_id = :id");
-  $sql->bindValue(':id', $id);
+  $stmt = $db->prepare("SELECT * FROM Users WHERE user_id = :id");
+  $stmt->bindValue(':id', $user_id, PDO::PARAM_INT);
 
-  if ($sql->execute() && $sql->rowCount() > 0) {
-    return true;
+  if ($stmt->execute() && $stmt->rowCount() > 0) {
+      return $stmt->fetch(PDO::FETCH_ASSOC); // Return the entire user record
   }
 
-  return false;
+  return null; // Return null if no user is found
 }
 
-function changeUsername($id, $username) {
-  global $db;
-  $result = [];
 
-  $binds = array(
-    ":id" => $id,
-    ":u" => $username
-  );
 
-  $sql = "UPDATE Users SET username = :u WHERE id = :id";
-  $stmt = $db->prepare($sql);
-
-  if ($stmt->execute($binds) && $stmt->rowCount() > 0) {
-    $result = "Data added";
-  }
-
-  return $result;
-}
-
-function changePassword($id, $password) {
-  global $db;
-  $result = [];
-
-  $binds = array(
-    ":id" => $id,
-    ":p" => $password
-  );
-
-  $sql = "UPDATE Users SET password = :p WHERE id = :id";
-  $stmt = $db->prepare($sql);
-
-  if ($stmt->execute($binds) && $stmt->rowCount() > 0) {
-    $result = "Data added";
-  }
-
-  return $result;
-}
-
-function deleteUser($id) {
-  global $db;
-
-  $sql = $db->prepare("DELETE FROM Users WHERE user_id = :id");
-  $sql->bindValue(':id', $id);
-
-  if ($sql->execute() && $sql->rowCount() > 0) {
-    return true;
-  }
-
-  return false;
-}
-
-?>

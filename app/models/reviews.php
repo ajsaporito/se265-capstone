@@ -114,4 +114,18 @@ function DeleteReview($review_id) {
     return $stmt->execute();
 }
 
+function getJobRecord($id) {
+    global $db;
+    $result = [];
+  
+    $stmt = $db->prepare("SELECT * FROM Jobs WHERE job_id = :id");
+    $stmt->bindValue(':id', $id);
+  
+    if ($stmt->execute() && $stmt->rowCount() > 0) {
+      $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+  
+    return $result;
+  }
+
 ?>

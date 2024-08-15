@@ -25,6 +25,7 @@ $routes = [
   '/se265-capstone/people' => 'users-controller@renderPeople',
   '/se265-capstone/edit-profile' => 'users-controller@renderEditProfile',
   '/se265-capstone/delete-profile' => 'users-controller@renderDeleteProfile',
+  '/se265-capstone/public-profile' => 'users-controller@renderPublicProfile',
 
   '/se265-capstone/jobs' => 'jobs-controller@renderJobs',
 ];
