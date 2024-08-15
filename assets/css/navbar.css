@@ -21,26 +21,3 @@
 #searchResults {
   border-radius: 0 0 1rem 1rem !important;
 }
-
-
-
-/*USER CARD STYLES FOR FIND PEOPLE PAGE*/
-
-.user-card {
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.user-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-/*card styling for public-profile view page*/
-.card {
-  min-height: 100%;
-}
-
-.job-completed {
-  border-bottom: 1px solid #e0e0e0;
-  padding-bottom: 15px;
-}

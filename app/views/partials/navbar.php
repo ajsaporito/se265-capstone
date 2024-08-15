@@ -29,7 +29,7 @@ function activePage($page) {
             <a class="nav-link <?= activePage('/se265-capstone/jobs'); ?>" href="/se265-capstone/jobs">Find Jobs</a>
           </li>
           <li class="nav-item mx-2">
-            <a class="nav-link <?= activePage('/se265-capstone/people'); ?>" href="/se265-capstone/people">Find People</a>
+            <a class="nav-link <?= activePage('/se265-capstone/find-people'); ?>" href="/se265-capstone/find-people">Find People</a>
           </li>
           <li class="nav-item mx-2">
             <a class="nav-link <?= activePage('/se265-capstone/edit-profile'); ?>" href="/se265-capstone/edit-profile?id=<?= $userId; ?>">Edit Profile</a>

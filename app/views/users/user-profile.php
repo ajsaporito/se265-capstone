@@ -1,5 +1,5 @@
 <?php
-$title = 'Public Profile';
+$title = htmlspecialchars($user['first_name']) . ' ' . htmlspecialchars($user['last_name']) . "'s Profile";
 include PARTIAL_PATH . 'header.php';
 include PARTIAL_PATH . 'navbar.php';
 ?>
@@ -10,7 +10,6 @@ include PARTIAL_PATH . 'navbar.php';
       <div class="col-md-4">
         <div class="card mb-3">
           <div class="card-body text-center">
-            <img src="path/to/avatar.png" class="rounded-circle mb-3" alt="Profile Picture" width="80" height="80">
             <h5 class="card-title"><?= htmlspecialchars($user['first_name']) . ' ' . htmlspecialchars($user['last_name']); ?></h5>
             <p class="card-text"><?= htmlspecialchars($user['email']); ?></p>
             <hr>
@@ -24,7 +23,6 @@ include PARTIAL_PATH . 'navbar.php';
           </div>
         </div>
       </div>
-      
       <!-- Jobs Completed Card -->
       <div class="col-md-8">
         <div class="card mb-3">

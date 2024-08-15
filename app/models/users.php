@@ -30,6 +30,20 @@ function getUserId($username) {
   return null;
 }
 
+function getUserById($id) {
+  global $db;
+  $result = [];
+
+  $stmt = $db->prepare("SELECT * FROM Users WHERE user_id = :id");
+  $stmt->bindValue(':id', $id);
+
+  if ($stmt->execute() && $stmt->rowCount() > 0) {
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+  }
+
+  return $result;
+}
+
 function getUserRecord($id) {
   global $db;
   $result = [];
@@ -42,6 +56,18 @@ function getUserRecord($id) {
   }
 
   return $result;
+}
+
+function userExistsById($id) {
+  global $db;
+
+  $stmt = $db->prepare("SELECT * FROM Users WHERE user_id = :id");
+  $stmt->bindValue(':id', $id);
+
+  if ($stmt->execute() && $stmt->rowCount() > 0) {
+    return true;
+  }
+  return false;
 }
 
 function userExistsByUsername($username) {
@@ -104,26 +130,15 @@ function logIn($username, $password) {
   }
 }
 
-function changeUsername($id, $username) {
+function deleteUser($id) {
   global $db;
-  $result = [];
 
-  $binds = array(
-    ":id" => $id,
-    ":u" => $username
-  );
+  $sql = $db->prepare("DELETE FROM Users WHERE user_id = :id");
+  $sql->bindValue(':id', $id);
 
-  $sql = "UPDATE Users SET username = :u WHERE id = :id";
-  $stmt = $db->prepare($sql);
-
-  if ($stmt->execute($binds) && $stmt->rowCount() > 0) {
-    $result = "Data added";
+  if ($sql->execute() && $sql->rowCount() > 0) {
+    return true;
   }
 
-  return $result;
+  return false;
 }
-
-
-
-
-

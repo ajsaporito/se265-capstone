@@ -22,10 +22,10 @@ $routes = [
   '/se265-capstone/signup' => 'users-controller@renderSignup',
   '/se265-capstone/check-signup' => 'users-controller@renderCheckSignup',
   '/se265-capstone/logout' => 'users-controller@renderLogout',
-  '/se265-capstone/people' => 'users-controller@renderPeople',
+  '/se265-capstone/find-people' => 'users-controller@renderFindPeople',
+  '/se265-capstone/user-profile' => 'users-controller@renderUserProfile',
   '/se265-capstone/edit-profile' => 'users-controller@renderEditProfile',
   '/se265-capstone/delete-profile' => 'users-controller@renderDeleteProfile',
-  '/se265-capstone/public-profile' => 'users-controller@renderPublicProfile',
 
   '/se265-capstone/jobs' => 'jobs-controller@renderJobs',
   '/se265-capstone/add-job' => 'jobs-controller@renderAddJob',

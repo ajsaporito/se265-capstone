@@ -100,19 +100,36 @@ function renderLogout() {
   exit();
 }
 
-function renderPeople() {
+function renderFindPeople() {
+  include MODEL_PATH . 'users.php';
+
   if (!isset($_SESSION['user_id'])) {
     header('Location: /se265-capstone/login');
     exit();
   }
 
-  // Include the model file to access the getAllUsers function
-  include MODEL_PATH . 'users.php';
-
-  // Fetch all users from the database
   $users = getAllUsers();
 
-  require VIEW_PATH . 'users/people.php';
+  require VIEW_PATH . 'users/find-people.php';
+}
+
+function renderUserProfile () {
+  include MODEL_PATH . 'users.php';
+
+  if (!isset($_SESSION['user_id'])) {
+    header('Location: /se265-capstone/login');
+    exit();
+  }
+
+  if (!isset($_GET['id']) || !userExistsById($_GET['id'])) {
+    header('Location: /se265-capstone/find-people');
+    exit();
+  }
+
+  $userId = filter_input(INPUT_GET, 'id');
+  $user = getUserById($userId);
+
+  require VIEW_PATH . 'users/user-profile.php';
 }
 
 function renderEditProfile() {
@@ -128,16 +145,8 @@ function renderEditProfile() {
     exit();
   }
 
-  if (isset($_GET['id'])) {
-    $id = $_GET['id'];
-    $users = getUserRecord($id);
-
-    $firstName = $users['first_name'];
-    $lastName = $users['last_name'];
-    $username = $users['username'];
-    $email = $users['email'];
-    $password = $users['password'];
-  }
+  $id = $_GET['id'];
+  $user = getUserRecord($id);
 
   require VIEW_PATH . 'users/edit-profile.php';
 }
@@ -158,33 +167,10 @@ function renderDeleteProfile() {
   if (isset($_GET['id'])) {
     deleteUser($id);
     $id = $_GET['id'];
-   
 
     session_unset();
     session_destroy();
     header('Location: /se265-capstone/login');
-    exit();
-  }
-}
-
-function renderPublicProfile () {
-  include MODEL_PATH . 'users.php';
-
-  if (isset($_GET['id'])){
-    $userId = $_GET['id'];
-    $user = getUserById($userId);
-
-    if($user) {
-      //pass the user data to view page
-      require VIEW_PATH . 'main/public-profile.php';
-    } else {
-      header('Location: /se265-capstone/404');
-      exit();
-    }
-  }
-  else {
-    header('Location: /se265-capstone/404');
-    echo "no id";
     exit();
   }
 }

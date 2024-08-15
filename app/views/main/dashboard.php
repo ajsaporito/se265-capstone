@@ -24,7 +24,6 @@ include PARTIAL_PATH . 'navbar.php';
           <div class="card w-100">
             <div class="card-body">
               <h5 class="card-title">Job Feedback</h5>
-              
                   <!-- Dynamically insert reviews here -->
                   <?php if (!empty($reviews) && is_array($reviews)): ?>
                     <?php foreach ($reviews as $review): ?>
@@ -46,17 +45,13 @@ include PARTIAL_PATH . 'navbar.php';
                   <?php else: ?>
                     <p class="alert alert-warning"><?php echo $resultMessage?></p>
                   <?php endif; ?>
-                  
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-
-
-
-
+    </div>
     <div class="row mt-4">
       <div class="col-12 d-flex align-items-stretch">
         <div class="card w-100">
@@ -129,7 +124,6 @@ include PARTIAL_PATH . 'navbar.php';
           </div>
         </div>
       </div>
- 
-
+    </div>
 </main>
 <?php include PARTIAL_PATH . 'footer.php'; ?>

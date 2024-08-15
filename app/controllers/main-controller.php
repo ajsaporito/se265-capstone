@@ -17,10 +17,10 @@ function renderDashboard() {
     $reviews = GetReviewsByJobId($jobId, $logged_in_user_id);
 
     if (empty($reviews)) {
-        $resultMessage = "You do not have access to this job or there are no reviews.";
+      $resultMessage = "You do not have access to this job or there are no reviews.";
     }
   } else {
-      $resultMessage = "Invalid job ID";
+    $resultMessage = "Invalid job ID";
   }
   /*var_dump($job_id);
   var_dump($logged_in_user_id);

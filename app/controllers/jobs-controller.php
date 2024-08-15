@@ -6,9 +6,7 @@ function renderJobs() {
     exit();
   }
 
-
-
-  require VIEW_PATH . 'main/jobs.php';
+  require VIEW_PATH . 'jobs/jobs.php';
 }
 
 function renderAddJob() {
@@ -17,5 +15,5 @@ function renderAddJob() {
     exit();
   }
 
-  require VIEW_PATH . 'main/add-job.php';
+  require VIEW_PATH . 'jobs/add-job.php';
 }
