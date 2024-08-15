@@ -123,34 +123,7 @@ function changeUsername($id, $username) {
   return $result;
 }
 
-function changePassword($id, $password) {
-  global $db;
-  $result = [];
 
-  $binds = array(
-    ":id" => $id,
-    ":p" => $password
-  );
 
-  $sql = "UPDATE Users SET password = :p WHERE id = :id";
-  $stmt = $db->prepare($sql);
 
-  if ($stmt->execute($binds) && $stmt->rowCount() > 0) {
-    $result = "Data added";
-  }
 
-  return $result;
-}
-
-function deleteUser($id) {
-  global $db;
-
-  $sql = $db->prepare("DELETE FROM Users WHERE user_id = :id");
-  $sql->bindValue(':id', $id);
-
-  if ($sql->execute() && $sql->rowCount() > 0) {
-    return true;
-  }
-
-  return false;
-}

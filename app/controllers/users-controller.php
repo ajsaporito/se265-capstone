@@ -106,6 +106,12 @@ function renderPeople() {
     exit();
   }
 
+  // Include the model file to access the getAllUsers function
+  include MODEL_PATH . 'users.php';
+
+  // Fetch all users from the database
+  $users = getAllUsers();
+
   require VIEW_PATH . 'users/people.php';
 }
 
@@ -152,11 +158,33 @@ function renderDeleteProfile() {
   if (isset($_GET['id'])) {
     deleteUser($id);
     $id = $_GET['id'];
-    deleteUser($id);
+   
 
     session_unset();
     session_destroy();
     header('Location: /se265-capstone/login');
+    exit();
+  }
+}
+
+function renderPublicProfile () {
+  include MODEL_PATH . 'users.php';
+
+  if (isset($_GET['id'])){
+    $userId = $_GET['id'];
+    $user = getUserById($userId);
+
+    if($user) {
+      //pass the user data to view page
+      require VIEW_PATH . 'main/public-profile.php';
+    } else {
+      header('Location: /se265-capstone/404');
+      exit();
+    }
+  }
+  else {
+    header('Location: /se265-capstone/404');
+    echo "no id";
     exit();
   }
 }

@@ -114,15 +114,3 @@ function DeleteReview($review_id) {
     return $stmt->execute();
 }
 
-function getJobId($id) {
-  global $db;
-
-  $sql = $db->prepare("SELECT job_id FROM Jobs WHERE posted_by = :id");
-  $sql->bindValue(':id', $id, PDO::PARAM_INT);
-
-  $sql->execute();
-
-  $jobId = $sql->fetchAll(PDO::FETCH_COLUMN, 0);
-
-  return $jobId;
-}
