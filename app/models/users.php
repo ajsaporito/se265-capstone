@@ -142,3 +142,33 @@ function deleteUser($id) {
 
   return false;
 }
+
+/* NEW 8/15 for user-profile review section */ 
+function getCompletedJobsByUserId($user_id) {
+  global $db;
+
+  $stmt = $db->prepare("
+      SELECT *
+      FROM Jobs
+      WHERE contractor_id = :user_id
+      AND status = 'complete'
+  ");
+  $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+  $stmt->execute();
+
+  return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function getReviewsByJobId($job_id) {
+  global $db;
+
+  $stmt = $db->prepare("
+      SELECT *
+      FROM Reviews
+      WHERE job_id = :job_id
+  ");
+  $stmt->bindValue(':job_id', $job_id, PDO::PARAM_INT);
+  $stmt->execute();
+
+  return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}

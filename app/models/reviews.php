@@ -127,3 +127,5 @@ function DeleteReview($review_id) {
 
   return $stmt->execute();
 }
+
+
