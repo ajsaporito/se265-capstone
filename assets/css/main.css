@@ -84,4 +84,17 @@
   transform: translateY(-5px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
+/****************************************************************************************/
+/*CSS styles for job-info page:*/
+.card-body {
+  padding: 20px;
+}
+
+.card-title {
+  margin-bottom: 10px;
+}
+
+hr {
+  margin: 20px 0;
+}
 
