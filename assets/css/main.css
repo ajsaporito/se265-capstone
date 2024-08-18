@@ -25,7 +25,7 @@
 
 /* Moved over */
 
-/*USER CARD STYLES FOR FIND PEOPLE PAGE*/
+/*USER CARD STYLES FOR FIND-PEOPLE PAGE*/
 
 .user-card {
   transition: transform 0.2s, box-shadow 0.2s;
@@ -73,3 +73,15 @@
 }
 
 /* Moved over */
+
+/****************************************************************************************/
+/*CSS styles for FIND-JOBS page:*/
+.job-card {
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.job-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+

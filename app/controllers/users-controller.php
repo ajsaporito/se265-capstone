@@ -138,21 +138,19 @@ function renderUserProfile() {
   if (isset($_GET['id'])) {
       $userId = $_GET['id'];
       $user = getUserById($userId);
-      var_dump($userId);
+     // var_dump($userId);
     if ($user) {
-        // Fetch completed jobs for this user
-        $completedJobs = getCompletedJobsByUserId($userId);
-        // For each job, fetch associated reviews
-        foreach ($completedJobs as &$job) {
-            //debug($job);
-            $job['reviews'] = getReviewsByJobId($job['job_id']);
-            //var_dump($job['reviews']);
-        }
-
-        // Pass the data to the view
-        require VIEW_PATH . 'users/user-profile.php';
+      // Fetch completed jobs for this user
+      $completedJobs = getCompletedJobsByUserId($userId);
+      foreach ($completedJobs as $index => $job) {
+        $reviews = getReviewsByJobId($job['job_id']);
+        $completedJobs[$index]['reviews'] = $reviews;
+        //Debugging to ensure each job gets the correct reviews associated:
+        //echo "Job ID: {$job['job_id']} - Reviews: " . print_r($reviews, true) . "\n";
+      }
     }
   } 
+    require VIEW_PATH . 'users/user-profile.php';
 }
 
 
