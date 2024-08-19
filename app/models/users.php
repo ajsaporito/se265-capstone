@@ -130,6 +130,47 @@ function logIn($username, $password) {
   }
 }
 
+function updateProfile($id, $firstName, $lastName, $username, $email) {
+  global $db;
+
+  $stmt = $db->prepare("UPDATE Users SET first_name = :f, last_name = :l, username = :u, email = :e WHERE user_id = :id");
+  $stmt->bindValue(':f', $firstName);
+  $stmt->bindValue(':l', $lastName);
+  $stmt->bindValue(':u', $username);
+  $stmt->bindValue(':e', $email);
+  $stmt->bindValue(':id', $id);
+
+  return $stmt->execute();
+}
+
+function userExistsByUsernameEdit($username, $currentId) {
+  global $db;
+
+  $sql = $db->prepare("SELECT * FROM Users WHERE username = :u AND user_id != :id");
+  $sql->bindValue(':u', $username);
+  $sql->bindValue(':id', $currentId);
+
+  if ($sql->execute() && $sql->rowCount() > 0) {
+    return ['success' => false, 'message' => 'Username is already taken'];
+  }
+
+  return ['success' => true, 'message' => ''];
+}
+
+function userExistsByEmailEdit($email, $currentId) {
+  global $db;
+
+  $sql = $db->prepare("SELECT * FROM Users WHERE email = :e AND user_id != :id");
+  $sql->bindValue(':e', $email);
+  $sql->bindValue(':id', $currentId);
+
+  if ($sql->execute() && $sql->rowCount() > 0) {
+    return ['success' => false, 'message' => 'Email is already taken'];
+  }
+
+  return ['success' => true, 'message' => ''];
+}
+
 function deleteUser($id) {
   global $db;
 

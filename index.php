@@ -25,6 +25,8 @@ $routes = [
   '/se265-capstone/find-people' => 'users-controller@renderFindPeople',
   '/se265-capstone/user-profile' => 'users-controller@renderUserProfile',
   '/se265-capstone/edit-profile' => 'users-controller@renderEditProfile',
+  '/se265-capstone/check-edit-profile' => 'users-controller@renderCheckEditProfile',
+  '/se265-capstone/change-password' => 'users-controller@renderChangePassword',
   '/se265-capstone/delete-profile' => 'users-controller@renderDeleteProfile',
 
   '/se265-capstone/jobs' => 'jobs-controller@renderJobs',

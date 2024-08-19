@@ -148,7 +148,71 @@ function renderEditProfile() {
   $id = $_GET['id'];
   $user = getUserRecord($id);
 
+  if (isset($_POST['updateBtn'])) {
+    $firstName = $_POST['firstName'];
+    $lastName = $_POST['lastName'];
+    $username = $_POST['username'];
+    $email = $_POST['email'];
+
+    var_dump($firstName, $lastName, $username, $email);
+    //updateProfile($id, $firstName, $lastName, $username, $email);
+    //header('Location: /se265-capstone');
+  }
+
   require VIEW_PATH . 'users/edit-profile.php';
+}
+
+// AJAX call
+function renderCheckEditProfile() {
+  include MODEL_PATH . 'users.php';
+
+  if (!isset($_SESSION['user_id'])) {
+    header('Location: /se265-capstone/login');
+    exit();
+  }
+
+  $username = $_POST['username'];
+  $email = $_POST['email'];
+
+  // Check if username and email are already taken
+  $usernameTaken = userExistsByUsernameEdit($username, $_SESSION['user_id']);
+  $emailTaken = userExistsByEmailEdit($email, $_SESSION['user_id']);
+
+  $response = array('success' => true);
+
+  // Return error in JSON format back to AJAX request
+  if (!$usernameTaken['success']) {
+    $response['success'] = false;
+    $response['usernameError'] = $usernameTaken['message'];
+  } 
+
+  if (!$emailTaken['success']) {
+    $response['success'] = false;
+    $response['emailError'] = $emailTaken['message'];
+  }
+
+  echo json_encode($response);
+}
+
+function renderChangePassword() {
+  include MODEL_PATH . 'users.php';
+
+  if (!isset($_SESSION['user_id'])) {
+    header('Location: /se265-capstone/login');
+    exit();
+  }
+
+  if (isset($_POST['changePasswordBtn'])) {
+    $currentPassword = $_POST['currentPassword'];
+    $newPassword = $_POST['newPassword'];
+    $confirmNewPassword = $_POST['confirmNewPassword'];
+
+    // Call function
+
+    // Redirect back to dashboard after
+  }
+
+  require VIEW_PATH . 'users/change-password.php';
 }
 
 function renderDeleteProfile() {
