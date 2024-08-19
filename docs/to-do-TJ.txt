@@ -1,0 +1,7 @@
+- modify find jobs to only pull in open jobs and make cards previews show more details (pay)
+- finish job-info page
+    -finish the logic for displaying associated job skills 
+
+
+done:
+added model funtion for job skills 

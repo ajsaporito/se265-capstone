@@ -113,7 +113,7 @@ function renderFindPeople() {
   require VIEW_PATH . 'users/find-people.php';
 }
 
-function renderUserProfile () {
+/*function renderUserProfile () {
   include MODEL_PATH . 'users.php';
 
   if (!isset($_SESSION['user_id'])) {
@@ -130,7 +130,29 @@ function renderUserProfile () {
   $user = getUserById($userId);
 
   require VIEW_PATH . 'users/user-profile.php';
+}*/
+
+function renderUserProfile() {
+  include MODEL_PATH . 'users.php';
+
+  if (isset($_GET['id'])) {
+      $userId = $_GET['id'];
+      $user = getUserById($userId);
+     // var_dump($userId);
+    if ($user) {
+      // Fetch completed jobs for this user
+      $completedJobs = getCompletedJobsByUserId($userId);
+      foreach ($completedJobs as $index => $job) {
+        $reviews = getReviewsByJobId($job['job_id']);
+        $completedJobs[$index]['reviews'] = $reviews;
+        //Debugging to ensure each job gets the correct reviews associated:
+        //echo "Job ID: {$job['job_id']} - Reviews: " . print_r($reviews, true) . "\n";
+      }
+    }
+  } 
+    require VIEW_PATH . 'users/user-profile.php';
 }
+
 
 function renderEditProfile() {
   include MODEL_PATH . 'users.php';
@@ -238,3 +260,4 @@ function renderDeleteProfile() {
     exit();
   }
 }
+
