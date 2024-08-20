@@ -1,7 +1,15 @@
-- modify find jobs to only pull in open jobs and make cards previews show more details (pay)
-- finish job-info page
-    -finish the logic for displaying associated job skills 
+
+
+JOB-INFO PAGE:
+1. modify find jobs to only pull in open jobs and make cards previews show more details (pay)
+2. finish job-info page
+3. add job posted by 
+   
+ADD-JOB:
+1. add more form validation
+
 
 
 done:
-added model funtion for job skills 
+-added model funtion for job skills 
+-finish the logic for displaying associated job skills 

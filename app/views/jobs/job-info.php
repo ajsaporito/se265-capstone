@@ -12,11 +12,12 @@ include PARTIAL_PATH . 'navbar.php';
           <div class="col-md-8">
             <h2 class="card-title"><?= htmlspecialchars($job['title']); ?></h2>
             <p><strong>Location:</strong> <?= htmlspecialchars($job['location']); ?></p>
+            <p><strong>Pay:</strong> <?= htmlspecialchars($pay); ?></p>
           </div>
           <div class="col-md-4 text-md-right">
-            <p><strong>Pay:</strong> <?= htmlspecialchars($pay); ?></p>
-            <p><strong>Date posted:</strong> <?= htmlspecialchars($job['date_posted']); ?></p>
-            <p><strong>Project deadline:</strong> <?= htmlspecialchars($job['estimated_completion_date']); ?></p>
+            
+            <p><strong>Posted:</strong> <?= date('F j, Y', strtotime($job['date_posted'])); ?></p> <!-- Format as "Month day, Year" -->
+            <p><strong>Project Deadline:</strong> <?= date('F j, Y', strtotime($job['estimated_completion_date'])); ?></p> <!-- Format as "Month day, Year" -->
           </div>
         </div>
 
@@ -33,10 +34,12 @@ include PARTIAL_PATH . 'navbar.php';
             <li><?= htmlspecialchars($skill['skill_name']); ?></li>
           <?php endforeach; ?>
         </ul>
-
+       
+        </form>
+      </div>
         <!-- Request Job Button -->
         <div class="text-right mt-4">
-          <a href="/se265-capstone/request-job?id=<?= htmlspecialchars($job['job_id']); ?>" class="btn btn-secondary">Request Job</a>
+          <a href="/se265-capstone/request-job?id=<?= htmlspecialchars($job['job_id']); ?>" id="request-job-btn" style="background-color: #6643b5;" class="btn rounded-4 text-white" onmouseover="this.style.background='#714bc9'" onmouseout="this.style.background='#6643b5'">Request Job</a>
         </div>
       </div>
     </div>
