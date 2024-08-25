@@ -4,14 +4,14 @@ include PARTIAL_PATH . 'header.php';
 include PARTIAL_PATH . 'navbar.php';
 ?>
 <main id="contentContainer" class="flex-grow-1">
-  <div class="container py-5">
+  <div class="container py-5 oxygen-regular">
     <div class="card shadow-sm">
       <div class="card-body">
-        <h1 class="card-title">Add Job</h1>
+        <h1 class="card-title oxygen-bold">Add Job</h1>
         <form id="job-form" action="/se265-capstone/add-job" method="POST" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="title">Job Title:</label>
-                <input type="text" id="title" name="title" class="form-control" placeholder="Enter job title" required>
+                <input type="text" id="title" name="title" class="form-control " placeholder="Enter job title" required>
             </div>
 
             <div class="form-group">

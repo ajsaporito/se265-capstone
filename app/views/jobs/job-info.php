@@ -16,7 +16,7 @@ include PARTIAL_PATH . 'navbar.php';
           </div>
           <div class="col-md-4 text-md-right">
             
-            <p><strong>Posted:</strong> <?= date('F j, Y', strtotime($job['date_posted'])); ?></p> <!-- Format as "Month day, Year" -->
+            <p><strong>Date Posted:</strong> <?= date('F j, Y', strtotime($job['date_posted'])); ?></p> <!-- Format as "Month day, Year" -->
             <p><strong>Project Deadline:</strong> <?= date('F j, Y', strtotime($job['estimated_completion_date'])); ?></p> <!-- Format as "Month day, Year" -->
           </div>
         </div>

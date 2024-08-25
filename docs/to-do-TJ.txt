@@ -3,13 +3,29 @@
 JOB-INFO PAGE:
 1. modify find jobs to only pull in open jobs and make cards previews show more details (pay)
 2. finish job-info page
-3. add job posted by 
+3. figure out how to gather user reviews and average them and then pull into the the user profile.
    
 ADD-JOB:
 1. add more form validation
+2. Add alert function to let user know job has been added
+3. Figure out how to add text editor
 
+USER-PROFILE: 
+1. finish styling the for reviews
+2. start working on figuring out how to average user reviews and display them on their profile cards.
+
+
+requests: 
+Trying setting boolean value to add the the rest to a list on dashboard.
 
 
 done:
 -added model funtion for job skills 
 -finish the logic for displaying associated job skills 
+
+***front end development need done by 8/26**
+Client - open job page
+client - completed job page
+dashboard
+search results pages for: people and jobs
+companion site

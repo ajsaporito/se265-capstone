@@ -4,18 +4,14 @@ include PARTIAL_PATH . 'header.php';
 include PARTIAL_PATH . 'navbar.php';
 ?>
 <main id="contentContainer" class="flex-grow-1">
-  <div class="container py-5">
+  <div class="container py-5 oxygen-regular">
     <div class="row">
       <!-- Profile Information Card -->
       <div class="col-md-4">
         <div class="card mb-3">
           <div class="card-body text-center">
-            <img src="path/to/avatar.png" class="rounded-circle mb-3" alt="Profile Picture" width="80" height="80">
-            <h5 class="card-title"><?= htmlspecialchars($user['first_name']) . ' ' . htmlspecialchars($user['last_name']); ?></h5>
+            <h5 class="card-title oxygen-bold"><?= htmlspecialchars($user['first_name']) . ' ' . htmlspecialchars($user['last_name']); ?></h5>
             <p class="card-text"><?= htmlspecialchars($user['email']); ?></p>
-            <hr>
-            <h6>Bio</h6>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam fermentum dolor purus.</p>
             <hr>
             <h6>My Ratings</h6>
             <ul class="list-unstyled">
@@ -32,7 +28,7 @@ include PARTIAL_PATH . 'navbar.php';
       <div class="col-md-8">
         <div class="card mb-3">
           <div class="card-body">
-            <h5 class="card-title">Jobs Completed</h5>
+            <h5 class="card-title oxygen-bold">Jobs Completed</h5>
             <hr>
             <?php if (!empty($completedJobs)): ?>
               <?php foreach ($completedJobs as $job): ?>

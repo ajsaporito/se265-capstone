@@ -44,10 +44,10 @@ function renderAddJob() {
       $skillsSelected = isset($_POST['skills']) ? $_POST['skills'] : [];
 
       // Debugging output as an alert
-      echo "<script>
+      /*echo "<script>
           alert('Job Data: " . json_encode($jobData) . "\\nSkills Selected: " . json_encode($skillsSelected) . "');
-      </script>";
-
+      </script>";*/
+      //exit();
       // Save the job along with the associated skills
       saveJobWithSkills($jobData, $skillsSelected);
 
@@ -58,10 +58,6 @@ function renderAddJob() {
 
   require VIEW_PATH . 'jobs/add-job.php';
 }
-
-
-
-
 
 function renderJobInfo() {
   include MODEL_PATH . 'jobs.php';
@@ -98,4 +94,3 @@ function renderJobInfo() {
 }
 
 
-?>
