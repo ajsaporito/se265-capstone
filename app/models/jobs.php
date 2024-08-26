@@ -13,6 +13,15 @@ if ($sql->execute() && $sql->rowCount() > 0) {
 return $result;
 }
 
+function getJobsByStatus($user_id, $status) {
+    global $db;
+    $stmt = $db->prepare("SELECT * FROM Jobs WHERE posted_by = :user_id AND status = :status ORDER BY date_posted DESC");
+    $stmt->execute([':user_id' => $user_id, ':status' => $status]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    var_dump($stmt);
+}
+
+
 function getJobById($job_id) {
     global $db;
 
@@ -31,7 +40,7 @@ function getJobById($job_id) {
         $stmt->execute();
         $job['skills'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-
+    
     return $job;
 }
 
@@ -72,5 +81,33 @@ function getAllSkills() {
 }
 
 
+// 8/25/24 for REQUEST-JOB.php AJAX CALL ****************************************************
+function hasUserRequestedJob($user_id, $job_id) {
+    global $db;
+    $stmt = $db->prepare("SELECT * FROM Requests WHERE requested_by = :user_id AND job_id = :job_id");
+    $stmt->execute([':user_id' => $user_id, ':job_id' => $job_id]);
 
+    return $stmt->rowCount() > 0;
+}
+
+function addJobRequest($job_id, $user_id) {
+    global $db;
+    $stmt = $db->prepare("INSERT INTO Requests (job_id, requested_by, status) VALUES (:job_id, :user_id, 'pending')");
+    return $stmt->execute([':job_id' => $job_id, ':user_id' => $user_id]);
+}
+
+
+function getJobRequestsByJobId($job_id) {
+    global $db;
+    $stmt = $db->prepare("
+        SELECT Requests.*, Users.first_name, Users.last_name 
+        FROM Requests 
+        JOIN Users ON Requests.requested_by = Users.user_id 
+        WHERE Requests.job_id = :job_id
+    ");
+    $stmt->bindParam(':job_id', $job_id, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+//****************************************************************************************** 
 ?>

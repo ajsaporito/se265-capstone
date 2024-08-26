@@ -5,7 +5,7 @@ include PARTIAL_PATH . 'navbar.php';
 ?>
 <main id="contentContainer" class="flex-grow-1">
   <div class="container py-5 oxygen-regular">
-    <div class="card shadow-sm">
+    <div id="cards" class="card shadow-sm" style=" background-color:#E4E4E4">
       <div class="card-body">
         <h1 class="card-title oxygen-bold">Add Job</h1>
         <form id="job-form" action="/se265-capstone/add-job" method="POST" enctype="multipart/form-data">

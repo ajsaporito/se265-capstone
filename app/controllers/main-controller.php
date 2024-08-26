@@ -2,6 +2,7 @@
 
 function renderDashboard() {
   include MODEL_PATH . 'reviews.php';
+  include MODEL_PATH . 'jobs.php';  // Ensure your model path is correct
 
   if (!isset($_SESSION['user_id'])) {
     header('Location: /se265-capstone/login');
@@ -22,12 +23,20 @@ function renderDashboard() {
   } else {
     $resultMessage = "Invalid job ID";
   }
+
+  $userId = $_SESSION['user_id'];
+
+  $completedJobs = getJobsByStatus($userId, 'complete');
+  $inProgressJobs = getJobsByStatus($userId, 'in-progress');
+  $openJobs = getJobsByStatus($userId, 'open');
   /*var_dump($job_id);
   var_dump($logged_in_user_id);
   var_dump($reviews); */
 
   require VIEW_PATH . 'main/dashboard.php';
 }
+
+
 
 function renderSearch() {
   if (!isset($_SESSION['user_id'])) {

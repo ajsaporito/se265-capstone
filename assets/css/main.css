@@ -29,11 +29,13 @@
 
 .user-card {
   transition: transform 0.2s, box-shadow 0.2s;
+  border: 5px solid transparent; /* Prepare the border to change color on hover */
 }
 
 .user-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px rgba(102, 67, 181, 0.7);
+  border-color: purple; /* Purple outline */
 }
 
 /*card styling for public-profile view page*/
@@ -78,11 +80,13 @@
 /*CSS styles for FIND-JOBS page:*/
 .job-card {
   transition: transform 0.2s, box-shadow 0.2s;
+  border: 3px solid transparent; /* Prepare the border to change color on hover */
 }
 
 .job-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px rgba(102, 67, 181, 0.7);
+  border-color: purple; /* Purple outline */
 }
 /****************************************************************************************/
 /*CSS styles for job-info page:*/
@@ -148,16 +152,17 @@ hr {
   }
 
 
-
 #add-job-btn {
   margin-top: 1rem;
   padding: .5rem 1.4rem;  /* Increased padding for larger pills */
   font-size: 1.3rem;  /* Larger font size */
 }
 
-#request-job-btn {
+#requestJobButton {
+  margin-top: 2rem;
   margin-left: 4rem;
   margin-bottom: 2.2rem;
   padding: .5rem 1.4rem;  /* Increased padding for larger pills */
   font-size: 1.3rem;  /* Larger font size */
 }
+

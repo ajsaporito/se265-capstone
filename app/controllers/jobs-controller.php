@@ -59,9 +59,10 @@ function renderAddJob() {
   require VIEW_PATH . 'jobs/add-job.php';
 }
 
+
+//Job-info.php
 function renderJobInfo() {
   include MODEL_PATH . 'jobs.php';
-
   if (!isset($_SESSION['user_id'])) {
     header('Location: /se265-capstone/login');
     exit();
@@ -90,7 +91,89 @@ function renderJobInfo() {
     }
 
     require VIEW_PATH . 'jobs/job-info.php';
- }
+  }
+}
+
+//8/25 added for client-open-jobs.php
+function renderClientOpenJobs() {
+  include MODEL_PATH . 'jobs.php';
+
+  if (!isset($_SESSION['user_id'])) {
+      header('Location: /se265-capstone/login');
+      exit();
+  }
+
+  // Retrieve the job ID from the URL
+  $job_id = $_GET['job_id'] ?? 0;
+
+  // Fetch the job details based on the job ID
+  $job = getJobById($job_id);
+  
+  // If the job is not found or doesn't belong to the logged-in user, show an error
+  if ($job === false || empty($job) || $job['posted_by'] != $_SESSION['user_id']) {
+      echo "Job not found or you don't have permission to view this job.";
+      return;
+  }
+
+  // Calculate pay based on job type
+  if ($job) {
+      if ($job['job_type'] === 'fixed') {
+          $pay = '$' . number_format($job['budget'], 2);
+      } elseif ($job['job_type'] === 'hourly') {
+          $pay = '$' . number_format($job['hourly_rate'], 2) . '/hr';
+      } else {
+          $pay = 'N/A'; // In case job_type is neither 'fixed' nor 'hourly'
+      }
+  }
+
+  // Fetch the requests related to this job
+  $requests = getJobRequestsByJobId($job_id);
+
+  // Pass the job, pay, and requests to the view
+  require VIEW_PATH . 'jobs/client-open-jobs.php';
 }
 
 
+
+
+//AJAX request to request a job
+function handleJobRequest() {
+  include MODEL_PATH . 'jobs.php';
+
+  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+      $job_id = $_POST['job_id'];
+      $requested_by = $_POST['requested_by'];
+
+      // Check if the user has already requested this job
+      if (!hasUserRequestedJob($requested_by, $job_id)) {
+          // Add request to the Requests table
+          addJobRequest($job_id, $requested_by);
+          echo json_encode(['status' => 'success']);
+      } else {
+          echo json_encode(['status' => 'already_requested']);
+      }
+  } else {
+      echo json_encode(['status' => 'error']);
+  }
+  exit();
+}
+
+
+// For the client to view job requests @ client-opend-jobs
+function renderClientJobRequests() {
+  include MODEL_PATH . 'jobs.php';
+  $client_id = $_SESSION['user_id'];
+
+  $requests = getJobRequestsByClient($client_id);
+  var_dump($requests);
+
+  require VIEW_PATH . 'jobs/client-open-jobs.php';
+}
+
+function getJobRequestsByClient($client_id) {
+  global $db;
+  $stmt = $db->prepare("SELECT * FROM Requests JOIN Jobs ON Requests.job_id = Jobs.job_id WHERE Jobs.posted_by = :client_id");
+  $stmt->execute([':client_id' => $client_id]);
+
+  return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}

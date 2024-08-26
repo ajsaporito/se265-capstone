@@ -4,7 +4,7 @@ include PARTIAL_PATH . 'header.php';
 include PARTIAL_PATH . 'navbar.php';
 ?>
 <main id="contentContainer" class="flex-grow-1 mx-2 p-2">
-  <div class="py-5 mx-4">
+  <div id="cards" class="py-5 mx-4">
     <div class="form-floating mb-3">
       <input type="password" class="form-control shadow-none main-form-input" name="currentPassword" id="currentPassword" placeholder="currentPassword" autocomplete="">
       <label for="currentPassword" class="form-label text-muted">Current Password</label>

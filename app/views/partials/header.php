@@ -18,5 +18,5 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <title><?php echo isset($title) ? $title : ''; ?></title>
 </head>
-<body style="background-color: #e3e3e3;" class="min-vh-100 d-flex flex-column">
+<body style="background-color: #c1c1c1;" class="min-vh-100 d-flex flex-column">
 <noscript>You need to enable JavaScript to run this app.</noscript>
