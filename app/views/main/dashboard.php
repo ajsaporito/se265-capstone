@@ -76,6 +76,7 @@ require_once PARTIAL_PATH . 'navbar.php';
                                         <h5 class="card-title"><?= htmlspecialchars($job['title']); ?></h5>
                                         <p class="card-text"><?= htmlspecialchars($job['description']); ?></p>
                                         <small class="text-muted">Posted on <?= htmlspecialchars($job['date_posted']); ?></small>
+                                        <a href="/se265-capstone/client-completed-jobs?job_id=<?= htmlspecialchars($job['job_id']); ?>" class="stretched-link"></a>
                                     </div>
                                 </div>
                             <?php endforeach; ?>

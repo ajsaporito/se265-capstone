@@ -134,8 +134,6 @@ function renderClientOpenJobs() {
 }
 
 
-
-
 //AJAX request to request a job
 function handleJobRequest() {
   include MODEL_PATH . 'jobs.php';
@@ -176,4 +174,42 @@ function getJobRequestsByClient($client_id) {
   $stmt->execute([':client_id' => $client_id]);
 
   return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+
+//For Client's completed jobs
+function renderClientCompletedJobs () {
+  include MODEL_PATH . 'jobs.php';
+
+  if (!isset($_SESSION['user_id'])) {
+      header('Location: /se265-capstone/login');
+      exit();
+  }
+  
+  // Retrieve the job ID from the URL
+  $job_id = $_GET['job_id'] ?? 0;
+
+  // Fetch the job details based on the job ID
+  $job = getJobById($job_id);
+  
+  // If the job is not found or doesn't belong to the logged-in user, show an error
+  if ($job === false || empty($job) || $job['posted_by'] != $_SESSION['user_id']) {
+      echo "Job not found or you don't have permission to view this job.";
+      return;
+  }
+
+  // Calculate pay based on job type
+  if ($job) {
+    if ($job['job_type'] === 'fixed') {
+        $pay = '$' . number_format($job['budget'], 2);
+    } elseif ($job['job_type'] === 'hourly') {
+        $pay = '$' . number_format($job['hourly_rate'], 2) . '/hr';
+    } else {
+        $pay = 'N/A'; // In case job_type is neither 'fixed' nor 'hourly'
+    }
+ }
+
+ // Pass the job, pay, and requests to the view
+ require VIEW_PATH . 'jobs/client-completed-jobs.php';
+
 }

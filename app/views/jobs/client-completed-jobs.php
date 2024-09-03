@@ -1,12 +1,12 @@
 <?php
-$title = htmlspecialchars($job['title']) . ' - Open Jobs';
+$title = htmlspecialchars($job['title']) . ' - Completed Jobs';
 include PARTIAL_PATH . 'header.php';
 include PARTIAL_PATH . 'navbar.php';
 ?>
 
 <main id="contentContainer" class="flex-grow-1">
     <div class="container py-5 oxygen-regular">
-        <h1 class="oxygen-bold">Open Jobs</h1>
+        <h1 class="oxygen-bold">Completed Jobs</h1>
 
         <div class="card">
             <div class="card-body">
@@ -45,19 +45,12 @@ include PARTIAL_PATH . 'navbar.php';
                 </div>
             </div>
             <div class="card-footer text-right">
-                <h5>Job Requests:</h5>
-                <?php if (!empty($requests)): ?>
-                <?php foreach ($requests as $request): ?>
-                    <div class="request-item mb-2">
-                        <p><?= htmlspecialchars($request['first_name'] . ' ' . $request['last_name']); ?> - Status: <?= htmlspecialchars($request['status']); ?></p>
-                        <?php if ($request['status'] === 'pending'): ?>
-                            <button class="btn btn-success accept-request-btn" data-request-id="<?= $request['request_id']; ?>">Accept</button>
-                        <?php endif; ?>
-                    </div>
-                <?php endforeach; ?>
-                <?php else: ?>
-                    <p>No requests yet.</p>
-                <?php endif; ?>
+                <div class="row">
+                    <h5>Completed By:</h5>
+                </div>
+                <ul>
+                    
+                </ul>
 
             </div>
         </div>

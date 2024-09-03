@@ -34,6 +34,7 @@ $routes = [
   '/se265-capstone/job-info' => 'jobs-controller@renderJobInfo',
   '/se265-capstone/request-job' => 'jobs-controller@handleJobRequest',
   '/se265-capstone/client-open-jobs' => 'jobs-controller@renderClientOpenJobs',
+  '/se265-capstone/client-completed-jobs' => 'jobs-controller@renderClientCompletedJobs'
 
 
 
