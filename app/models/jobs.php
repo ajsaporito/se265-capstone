@@ -13,13 +13,21 @@ if ($sql->execute() && $sql->rowCount() > 0) {
 return $result;
 }
 
+
+
 function getJobsByStatus($user_id, $status) {
     global $db;
-    $stmt = $db->prepare("SELECT * FROM Jobs WHERE posted_by = :user_id AND status = :status ORDER BY date_posted DESC");
+    $stmt = $db->prepare("
+        SELECT Jobs.*, Users.first_name, Users.last_name 
+        FROM Jobs 
+        LEFT JOIN Users ON Jobs.contractor_id = Users.user_id 
+        WHERE Jobs.posted_by = :user_id AND Jobs.status = :status 
+        ORDER BY Jobs.date_posted DESC
+    ");
     $stmt->execute([':user_id' => $user_id, ':status' => $status]);
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    var_dump($stmt);
 }
+
 
 
 function getJobById($job_id) {

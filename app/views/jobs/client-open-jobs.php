@@ -22,6 +22,7 @@ include PARTIAL_PATH . 'navbar.php';
                         <p><strong>Project Deadline:</strong> <?= date('F j, Y', strtotime($job['estimated_completion_date'])); ?></p> <!-- Format as "Month day, Year" -->
                     </div>
                 </div>
+
                 <!-- Job Description -->
                 <hr>
                 <div class="row">
@@ -44,23 +45,67 @@ include PARTIAL_PATH . 'navbar.php';
                     </div>
                 </div>
             </div>
-            <div class="card-footer text-right">
+            <div class="card-footer">
                 <h5>Job Requests:</h5>
                 <?php if (!empty($requests)): ?>
-                <?php foreach ($requests as $request): ?>
+                    <?php foreach ($requests as $request): ?>
                     <div class="request-item mb-2">
                         <p><?= htmlspecialchars($request['first_name'] . ' ' . $request['last_name']); ?> - Status: <?= htmlspecialchars($request['status']); ?></p>
                         <?php if ($request['status'] === 'pending'): ?>
-                            <button class="btn btn-success accept-request-btn" data-request-id="<?= $request['request_id']; ?>">Accept</button>
+                            <button class="btn btn-success accept-request-btn" 
+                                    data-request-id="<?= $request['request_id']; ?>" 
+                                    data-requested-by="<?= $request['requested_by']; ?>">  <!-- Attach the correct user_id -->
+                                Accept
+                            </button>
                         <?php endif; ?>
                     </div>
                 <?php endforeach; ?>
                 <?php else: ?>
                     <p>No requests yet.</p>
                 <?php endif; ?>
-
             </div>
         </div>
     </div>
 </main>
+
 <?php include PARTIAL_PATH . 'footer.php'; ?>
+
+<script>
+$(document).on('click', '.accept-request-btn', function () {
+    var requestId = $(this).data('request-id');
+    var requestedBy = $(this).data('requested-by');  // Fetch the correct user_id
+
+    $.ajax({
+        type: 'POST',
+        url: '/se265-capstone/handle-job-request',
+        data: {
+            job_id: <?= isset($job['job_id']) ? intval($job['job_id']) : 'null'; ?>,
+            requested_by: requestedBy,  // Send the correct user_id
+            action: 'accept'
+        },
+        success: function (response) {
+            try {
+                var parsedResponse = JSON.parse(response);
+                console.log(parsedResponse); // Inspect the parsed response here
+                if (parsedResponse.status === 'success') {
+                    alert('Job request accepted successfully!');
+                    location.reload(); // Reload page or update the specific UI element
+                } else {
+                    alert('There was an error accepting the job request. ' + parsedResponse.message);
+                }
+            } catch (e) {
+                console.error('Error parsing response:', e);
+                alert('There was an error processing the response.');
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('XHR Error:', xhr, status, error);
+            alert('There was an error accepting the job request.');
+        }
+    });
+});
+
+
+
+
+</script>

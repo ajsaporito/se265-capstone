@@ -1,23 +1,25 @@
 
 JOB-INFO PAGE:
-1. modify find jobs to ONLY pull in open jobs and make cards previews show more details (pay)
+
+1. show more details (pay)
 2. finish job-info page
 3. figure out how to gather user reviews and average them and then pull into the the user profile.
 
 
 ADD-JOB:
-1. add more form validation
-2. Add alert function to let user know job has been added
-3. Figure out how to add text editor
+1. add more form validation 
+2. Figure out how to add text editor (for fun)
 
 
 USER-PROFILE: 
 1. finish styling the for reviews
 2. start working on figuring out how to average user reviews and display them on their profile cards.
+ 
+CLIENT-COMPLETED JOBS: 
+1. pull in 'completed by'.
 
 
-
-pages to-do:
+Pages to-do:
 ADD-Reviews Form
 Reviews page
 
@@ -30,4 +32,17 @@ Trying setting boolean value to add the the rest to a list on dashboard.
 done:
 -added model funtion for job skills 
 -finish the logic for displaying associated job skills 
+9/3/24
+- modify find jobs to ONLY pull in open jobs and make cards previews (x)
+- can now accept requests and they are moved into the in-progress page with users name
+- Add alert function to let user know job has been added (x)
+- client-completed jobs has been made 
+- user profile cards stack horizontally now
+
+
+
+
+
+
+HI so now im working on the clients completed jobs page but I need to add something to the dashboard in the in progress-jobs section
 

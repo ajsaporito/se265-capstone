@@ -100,6 +100,7 @@ require_once PARTIAL_PATH . 'navbar.php';
                                     <div class="card-body">
                                         <h5 class="card-title"><?= htmlspecialchars($job['title']); ?></h5>
                                         <p class="card-text"><?= htmlspecialchars($job['description']); ?></p>
+                                        <p><strong>Assigned to:</strong> <?= htmlspecialchars($job['first_name'] . ' ' . $job['last_name']); ?></p>
                                         <small class="text-muted">Posted on <?= htmlspecialchars($job['date_posted']); ?></small>
                                     </div>
                                 </div>

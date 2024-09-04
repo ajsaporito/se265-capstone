@@ -7,7 +7,7 @@ include PARTIAL_PATH . 'navbar.php';
   <div class="container py-5 oxygen-regular">
     <div class="row">
       <!-- Profile Information Card -->
-      <div class="col-md-4">
+      <div class="col-12">
         <div class="card mb-3">
           <div class="card-body text-center">
             <h5 class="card-title oxygen-bold"><?= htmlspecialchars($user['first_name']) . ' ' . htmlspecialchars($user['last_name']); ?></h5>
@@ -25,15 +25,15 @@ include PARTIAL_PATH . 'navbar.php';
       </div>
       
       <!-- Jobs Completed Card -->
-      <div class="col-md-8">
-        <div class="card mb-3">
+      <div class="col-12">
+        <div class="card mt-4">
           <div class="card-body">
               <h5 class="card-title oxygen-bold">Jobs Completed</h5>
               <hr>
               <div class="job-feedback mb-4">
               <?php if (!empty($completedJobs)): ?>
                 <?php foreach ($completedJobs as $job): ?>
-                  <div class="card mt-4" style="padding: 15px; margin:15px;">
+                  <div class="card mt-4" style="padding: 35px; margin:35px;">
                     <h6 class="oxygen-bold"><?= htmlspecialchars($job['title']); ?></h6>
                     <small>Date completed: <?= htmlspecialchars($job['estimated_completion_date']); ?></small>
                     <p class="mt-2"><?= htmlspecialchars($job['description']); ?></p>
@@ -47,7 +47,6 @@ include PARTIAL_PATH . 'navbar.php';
                           <li>Quality: <?= str_repeat('★', $review['quality']) . str_repeat('☆', 5 - $review['quality']); ?></li>
                           <li>Professionalism: <?= str_repeat('★', $review['professionalism']) . str_repeat('☆', 5 - $review['professionalism']); ?></li>
                           <li>Comments: <?= htmlspecialchars($review['comments']); ?></li>
-
                         <?php endforeach; ?>
                       </ul>
                     <?php else: ?>
