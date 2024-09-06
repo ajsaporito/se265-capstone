@@ -7,25 +7,31 @@ require_once PARTIAL_PATH . 'navbar.php';
     <div class="container py-5">
         <h1>Dashboard</h1>
         
-        <!-- User Information and Bio Section -->
+       <!-- User Information and Bio Section -->
         <div class="row mt-4">
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Lastname, Firstname</h4>
-                        <h6>Email@email.com</h6>
+                        <h4 class="card-title"><?= htmlspecialchars($userDetails['last_name']) . ', ' . htmlspecialchars($userDetails['first_name']); ?></h4>
+                        <h6><?= htmlspecialchars($userDetails['email']); ?></h6>
                         <hr>
                         <h6>My Ratings</h6>
+                        <?php if (!empty($averageRatings)): ?>
                         <ul class="list-unstyled">
-                          <li>Communication: ★★★★☆</li>
-                          <li>Time Management: ★★★★☆</li>
-                          <li>Quality: ★★★★★</li>
-                          <li>Professionalism: ★★★★★</li>
+                            <li>Communication: <?= number_format($averageRatings['avg_communication'], 1); ?> / 5</li>
+                            <li>Time Management: <?= number_format($averageRatings['avg_time_management'], 1); ?> / 5</li>
+                            <li>Quality: <?= number_format($averageRatings['avg_quality'], 1); ?> / 5</li>
+                            <li>Professionalism: <?= number_format($averageRatings['avg_professionalism'], 1); ?> / 5</li>
                         </ul>
+                        <?php else: ?>
+                        <p>No ratings available.</p>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
         </div>
+
+
 
         <!-- Job Feedback Section -->
         <div class="row mt-4">

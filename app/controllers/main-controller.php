@@ -2,7 +2,8 @@
 
 function renderDashboard() {
   include MODEL_PATH . 'reviews.php';
-  include MODEL_PATH . 'jobs.php';  // Ensure your model path is correct
+  include MODEL_PATH . 'jobs.php';  
+  include MODEL_PATH . 'users.php';  
 
   // Check if the user is logged in
   if (!isset($_SESSION['user_id'])) {
@@ -13,6 +14,11 @@ function renderDashboard() {
   // Get logged-in user's ID
   $userId = $_SESSION['user_id'];
 
+
+  // Fetch user details (name and email)
+  $userDetails = getUserById($userId);
+  // Fetch average ratings for the user
+  $averageRatings = getAverageRatingsByUserId($userId);
   // Fetch job-related data
   $completedJobs = getJobsByStatus($userId, 'complete');
   $inProgressJobs = getJobsByStatus($userId, 'in-progress');
