@@ -37,12 +37,12 @@ require_once PARTIAL_PATH . 'navbar.php';
                             <?php foreach ($reviews as $review): ?>
                                 <div class="card mt-3">
                                     <div class="card-body">
-                                        <h6 class="card-subtitle mb-2 text-muted">Reviewed by: <?= htmlspecialchars($review['reviewer_id']); ?></h6>
+                                    <h6 class="card-subtitle mb-2 text-muted">Reviewed by: <?= htmlspecialchars($review['first_name'] . ' ' . $review['last_name']); ?></h6>
                                         <p class="card-text">
-                                            <strong>Communication:</strong> <?= htmlspecialchars($review['communication']); ?>/5<br>
-                                            <strong>Time Management:</strong> <?= htmlspecialchars($review['time_management']); ?>/5<br>
-                                            <strong>Quality:</strong> <?= htmlspecialchars($review['quality']); ?>/5<br>
-                                            <strong>Professionalism:</strong> <?= htmlspecialchars($review['professionalism']); ?>/5<br>
+                                            <strong>Communication:</strong> <?= renderStars($review['communication']); ?><br>
+                                            <strong>Time Management:</strong> <?= renderStars($review['time_management']); ?><br>
+                                            <strong>Quality:</strong> <?= renderStars($review['quality']); ?><br>
+                                            <strong>Professionalism:</strong> <?= renderStars($review['professionalism']); ?><br>
                                             <?= htmlspecialchars($review['comments']); ?>
                                         </p>
                                     </div>
@@ -55,6 +55,7 @@ require_once PARTIAL_PATH . 'navbar.php';
                 </div>
             </div>
         </div>
+
         
         <!-- Button to Add Job -->
         <div class="row">

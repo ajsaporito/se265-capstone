@@ -166,3 +166,7 @@ hr {
   font-size: 1.3rem;  /* Larger font size */
 }
 
+.stars {
+  color: rgb(217, 217, 36); /* Make the stars yellow */
+  font-size: 20px; /* Adjust the size as needed */
+}

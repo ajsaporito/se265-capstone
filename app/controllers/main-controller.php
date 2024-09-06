@@ -4,37 +4,32 @@ function renderDashboard() {
   include MODEL_PATH . 'reviews.php';
   include MODEL_PATH . 'jobs.php';  // Ensure your model path is correct
 
+  // Check if the user is logged in
   if (!isset($_SESSION['user_id'])) {
-    header('Location: /se265-capstone/login');
-    exit();
+      header('Location: /se265-capstone/login');
+      exit();
   }
 
-  $userId = $_SESSION['user_id'];
-  $jobId = getJobId($userId);
-  $reviews = [];
-
-  if ($jobId === $userId) {
-    // Fetch reviews with user validation
-    $reviews = GetReviewsByJobId($jobId, $logged_in_user_id);
-
-    if (empty($reviews)) {
-      $resultMessage = "You do not have access to this job or there are no reviews.";
-    }
-  } else {
-    $resultMessage = "Invalid job ID";
-  }
-
+  // Get logged-in user's ID
   $userId = $_SESSION['user_id'];
 
+  // Fetch job-related data
   $completedJobs = getJobsByStatus($userId, 'complete');
   $inProgressJobs = getJobsByStatus($userId, 'in-progress');
   $openJobs = getJobsByStatus($userId, 'open');
-  /*var_dump($job_id);
-  var_dump($logged_in_user_id);
-  var_dump($reviews); */
 
+  // Fetch reviews for jobs related to the user (contractor or client)
+  $reviews = getReviewsByUserId($userId);  // Get all reviews for the logged-in user
+
+  // Check if any reviews exist
+  if (empty($reviews)) {
+      $resultMessage = "No reviews available for this user.";
+  }
+
+  // Pass the data to the view
   require VIEW_PATH . 'main/dashboard.php';
 }
+
 
 
 

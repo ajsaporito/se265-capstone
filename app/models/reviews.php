@@ -129,3 +129,23 @@ function DeleteReview($review_id) {
 }
 
 
+
+function getReviewsByUserId($user_id) {
+  global $db;
+
+  $stmt = $db->prepare("
+      SELECT Reviews.*, Users.first_name, Users.last_name
+      FROM Reviews
+      JOIN Users ON Reviews.reviewer_id = Users.user_id
+      WHERE Reviews.contractor_id = :user_id
+  ");
+  $stmt->execute([':user_id' => $user_id]);
+
+  return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function renderStars($rating) {
+  $fullStars = str_repeat('★', $rating); // Full stars based on rating
+  $emptyStars = str_repeat('☆', 5 - $rating); // Empty stars
+  return '<span class="stars">' . $fullStars . $emptyStars . '</span>';
+}

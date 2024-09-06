@@ -11,12 +11,12 @@ include PARTIAL_PATH . 'navbar.php';
         <form id="job-form" action="/se265-capstone/add-job" method="POST" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="title">Job Title:</label>
-                <input type="text" id="title" name="title" class="form-control " placeholder="Enter job title" >
+                <input type="text" id="title" name="title" class="form-control " placeholder="Enter job title" required>
             </div>
 
             <div class="form-group">
                 <label for="location">Location:</label>
-                <select id="location" name="location" class="form-control" >
+                <select id="location" name="location" class="form-control" required>
                     <option value="">Select State</option>
                     <option value="Alabama">Alabama</option>
                     <option value="Alaska">Alaska</option>
@@ -73,12 +73,12 @@ include PARTIAL_PATH . 'navbar.php';
 
             <div class="form-group">
                 <label for="description">Description:</label>
-                <textarea id="description" name="description" class="form-control" placeholder="Enter job description" ></textarea>
+                <textarea id="description" name="description" class="form-control" placeholder="Enter job description" required></textarea>
             </div>
 
             <div class="form-group">
                 <label for="job_type">Job Type:</label>
-                <select id="job_type" name="job_type" class="form-control" >
+                <select id="job_type" name="job_type" class="form-control" required>
                     <option value="">Select Type</option>
                     <option value="fixed">Fixed</option>
                     <option value="hourly">Hourly</option>
@@ -87,7 +87,7 @@ include PARTIAL_PATH . 'navbar.php';
 
             <div class="form-group">
                 <label for="estimated_completion_date">Estimated Completion Date:</label>
-                <input type="date" id="estimated_completion_date" name="estimated_completion_date" class="form-control" >
+                <input type="date" id="estimated_completion_date" name="estimated_completion_date" class="form-control">
             </div>
 
             <div id="fixed-fields" style="display:none;">
@@ -119,6 +119,11 @@ include PARTIAL_PATH . 'navbar.php';
                 </select>
               </div>
             </div>
+            <!-- File Upload -->
+            <div class="form-group">
+                <label for="documents">Upload Documents:</label>
+                <input type="file" id="documents" name="documents[]" class="form-control-file" multiple>
+            </div>
 
             <!-- Submit Button -->
             <button id="add-job-btn" style="background-color: #6643b5;" class="btn rounded-4 text-white " type="submit" name="updateBtn" onmouseover="this.style.background='#714bc9'" onmouseout="this.style.background='#6643b5'">Create Job</button>
@@ -129,93 +134,39 @@ include PARTIAL_PATH . 'navbar.php';
 
   <!-- jQuery Script for Dynamic Fields -->
   <script>
-      $(document).ready(function() {
-            // Show/hide fields based on Job Type
-            $('#job_type').on('change', function() {
-                var jobType = $(this).val();
-                if (jobType == 'fixed') {
-                    $('#fixed-fields').show();
-                    $('#budget').attr('required', true);
-                    $('#hourly-fields').hide();
-                    $('#hourly_rate, #estimated_hours_per_week').removeAttr('required');
-                } else if (jobType == 'hourly') {
-                    $('#fixed-fields').hide();
-                    $('#budget').removeAttr('required');
-                    $('#hourly-fields').show();
-                    $('#hourly_rate, #estimated_hours_per_week').attr('required', true);
-                } else {
-                    $('#fixed-fields').hide();
-                    $('#budget').removeAttr('required');
-                    $('#hourly-fields').hide();
-                    $('#hourly_rate, #estimated_hours_per_week').removeAttr('required');
-                }
-            });
-
-            // Initialize select2 for skills dropdown
-            $('#skills').select2({
-                placeholder: "Select skills",
-                allowClear: true,
-                templateSelection: function(data, container) {
-                    $(container).addClass('rounded-pill');
-                    return data.text;
-                }
-            });
-
-            // Form validation on submit
-            $('#job-form').on('submit', function(event) {
-                var isValid = true;
-
-                // Validate Job Title
-                var title = $('#title').val().trim();
-                if (title === '') {
-                    alert('Job Title is required.');
-                    isValid = false;
-                }
-
-                // Validate Location
-                var location = $('#location').val();
-                if (location === '') {
-                    alert('Location is required.');
-                    isValid = false;
-                }
-
-                // Validate Description
-                var description = $('#description').val().trim();
-                if (description === '') {
-                    alert('Description is required.');
-                    isValid = false;
-                }
-
-                // Validate Fixed fields if Fixed job type is selected
-                if ($('#job_type').val() === 'fixed') {
-                    var budget = $('#budget').val().trim();
-                    if (budget === '' || parseFloat(budget) <= 0) {
-                        alert('Please enter a valid budget.');
-                        isValid = false;
-                    }
-                }
-
-                // Validate Hourly fields if Hourly job type is selected
-                if ($('#job_type').val() === 'hourly') {
-                    var hourlyRate = $('#hourly_rate').val().trim();
-                    var estimatedHours = $('#estimated_hours_per_week').val().trim();
-                    if (hourlyRate === '' || parseFloat(hourlyRate) <= 0) {
-                        alert('Please enter a valid hourly rate.');
-                        isValid = false;
-                    }
-                    if (estimatedHours === '' || parseFloat(estimatedHours) <= 0) {
-                        alert('Please enter valid estimated hours per week.');
-                        isValid = false;
-                    }
-                }
-
-                // If any validation fails, prevent form submission
-                if (!isValid) {
-                    event.preventDefault();
-                }
-            });
+    $(document).ready(function() {
+        $('#job_type').on('change', function() {
+            var jobType = $(this).val();
+            if (jobType == 'fixed') {
+                $('#fixed-fields').show();
+                $('#budget').attr('required', true);
+                $('#hourly-fields').hide();
+                $('#hourly_rate, #estimated_hours_per_week').removeAttr('required');
+            } else if (jobType == 'hourly') {
+                $('#fixed-fields').hide();
+                $('#budget').removeAttr('required');
+                $('#hourly-fields').show();
+                $('#hourly_rate, #estimated_hours_per_week').attr('required', true);
+            } else {
+                $('#fixed-fields').hide();
+                $('#budget').removeAttr('required');
+                $('#hourly-fields').hide();
+                $('#hourly_rate, #estimated_hours_per_week').removeAttr('required');
+            }
         });
 
+          $(document).ready(function() {
+        $('#skills').select2({
+            placeholder: "Select skills",
+            allowClear: true,
+            templateSelection: function(data, container) {
+                $(container).addClass('rounded-pill');
+                return data.text;
+            }
+        });
+      });
+    });
   </script>
 </main>
 <?php include PARTIAL_PATH . 'footer.php'; ?>
+
