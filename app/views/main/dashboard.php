@@ -31,8 +31,6 @@ require_once PARTIAL_PATH . 'navbar.php';
             </div>
         </div>
 
-
-
         <!-- Job Feedback Section -->
         <div class="row mt-4">
             <div class="col-12">
