@@ -21,17 +21,20 @@ $routes = [
   '/se265-capstone/login' => 'users-controller@renderLogin',
   '/se265-capstone/signup' => 'users-controller@renderSignup',
   '/se265-capstone/check-signup' => 'users-controller@renderCheckSignup',
+  '/se265-capstone/submit-signup' => 'users-controller@renderSubmitSignup',
   '/se265-capstone/logout' => 'users-controller@renderLogout',
   '/se265-capstone/find-people' => 'users-controller@renderFindPeople',
   '/se265-capstone/user-profile' => 'users-controller@renderUserProfile',
   '/se265-capstone/edit-profile' => 'users-controller@renderEditProfile',
   '/se265-capstone/check-edit-profile' => 'users-controller@renderCheckEditProfile',
+  '/se265-capstone/submit-edit-profile' => 'users-controller@renderSubmitEditProfile',
   '/se265-capstone/change-password' => 'users-controller@renderChangePassword',
   '/se265-capstone/delete-profile' => 'users-controller@renderDeleteProfile',
 
   '/se265-capstone/jobs' => 'jobs-controller@renderJobs',
   '/se265-capstone/add-job' => 'jobs-controller@renderAddJob',
-  '/se265-capstone/job-info' => 'jobs-controller@renderJobInfo'
+  '/se265-capstone/job-info' => 'jobs-controller@renderJobInfo',
+  '/se265-capstone/add-review' => 'jobs-controller@renderAddReview',
 ];
 
 try {

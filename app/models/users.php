@@ -171,6 +171,17 @@ function userExistsByEmailEdit($email, $currentId) {
   return ['success' => true, 'message' => ''];
 }
 
+function changePassword($id, $newPassword) {
+  global $db;
+  $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+
+  $stmt = $db->prepare("UPDATE Users SET password = :p WHERE user_id = :id");
+  $stmt->bindValue(':p', $hashedPassword);
+  $stmt->bindValue(':id', $id);
+
+  return $stmt->execute();
+}
+
 function deleteUser($id) {
   global $db;
 

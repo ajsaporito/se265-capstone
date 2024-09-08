@@ -1,6 +1,8 @@
 $(document).ready(function() {
   $('#signUpForm').on('submit', function(e) {
+    e.preventDefault();
     let isValid = true;
+
     let firstNameError = '';
     let lastNameError = '';
     let usernameError = '';
@@ -117,34 +119,31 @@ $(document).ready(function() {
     }
 
     // Check if username and email are already taken
-    $.ajax({
-      type: 'POST',
-      url: '/se265-capstone/check-signup',
-      data: $('#signUpForm').serialize(),
-      dataType: 'json',
-      success: function (response) {
-        isValid = false;
-        if (!response.success) {
-          if (response.usernameError !== '') {
-            $('#usernameError').html(response.usernameError);
-            $('#username').addClass('signup-input-error');
+    if (isValid) {
+      $.ajax({
+        type: 'POST',
+        url: '/se265-capstone/check-signup',
+        data: $('#signUpForm').serialize(),
+        dataType: 'json',
+        success: function (response) {
+          if (!response.success) {
+            if (response.usernameError !== undefined) {
+              $('#usernameError').html(response.usernameError);
+              $('#username').addClass('signup-input-error');
+            }
+      
+            if (response.emailError !== undefined) {
+              $('#emailError').html(response.emailError);
+              $('#email').addClass('signup-input-error');
+            }
           } else {
-            $('#username').removeClass('signup-input-error');
-            $('#usernameError').html('');
+            let formData = $('#signUpForm').serialize();
+            let url = '/se265-capstone/submit-signup?' + formData;
+            window.location.href = url;
           }
-    
-          if (response.emailError !== '') {
-            $('#emailError').html(response.emailError);
-            $('#email').addClass('signup-input-error');
-          } else {
-            $('#email').removeClass('signup-input-error');
-            $('#emailError').html('');
-          }
-        } else {
-          isValid = true;
         }
-      }
-    });
+      });
+    } 
 
     // Clear errors when typed in again
     $('#firstName').on('keyup', function() {
@@ -188,10 +187,5 @@ $(document).ready(function() {
         $('#confirmPasswordError').html('');
       }
     });
-
-    // Prevent form submission if there are errors
-    if (!isValid) {
-      e.preventDefault();
-    }
-  })
+  });
 });

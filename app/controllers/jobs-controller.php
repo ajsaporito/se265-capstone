@@ -39,24 +39,25 @@ function renderJobInfo() {
     if ($job) {
       // Determine the pay based on job type
       if ($job['job_type'] == 'fixed') {
-          $pay = '$' . number_format($job['budget'], 2);
+        $pay = '$' . number_format($job['budget'], 2);
       } elseif ($job['job_type'] == 'hourly') {
-          $pay = '$' . number_format($job['hourly_rate'], 2) . '/hr';
+        $pay = '$' . number_format($job['hourly_rate'], 2) . '/hr';
       } else {
-          $pay = 'N/A'; // In case job_type is neither 'fixed' nor 'hourly'
+        $pay = 'N/A';
       }
     }
+  }
 
-    if ($job) {
-        $title = $job['title'] . ' - Job Details';
-    } else {
-        header('Location: /se265-capstone/404');
-        exit();
-    }
-
-    require VIEW_PATH . 'jobs/job-info.php';
- }
+  require VIEW_PATH . 'jobs/job-info.php';
 }
 
+function renderAddReview() {
+  include MODEL_PATH . 'jobs.php';
 
-?>
+  if (!isset($_SESSION['user_id'])) {
+    header('Location: /se265-capstone/login');
+    exit();
+  }
+
+  require VIEW_PATH . 'jobs/add-review.php';
+}
