@@ -33,9 +33,7 @@ $routes = [
 
   '/se265-capstone/jobs' => 'jobs-controller@renderJobs',
   '/se265-capstone/add-job' => 'jobs-controller@renderAddJob',
-  '/se265-capstone/job-info' => 'jobs-controller@renderJobInfo',
-  
-  '/se265-capstone/add-review' => 'jobs-controller@renderAddReview',
+  '/se265-capstone/job-info' => 'jobs-controller@renderJobInfo'
 ];
 
 try {
