@@ -49,11 +49,11 @@ include PARTIAL_PATH . 'navbar.php';
                     <h5>Completed By:</h5>
                 </div>
                 <ul>
-                    
+                    <li><?= htmlspecialchars($contractor['first_name']) . ' ' . htmlspecialchars($contractor['last_name']); ?></li>
+                    <li>Email: <?= htmlspecialchars($contractor['email']); ?></li>
                 </ul>
-
             </div>
-        </div>
+
     </div>
 </main>
 <?php include PARTIAL_PATH . 'footer.php'; ?>

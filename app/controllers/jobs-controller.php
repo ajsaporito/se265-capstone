@@ -8,11 +8,12 @@ function renderJobs() {
       exit();
   }
 
-  // Fetch only open jobs
-  $jobs = getJobsByStatus($_SESSION['user_id'], 'open');
+  // Fetch all open jobs
+  $jobs = getAllOpenJobs();
 
   require VIEW_PATH . 'jobs/jobs.php';
 }
+
 
 /*
 function renderAddJob() {
@@ -226,29 +227,7 @@ function renderClientOpenJobs() {
 }
 
 
-//AJAX request to request a job 
-/*
-function handleJobRequest() {
-  include MODEL_PATH . 'jobs.php';
 
-  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-      $job_id = $_POST['job_id'];
-      $requested_by = $_POST['requested_by'];
-
-      // Check if the user has already requested this job
-      if (!hasUserRequestedJob($requested_by, $job_id)) {
-          // Add request to the Requests table
-          addJobRequest($job_id, $requested_by);
-          echo json_encode(['status' => 'success']);
-      } else {
-          echo json_encode(['status' => 'already_requested']);
-      }
-  } else {
-      echo json_encode(['status' => 'error']);
-  }
-  exit();
-}
-*/
 
 //New Ajax request to request a job or accept a job request
 function handleJobRequest() {
@@ -333,6 +312,7 @@ function getJobRequestsByClient($client_id) {
 //For Client's completed jobs
 function renderClientCompletedJobs () {
   include MODEL_PATH . 'jobs.php';
+  include MODEL_PATH . 'users.php';  // Include users model to fetch contractor details
 
   if (!isset($_SESSION['user_id'])) {
       header('Location: /se265-capstone/login');
@@ -362,7 +342,78 @@ function renderClientCompletedJobs () {
     }
   }
 
- // Pass the job, pay, and requests to the view
-  require VIEW_PATH . 'jobs/client-completed-jobs.php';
+  // Fetch the contractor (user) who completed the job
+  $contractor = getUserById($job['contractor_id']);
 
+  // Debugging to check if contractor data is being fetched correctly
+if (!$contractor) {
+  echo "No contractor found for this job.";
+  return;
 }
+
+  // Pass the job, pay, and contractor to the view
+  require VIEW_PATH . 'jobs/client-completed-jobs.php';
+}
+
+
+function markJobAsCompleted() {
+  include MODEL_PATH . 'jobs.php';
+  global $db;
+
+  // Clear any previous output to ensure we send only JSON
+  ob_clean();
+
+  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+      $job_id = $_POST['job_id'];
+
+      try {
+          $db->beginTransaction();
+
+          // Update the job status to 'complete'
+          $stmt = $db->prepare("UPDATE Jobs SET status = 'complete' WHERE job_id = :job_id");
+          $stmt->execute([':job_id' => $job_id]);
+
+          $db->commit();
+
+          // Return success response
+          echo json_encode(['status' => 'success']);
+      } catch (Exception $e) {
+          $db->rollBack();
+          // Log error and return an error message
+          error_log("Failed to mark job as completed: " . $e->getMessage());
+          echo json_encode(['status' => 'error', 'message' => 'Database update failed.']);
+      }
+  } else {
+      echo json_encode(['status' => 'error', 'message' => 'Invalid request method.']);
+  }
+  exit();
+}
+
+
+
+
+
+
+//AJAX request to request a job OLD
+/*
+function handleJobRequest() {
+  include MODEL_PATH . 'jobs.php';
+
+  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+      $job_id = $_POST['job_id'];
+      $requested_by = $_POST['requested_by'];
+
+      // Check if the user has already requested this job
+      if (!hasUserRequestedJob($requested_by, $job_id)) {
+          // Add request to the Requests table
+          addJobRequest($job_id, $requested_by);
+          echo json_encode(['status' => 'success']);
+      } else {
+          echo json_encode(['status' => 'already_requested']);
+      }
+  } else {
+      echo json_encode(['status' => 'error']);
+  }
+  exit();
+}
+*/

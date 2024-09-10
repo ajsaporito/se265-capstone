@@ -13,6 +13,19 @@ if ($sql->execute() && $sql->rowCount() > 0) {
 return $result;
 }
 
+function getAllOpenJobs() {
+    global $db;
+    $stmt = $db->prepare("
+        SELECT Jobs.*, Users.first_name, Users.last_name 
+        FROM Jobs 
+        JOIN Users ON Jobs.posted_by = Users.user_id
+        WHERE Jobs.status = 'open'
+        ORDER BY Jobs.date_posted DESC
+    ");
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
 
 
 function getJobsByStatus($user_id, $status) {
@@ -118,4 +131,34 @@ function getJobRequestsByJobId($job_id) {
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 //****************************************************************************************** 
+
+
+function getJobByIdWithContractor($job_id) {
+    global $db;
+
+    $stmt = $db->prepare("
+        SELECT Jobs.*, 
+               Users.first_name AS contractor_first_name, 
+               Users.last_name AS contractor_last_name 
+        FROM Jobs 
+        JOIN Users ON Jobs.contractor_id = Users.user_id 
+        WHERE Jobs.job_id = :job_id
+    ");
+    $stmt->bindParam(':job_id', $job_id, PDO::PARAM_INT);
+    $stmt->execute();
+
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+//******************************************************************************************** */
+
+//9/9/2024 for CLIENT-COMPLETED-JOBS.PHP
+function updateJobStatus($job_id, $status) {
+    global $db;
+
+    $stmt = $db->prepare("UPDATE Jobs SET status = :status WHERE job_id = :job_id");
+    return $stmt->execute([':status' => $status, ':job_id' => $job_id]);
+}
+
+
 ?>
