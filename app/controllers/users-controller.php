@@ -131,7 +131,7 @@ function renderFindPeople() {
 
   require VIEW_PATH . 'users/user-profile.php';
 }*/
-
+/*
 function renderUserProfile() {
   include MODEL_PATH . 'users.php';
 
@@ -151,6 +151,41 @@ function renderUserProfile() {
     }
   } 
     require VIEW_PATH . 'users/user-profile.php';
+}
+*/
+
+function renderUserProfile() {
+  include MODEL_PATH . 'users.php';
+  include MODEL_PATH . 'reviews.php'; // Ensure this is included to access the reviews functions
+
+  if (isset($_GET['id'])) {
+      $userId = $_GET['id'];
+      $user = getUserById($userId);
+
+      if ($user) {
+          // Fetch completed jobs for this user
+          $completedJobs = getCompletedJobsByUserId($userId);
+
+          foreach ($completedJobs as $index => $job) {
+              // Fetch reviews associated with each job
+              $reviews = getReviewsByJobId($job['job_id']);
+              $completedJobs[$index]['reviews'] = $reviews;
+          }
+
+          // Fetch the overall average ratings for the user
+          $averageRatings = getAverageRatingsByUserId($userId);
+
+          // Fetch all individual reviews for the user
+          $userReviews = getReviewsByUserId($userId);
+
+          // Pass data to the view
+          require VIEW_PATH . 'users/user-profile.php';
+      } else {
+          echo "User not found.";
+      }
+  } else {
+      echo "No user ID provided.";
+  }
 }
 
 

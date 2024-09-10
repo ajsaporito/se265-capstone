@@ -167,6 +167,55 @@ hr {
 }
 
 .stars {
-  color: rgb(163, 2, 232); /* Make the stars yellow */
+  color: rgb(163, 2, 232); /* Make the stars purple */
   font-size: 20px; /* Adjust the size as needed */
+}
+
+
+
+.user-bio-card {
+  background-color: #f7f7f9;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+}
+
+.user-bio-card:hover {
+  transform: translateY(-5px);
+}
+
+.user-name {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.user-email {
+  font-size: 1rem;
+  font-weight: 400;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.section-divider {
+  margin: 10px 0;
+}
+
+.ratings-list li {
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.ratings-list li:before {
+  content: "\2605"; /* Unicode star character */
+  color: rgb(163, 2, 232); /* Gold color */
+  margin-right: 5px;
+  font-size: 1.2rem;
+}
+
+#bio-card-body {
+  padding: 20px;
+  text-align: center;
 }

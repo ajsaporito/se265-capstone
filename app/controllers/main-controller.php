@@ -58,3 +58,29 @@ function renderAbout() {
 function renderContact() {
   require VIEW_PATH . 'static/contact.php';
 }
+
+
+function generateStarRating($rating) {
+  $fullStars = floor($rating); // Full stars
+  $halfStar = ($rating - $fullStars) >= 0.5 ? 1 : 0; // Half star if the decimal is >= 0.5
+  $emptyStars = 5 - ($fullStars + $halfStar); // Remaining empty stars
+
+  $starsHTML = '';
+
+  // Generate full stars
+  for ($i = 0; $i < $fullStars; $i++) {
+      $starsHTML .= '<span class="fa fa-star checked"></span>';
+  }
+
+  // Generate half star if applicable
+  if ($halfStar) {
+      $starsHTML .= '<span class="fa fa-star-half-alt checked"></span>';
+  }
+
+  // Generate empty stars
+  for ($i = 0; $i < $emptyStars; $i++) {
+      $starsHTML .= '<span class="fa fa-star"></span>';
+  }
+
+  return $starsHTML;
+}
