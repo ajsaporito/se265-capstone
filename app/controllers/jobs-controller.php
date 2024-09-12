@@ -389,6 +389,30 @@ function markJobAsCompleted() {
   exit();
 }
 
+function deleteJob() {
+  include MODEL_PATH . 'jobs.php';
+  global $db;
+
+  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+      $job_id = $_POST['job_id'];
+
+      try {
+          // Delete the job from the database
+          $stmt = $db->prepare("DELETE FROM Jobs WHERE job_id = :job_id AND status = 'open'");
+          $stmt->bindParam(':job_id', $job_id, PDO::PARAM_INT);
+          if ($stmt->execute()) {
+              echo json_encode(['status' => 'success']);
+          } else {
+              echo json_encode(['status' => 'error', 'message' => 'Failed to delete job.']);
+          }
+      } catch (Exception $e) {
+          echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);
+      }
+  } else {
+      echo json_encode(['status' => 'error', 'message' => 'Invalid request method.']);
+  }
+  exit();
+}
 
 
 

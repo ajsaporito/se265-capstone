@@ -39,6 +39,7 @@ done:
 - client-completed jobs has been made 
 - user profile cards stack horizontally now
 
+***9/10/24 add a delete button***
 
 
 

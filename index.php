@@ -28,17 +28,18 @@ $routes = [
   '/se265-capstone/check-edit-profile' => 'users-controller@renderCheckEditProfile',
   '/se265-capstone/change-password' => 'users-controller@renderChangePassword',
   '/se265-capstone/delete-profile' => 'users-controller@renderDeleteProfile',
+  '/se265-capstone/mark-job-complete' => 'jobs-controller@markJobAsCompleted',
+
 
   '/se265-capstone/jobs' => 'jobs-controller@renderJobs',
   '/se265-capstone/add-job' => 'jobs-controller@renderAddJob',
   '/se265-capstone/job-info' => 'jobs-controller@renderJobInfo',
   '/se265-capstone/request-job' => 'jobs-controller@handleJobRequest',
   '/se265-capstone/client-open-jobs' => 'jobs-controller@renderClientOpenJobs',
+  '/se265-capstone/delete-job' => 'jobs-controller@deleteJob',
   '/se265-capstone/handle-job-request' => 'jobs-controller@handleJobRequest',
   '/se265-capstone/client-completed-jobs' => 'jobs-controller@renderClientCompletedJobs',
-  '/se265-capstone/mark-job-complete' => 'jobs-controller@markJobAsCompleted'
-
-
+  
 
 ];
 

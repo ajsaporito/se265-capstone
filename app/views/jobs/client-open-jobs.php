@@ -65,6 +65,8 @@ include PARTIAL_PATH . 'navbar.php';
                 <?php endif; ?>
             </div>
         </div>
+         <!-- Delete button -->
+         <button id="delete-job-btn" class="btn btn-danger" data-job-id="<?= htmlspecialchars($job['job_id']); ?>">Delete Job</button>
     </div>
 </main>
 
@@ -104,8 +106,39 @@ $(document).on('click', '.accept-request-btn', function () {
         }
     });
 });
+</script>
 
-
-
-
+<script>
+    $(document).on('click', '#delete-job-btn', function (e) {
+        e.preventDefault();
+        var jobId = $(this).data('job-id'); // Get the job ID from the button's data attribute
+        
+        if (confirm("Are you sure you want to delete this job?")) {
+            $.ajax({
+                type: 'POST',
+                url: '/se265-capstone/delete-job', // The route that handles the deletion
+                data: { job_id: jobId },
+                success: function (response) {
+                    try {
+                        if (typeof response !== 'object') {
+                            response = JSON.parse(response);
+                        }
+                        if (response.status === 'success') {
+                            alert('Job deleted successfully!');
+                            window.location.href = '/se265-capstone'; // Redirect to job list
+                        } else {
+                            alert('There was an error deleting the job: ' + response.message);
+                        }
+                    } catch (e) {
+                        console.error('Error parsing response: ', e);
+                        alert('There was an error processing the response.');
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error('XHR Error:', xhr, status, error);
+                    alert('An error occurred while processing the request.');
+                }
+            });
+        }
+    });
 </script>

@@ -161,4 +161,13 @@ function updateJobStatus($job_id, $status) {
 }
 
 
+//******************************************************************************************** */
+//Delete job by job ID - dashboard.php
+function deleteJobById($job_id) {
+    global $db;
+    $stmt = $db->prepare("DELETE FROM Jobs WHERE job_id = :job_id");
+    $stmt->bindValue(':job_id', $job_id, PDO::PARAM_INT);
+    return $stmt->execute();
+}
+
 ?>

@@ -111,17 +111,18 @@ require_once PARTIAL_PATH . 'navbar.php';
                             <?php if (!empty($inProgressJobs)): ?>
                                 <?php foreach ($inProgressJobs as $job): ?>
                                     <div class="card mb-4 job-card">
-                                        <div class="card-body">
-                                            <h5 class="card-title oxygen-bold"><?= htmlspecialchars($job['title']); ?></h5>
-                                            <h6 class="mt-3 oxygen-bold">Job Description:</h6>
-                                            <p class="card-text"><?= htmlspecialchars($job['description']); ?></p>
-                                            <p><strong>Assigned to:</strong> <?= htmlspecialchars($job['first_name'] . ' ' . $job['last_name']); ?></p>
-                                            <small class="text-muted">Posted on <?= htmlspecialchars($job['date_posted']); ?></small>
-                                           
-                                        </div>
-                                        <!-- Button aligned to the bottom-right -->
-                                        <div>
-                                            <button id="marked-completed-button" class="btn btn-success mark-completed-btn" data-job-id="<?= htmlspecialchars($job['job_id']); ?>">Mark as Completed</button>
+                                        <div class="card-body d-flex justify-content-between">
+                                            <div>
+                                                <h5 class="card-title oxygen-bold"><?= htmlspecialchars($job['title']); ?></h5>
+                                                <h6 class="mt-3 oxygen-bold">Job Description:</h6>
+                                                <p class="card-text"><?= htmlspecialchars($job['description']); ?></p>
+                                                <p><strong>Assigned to:</strong> <?= htmlspecialchars($job['first_name'] . ' ' . $job['last_name']); ?></p>
+                                                <small class="text-muted">Posted on <?= htmlspecialchars($job['date_posted']); ?></small>
+                                            </div>
+                                            <!-- Button aligned to the bottom-right -->
+                                            <div class="ml-auto">
+                                                <button id="marked-completed-button" class="btn btn-success mark-completed-btn" data-job-id="<?= htmlspecialchars($job['job_id']); ?>">Mark as Completed</button>
+                                            </div>
                                         </div>
                                     </div>
                                 <?php endforeach; ?>
@@ -135,6 +136,7 @@ require_once PARTIAL_PATH . 'navbar.php';
             </div>
         </div>
 
+
         <!-- Open Jobs Section -->
         <div class="row mt-4" id="open-jobs-section">
             <div class="col-12">
@@ -145,13 +147,15 @@ require_once PARTIAL_PATH . 'navbar.php';
                             <?php if (!empty($openJobs)): ?>
                                 <?php foreach ($openJobs as $job): ?>
                                     <div class="card mb-4 job-card">
-                                        <div class="card-body">
-                                            <h5 class="card-title oxygen-bold"><?= htmlspecialchars($job['title']); ?></h5>
-                                            <h6 class="mt-3 oxygen-bold">Job Description:</h6>
-                                            <p class="card-text"><?= htmlspecialchars($job['description']); ?></p>
-                                            <small class="text-muted">Posted on <?= htmlspecialchars($job['date_posted']); ?></small>
-                                            <a href="/se265-capstone/client-open-jobs?job_id=<?= htmlspecialchars($job['job_id']); ?>" class="stretched-link"></a>
+                                        <div class="card-body d-flex justify-content-between">
+                                            <div>
+                                                <h5 class="card-title oxygen-bold"><?= htmlspecialchars($job['title']); ?></h5>
+                                                <h6 class="mt-3 oxygen-bold">Job Description:</h6>
+                                                <p class="card-text"><?= htmlspecialchars($job['description']); ?></p>
+                                                <small class="text-muted">Posted on <?= htmlspecialchars($job['date_posted']); ?></small>
+                                            </div>
                                         </div>
+                                        <a href="/se265-capstone/client-open-jobs?job_id=<?= htmlspecialchars($job['job_id']); ?>" class="stretched-link"></a>
                                     </div>
                                 <?php endforeach; ?>
                             <?php else: ?>
@@ -163,11 +167,15 @@ require_once PARTIAL_PATH . 'navbar.php';
                 </div>
             </div>
         </div>
+
     </div>
 </main>
 
 <?php include PARTIAL_PATH . 'footer.php'; ?>
 
+<!-- Custom JavaScript for Dashboard Page -->
+
+<!-- Mark Job as Completed Button Logic -->
 <script>
     $(document).on('click', '.mark-completed-btn', function () {
         var jobId = $(this).data('job-id'); // Get the job ID from the button's data attribute
@@ -202,6 +210,7 @@ require_once PARTIAL_PATH . 'navbar.php';
     });
 </script>
 
+<!-- Toggle Logic for Job Sections -->
 <script>
     $(document).ready(function () {
         // Toggle logic for Completed Jobs
@@ -264,4 +273,41 @@ require_once PARTIAL_PATH . 'navbar.php';
             }
         });
     });
+</script>
+
+<!-- Delete Job Button Logic -->
+<script>
+$(document).on('click', '.delete-job-btn', function (e) {
+    e.stopPropagation(); // Stop the click event from bubbling up to the card's stretched link
+    var jobId = $(this).data('job-id'); // Get the job ID from the button's data attribute
+    
+    if (confirm("Are you sure you want to delete this job?")) {
+        $.ajax({
+            type: 'POST',
+            url: '/se265-capstone/delete-job', // The route that handles the deletion
+            data: { job_id: jobId },
+            success: function (response) {
+                try {
+                    if (typeof response !== 'object') {
+                        response = JSON.parse(response);
+                    }
+                    if (response.status === 'success') {
+                        alert('Job deleted successfully!');
+                        location.reload(); // Reload the page or update the UI as needed
+                    } else {
+                        alert('There was an error deleting the job: ' + response.message);
+                    }
+                } catch (e) {
+                    console.error('Error parsing response: ', e);
+                    alert('There was an error processing the response.');
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error('XHR Error:', xhr, status, error);
+                alert('An error occurred while processing the request.');
+            }
+        });
+    }
+});
+
 </script>

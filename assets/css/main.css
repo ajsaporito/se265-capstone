@@ -172,7 +172,7 @@ hr {
 }
 
 
-/* User-bio on Dashboard.php*/
+/* User-bio on Dashboard.php ADDED 9/08/24*/
 .user-bio-card {
   background-color: #f7f7f9;
   padding: 20px;
@@ -222,7 +222,7 @@ hr {
 /****************************************************************************************/
 
 
-/* Styling for the Job inprogress Card */
+/* Styling for the Job inprogress Card ADDED 9/09/24*/
 @media (max-width: 576px) {
   .mark-completed-btn {
     width: 100%; /* Makes the button take full width on small screens */
