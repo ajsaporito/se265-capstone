@@ -42,12 +42,20 @@ require_once PARTIAL_PATH . 'navbar.php';
                                 <?php foreach ($reviews as $review): ?>
                                     <div class="card mt-3 job-card">
                                         <div class="card-body">
-                                            <h6 class="card-subtitle mb-2 text-muted">Reviewed by: <?= htmlspecialchars($review['first_name'] . ' ' . $review['last_name']); ?></h6>
-                                            <p class="card-text">
-                                                <strong>Communication:</strong> <?= renderStars($review['communication']); ?><br>
-                                                <strong>Time Management:</strong> <?= renderStars($review['time_management']); ?><br>
-                                                <strong>Quality:</strong> <?= renderStars($review['quality']); ?><br>
-                                                <strong>Professionalism:</strong> <?= renderStars($review['professionalism']); ?><br>
+                                                <h6 class="card-subtitle mb-2 text-muted">Reviewed by: <?= htmlspecialchars($review['first_name'] . ' ' . $review['last_name']); ?></h6>
+                                                <p class="card-text">
+                                                <strong>Communication:</strong> 
+                                                <?= isset($review['communication']) ? renderStars($review['communication']) : 'N/A'; ?>
+                                                <br>
+                                                <strong>Time Management:</strong> 
+                                                <?= isset($review['time_management']) ? renderStars($review['time_management']) : 'N/A'; ?>
+                                                <br>
+                                                <strong>Quality:</strong> 
+                                                <?= isset($review['quality']) ? renderStars($review['quality']) : 'N/A'; ?>
+                                                <br>
+                                                <strong>Professionalism:</strong> 
+                                                <?= isset($review['professionalism']) ? renderStars($review['professionalism']) : 'N/A'; ?>
+                                                <br>                                           
                                                 <div class="mt-3">
                                                     <strong>Comments:</strong>   
                                                 </div>

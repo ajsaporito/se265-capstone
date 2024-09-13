@@ -63,11 +63,22 @@ include PARTIAL_PATH . 'navbar.php';
                       <h6 class="oxygen-bold">Reviews</h6>
                       <ul class="list-unstyled">
                         <?php foreach ($job['reviews'] as $review): ?>
-                          <li>Communication: <?= renderStars($review['communication']); ?> <?= $review['communication']; ?> / 5</li>
-                          <li>Time Management: <?= renderStars($review['time_management']); ?> <?= $review['time_management']; ?> / 5</li>
-                          <li>Quality: <?= renderStars($review['quality']); ?> <?= $review['quality']; ?> / 5</li>
-                          <li>Professionalism: <?= renderStars($review['professionalism']); ?> <?= $review['professionalism']; ?> / 5</li>
-                          <li>Comments: <?= htmlspecialchars($review['comments']); ?></li>
+                          <strong>Communication:</strong> 
+                          <?= isset($review['communication']) ? renderStars($review['communication']) : 'N/A'; ?>
+                          <br>
+
+                          <strong>Time Management:</strong> 
+                          <?= isset($review['time_management']) ? renderStars($review['time_management']) : 'N/A'; ?>
+                          <br>
+
+                          <strong>Quality:</strong> 
+                          <?= isset($review['quality']) ? renderStars($review['quality']) : 'N/A'; ?>
+                          <br>
+
+                          <strong>Professionalism:</strong> 
+                          <?= isset($review['professionalism']) ? renderStars($review['professionalism']) : 'N/A'; ?>
+                          <br>
+
                         <?php endforeach; ?>
                       </ul>
                     <?php else: ?>
