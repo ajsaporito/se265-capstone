@@ -31,7 +31,6 @@ require_once PARTIAL_PATH . 'navbar.php';
             </div>
         </div>
 
-        <!-- Job Feedback Section -->
         <div class="row mt-4" id="feedback-section">
             <div class="col-12">
                 <div class="card oxygen-regular">
@@ -42,23 +41,24 @@ require_once PARTIAL_PATH . 'navbar.php';
                                 <?php foreach ($reviews as $review): ?>
                                     <div class="card mt-3 job-card">
                                         <div class="card-body">
-                                                <h6 class="card-subtitle mb-2 text-muted">Reviewed by: <?= htmlspecialchars($review['first_name'] . ' ' . $review['last_name']); ?></h6>
-                                                <p class="card-text">
+                                            <h6 class="card-subtitle mb-2 text-muted">Reviewed by: <?= htmlspecialchars($review['first_name'] . ' ' . $review['last_name']); ?></h6>
+                                            <p class="card-text">
                                                 <strong>Communication:</strong> 
-                                                <?= isset($review['communication']) ? renderStars($review['communication']) : 'N/A'; ?>
+                                                <?= isset($review['communication']) && $review['communication'] !== null ? number_format($review['communication'], 1) : 'N/A'; ?> / 5
                                                 <br>
+
                                                 <strong>Time Management:</strong> 
-                                                <?= isset($review['time_management']) ? renderStars($review['time_management']) : 'N/A'; ?>
+                                                <?= isset($review['time_management']) && $review['time_management'] !== null ? number_format($review['time_management'], 1) : 'N/A'; ?> / 5
                                                 <br>
+
                                                 <strong>Quality:</strong> 
-                                                <?= isset($review['quality']) ? renderStars($review['quality']) : 'N/A'; ?>
+                                                <?= isset($review['quality']) && $review['quality'] !== null ? number_format($review['quality'], 1) : 'N/A'; ?> / 5
                                                 <br>
+
                                                 <strong>Professionalism:</strong> 
-                                                <?= isset($review['professionalism']) ? renderStars($review['professionalism']) : 'N/A'; ?>
-                                                <br>                                           
-                                                <div class="mt-3">
-                                                    <strong>Comments:</strong>   
-                                                </div>
+                                                <?= isset($review['professionalism']) && $review['professionalism'] !== null ? number_format($review['professionalism'], 1) : 'N/A'; ?> / 5
+                                                <br>
+
                                                 <?= htmlspecialchars($review['comments']); ?>
                                             </p>
                                         </div>
@@ -73,6 +73,8 @@ require_once PARTIAL_PATH . 'navbar.php';
                 </div>
             </div>
         </div>
+
+        
         <!-- Button to Add Job -->
         <div class="row">
             <div class="col-12">

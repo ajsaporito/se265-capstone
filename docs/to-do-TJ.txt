@@ -29,21 +29,23 @@ Trying setting boolean value to add the the rest to a list on dashboard.
 
 
 
-done:
+Done:
 -added model funtion for job skills 
 -finish the logic for displaying associated job skills 
-9/3/24
+9/3/24:
 - modify find jobs to ONLY pull in open jobs and make cards previews (x)
 - can now accept requests and they are moved into the in-progress page with users name
 - Add alert function to let user know job has been added (x)
 - client-completed jobs has been made 
 - user profile cards stack horizontally now
 
-***9/10/24 add a delete button***
+***9/10/24 added a delete button***
+
+
+****add logic to handle to handle null values in the reviews section****
 
 
 
 
 
-HI so now im working on the clients completed jobs page but I need to add something to the dashboard in the in progress-jobs section
 

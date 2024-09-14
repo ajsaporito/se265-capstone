@@ -175,6 +175,14 @@ function renderUserProfile() {
           // Fetch the overall average ratings for the user
           $averageRatings = getAverageRatingsByUserId($userId);
 
+          // Handle null values for ratings (set default values)
+          $averageRatings = [
+              'avg_communication' => isset($averageRatings['avg_communication']) ? $averageRatings['avg_communication'] : 0,
+              'avg_time_management' => isset($averageRatings['avg_time_management']) ? $averageRatings['avg_time_management'] : 0,
+              'avg_quality' => isset($averageRatings['avg_quality']) ? $averageRatings['avg_quality'] : 0,
+              'avg_professionalism' => isset($averageRatings['avg_professionalism']) ? $averageRatings['avg_professionalism'] : 0,
+          ];
+
           // Fetch all individual reviews for the user
           $userReviews = getReviewsByUserId($userId);
 
