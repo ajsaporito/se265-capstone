@@ -226,9 +226,6 @@ function renderClientOpenJobs() {
   require VIEW_PATH . 'jobs/client-open-jobs.php';
 }
 
-
-
-
 //New Ajax request to request a job or accept a job request
 function handleJobRequest() {
   include MODEL_PATH . 'jobs.php';
@@ -285,9 +282,6 @@ function handleJobRequest() {
   }
   exit();
 }
-
-
-
 
 // For the client to view job requests @ client-opend-jobs
 function renderClientJobRequests() {

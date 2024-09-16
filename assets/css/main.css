@@ -24,9 +24,7 @@
 }
 
 /* Moved over */
-
 /*USER CARD STYLES FOR FIND-PEOPLE PAGE*/
-
 .user-card {
   transition: transform 0.2s, box-shadow 0.2s;
   border: 5px solid transparent; /* Prepare the border to change color on hover */
@@ -75,7 +73,6 @@
 }
 
 /* Moved over */
-
 /****************************************************************************************/
 /*CSS styles for FIND-JOBS page:*/
 .job-card {
@@ -151,7 +148,6 @@ hr {
     }
   }
 
-
 #add-job-btn {
   margin-top: 1rem;
   padding: .5rem 1.4rem;  /* Increased padding for larger pills */
@@ -170,7 +166,6 @@ hr {
   color: rgb(163, 2, 232); /* Make the stars purple */
   font-size: 20px; /* Adjust the size as needed */
 }
-
 
 /* User-bio on Dashboard.php ADDED 9/08/24*/
 .user-bio-card {
@@ -220,8 +215,6 @@ hr {
   text-align: center;
 }
 /****************************************************************************************/
-
-
 /* Styling for the Job inprogress Card ADDED 9/09/24*/
 @media (max-width: 576px) {
   .mark-completed-btn {
@@ -235,9 +228,6 @@ hr {
   margin-right: 0; /* Ensures there's no extra margin on the right */
   text-align: center;
   white-space: nowrap; /* Prevent text wrapping */
-  
-  
-
 }
 
 .card {
@@ -246,12 +236,6 @@ hr {
   padding: 20px;
   margin-bottom: 20px;
 }
-
-
-
-
-
-
 
 /* General Styling for Job Cards */
 .job-list .job-card {

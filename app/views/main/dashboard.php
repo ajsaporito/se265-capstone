@@ -46,19 +46,15 @@ require_once PARTIAL_PATH . 'navbar.php';
                                                 <strong>Communication:</strong> 
                                                 <?= isset($review['communication']) && $review['communication'] !== null ? number_format($review['communication'], 1) : 'N/A'; ?> / 5
                                                 <br>
-
                                                 <strong>Time Management:</strong> 
                                                 <?= isset($review['time_management']) && $review['time_management'] !== null ? number_format($review['time_management'], 1) : 'N/A'; ?> / 5
                                                 <br>
-
                                                 <strong>Quality:</strong> 
                                                 <?= isset($review['quality']) && $review['quality'] !== null ? number_format($review['quality'], 1) : 'N/A'; ?> / 5
                                                 <br>
-
                                                 <strong>Professionalism:</strong> 
                                                 <?= isset($review['professionalism']) && $review['professionalism'] !== null ? number_format($review['professionalism'], 1) : 'N/A'; ?> / 5
                                                 <br>
-
                                                 <?= htmlspecialchars($review['comments']); ?>
                                             </p>
                                         </div>

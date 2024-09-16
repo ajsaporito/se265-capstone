@@ -18,14 +18,15 @@ function getAllOpenJobs() {
     $stmt = $db->prepare("
         SELECT Jobs.*, Users.first_name, Users.last_name 
         FROM Jobs 
-        JOIN Users ON Jobs.posted_by = Users.user_id
-        WHERE Jobs.status = 'open'
+        LEFT JOIN Users ON Jobs.posted_by = Users.user_id
+        WHERE Jobs.status = :status
         ORDER BY Jobs.date_posted DESC
     ");
-    $stmt->execute();
+    $stmt->execute([':status' => 'open']);
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    debug ($stmt);
+    
 }
-
 
 
 function getJobsByStatus($user_id, $status) {
@@ -40,8 +41,6 @@ function getJobsByStatus($user_id, $status) {
     $stmt->execute([':user_id' => $user_id, ':status' => $status]);
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
-
-
 
 function getJobById($job_id) {
     global $db;
@@ -64,7 +63,6 @@ function getJobById($job_id) {
     
     return $job;
 }
-
 
 // **8-17 For ADD-JOBS.php **
 function saveJobWithSkills($jobData, $skills) {
@@ -91,6 +89,7 @@ function saveJobWithSkills($jobData, $skills) {
         throw $e;
     }
 }
+
 // New 8-19 for ADD-JOB.php when selecting skills for jobs
 function getAllSkills() {
     global $db;
@@ -100,7 +99,6 @@ function getAllSkills() {
 
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
-
 
 // 8/25/24 for REQUEST-JOB.php AJAX CALL ****************************************************
 function hasUserRequestedJob($user_id, $job_id) {
@@ -117,7 +115,6 @@ function addJobRequest($job_id, $user_id) {
     return $stmt->execute([':job_id' => $job_id, ':user_id' => $user_id]);
 }
 
-
 function getJobRequestsByJobId($job_id) {
     global $db;
     $stmt = $db->prepare("
@@ -132,14 +129,13 @@ function getJobRequestsByJobId($job_id) {
 }
 //****************************************************************************************** 
 
-
 function getJobByIdWithContractor($job_id) {
     global $db;
 
     $stmt = $db->prepare("
         SELECT Jobs.*, 
-               Users.first_name AS contractor_first_name, 
-               Users.last_name AS contractor_last_name 
+            Users.first_name AS contractor_first_name, 
+            Users.last_name AS contractor_last_name 
         FROM Jobs 
         JOIN Users ON Jobs.contractor_id = Users.user_id 
         WHERE Jobs.job_id = :job_id
