@@ -64,7 +64,7 @@ include PARTIAL_PATH . 'navbar.php';
                 <div class="col-12">
                   <div class="row mx-1">
                     <span class="nav justify-content-center border-bottom mt-2 pb-3 mb-3"></span>
-                    <a style="color: #6643b5;" class="text-decoration-none text-center" href="/se265-capstone/edit-profile?id=<?= $id; ?>">Go Back Home</a>
+                    <a style="color: #6643b5;" class="text-decoration-none text-center" href="/se265-capstone">Go Back Home</a>
                   </div>
                 </div>
               </div>

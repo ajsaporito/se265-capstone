@@ -17,6 +17,7 @@ $routes = [
   '/se265-capstone/search' => 'main-controller@renderSearch',
   '/se265-capstone/about' => 'main-controller@renderAbout',
   '/se265-capstone/contact' => 'main-controller@renderContact',
+  '/se265-capstone/prototype' => 'main-controller@renderPrototype',
 
   '/se265-capstone/login' => 'users-controller@renderLogin',
   '/se265-capstone/signup' => 'users-controller@renderSignup',
@@ -34,6 +35,10 @@ $routes = [
   '/se265-capstone/jobs' => 'jobs-controller@renderJobs',
   '/se265-capstone/add-job' => 'jobs-controller@renderAddJob',
   '/se265-capstone/job-info' => 'jobs-controller@renderJobInfo',
+  '/se265-capstone/request-job' => 'jobs-controller@handleJobRequest',
+  '/se265-capstone/client-open-jobs' => 'jobs-controller@renderClientOpenJobs',
+  '/se265-capstone/handle-job-request' => 'jobs-controller@handleJobRequest',
+  '/se265-capstone/client-completed-jobs' => 'jobs-controller@renderClientCompletedJobs',
   
   '/se265-capstone/add-review' => 'jobs-controller@renderAddReview',
 ];

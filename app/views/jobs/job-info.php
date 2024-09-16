@@ -4,13 +4,13 @@ include PARTIAL_PATH . 'header.php';
 include PARTIAL_PATH . 'navbar.php';
 ?>
 <main id="contentContainer" class="flex-grow-1">
-  <div class="container py-5">
+  <div class="container py-5 oxygen-regular">
     <div class="card">
       <div class="card-body">
         <!-- Job Title and Pay -->
         <div class="row">
           <div class="col-md-8">
-            <h2 class="card-title"><?= htmlspecialchars($job['title']); ?></h2>
+            <h2 class="card-title oxygen-bold"><?= htmlspecialchars($job['title']); ?></h2>
             <p><strong>Location:</strong> <?= htmlspecialchars($job['location']); ?></p>
           </div>
           <div class="col-md-4 text-md-right">

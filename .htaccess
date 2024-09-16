@@ -4,8 +4,8 @@
   # Disable directory listing
   Options -Indexes
 
-  # Block access to app/ and docs/ directories
-  RewriteRule ^(app|docs) - [F,L]
+  # Block access to app/ directory
+  RewriteRule ^(app) - [F,L]
 
   # Block access to files starting with a '.'
   RewriteRule ^\. - [F,L]

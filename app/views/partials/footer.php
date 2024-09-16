@@ -13,7 +13,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a href="" class="nav-link px-2 text-white" target="_blank">
+        <a href="https://pixso.net/app/editor/Woy-xF2Fo1Omh3RwLZUebw?icon_type=1&page-id=16%3A102" class="nav-link px-2 text-white" target="_blank">
           <img src="assets/svgs/figma.svg" alt="Figma" width="20" height="20">
         </a>
       </li>

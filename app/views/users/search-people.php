@@ -5,7 +5,7 @@ include PARTIAL_PATH . 'navbar.php';
 ?>
 <main id="contentContainer" class="flex-grow-1">
   <div class="container py-5 oxygen-regular">
-    <h1 class="oxygen-bold mb-4">Find People</h1>
+    <h3 class="oxygen-bold mb-4">Your search: '<?php echo $search ?>'</h3>
     <?php if (!empty($users)): ?>
       <div class="card-columns">
         <?php foreach ($users as $user): ?>
