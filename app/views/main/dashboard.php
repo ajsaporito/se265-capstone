@@ -78,7 +78,7 @@ require_once PARTIAL_PATH . 'navbar.php';
             </div>
         </div>
 
-       <!-- Completed Jobs Section -->
+        <!-- Completed Jobs Section -->
         <div class="row mt-4" id="completed-jobs-section">
             <div class="col-12">
                 <div class="card oxygen-regular">
@@ -88,12 +88,18 @@ require_once PARTIAL_PATH . 'navbar.php';
                             <?php if (!empty($completedJobs)): ?>
                                 <?php foreach ($completedJobs as $job): ?>
                                     <div class="card mb-4 job-card">
-                                        <div class="card-body">
-                                            <h5 class="card-title oxygen-bold"><?= htmlspecialchars($job['title']); ?></h5>
-                                            <h6 class="mt-3 oxygen-bold">Job Description:</h6>
-                                            <p class="card-text"><?= htmlspecialchars($job['description']); ?></p>
-                                            <small class="text-muted">Posted on <?= htmlspecialchars($job['date_posted']); ?></small>
-                                            <a href="/se265-capstone/client-completed-jobs?job_id=<?= htmlspecialchars($job['job_id']); ?>" class="stretched-link"></a>
+                                        <div class="card-body d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <h5 class="card-title oxygen-bold">
+                                                    <a id="completed-jobs-link" href="/se265-capstone/client-completed-jobs?job_id=<?= htmlspecialchars($job['job_id']); ?>">
+                                                        <?= htmlspecialchars($job['title']); ?>
+                                                    </a>
+                                                </h5>
+                                                <h6 class="mt-3 oxygen-bold">Job Description:</h6>
+                                                <p class="card-text"><?= htmlspecialchars($job['description']); ?></p>
+                                                <small class="text-muted">Posted on <?= htmlspecialchars($job['date_posted']); ?></small>
+                                            </div>
+                                            <button id="review-btn" class="btn btn-success" data-job-id="">Leave a Review</button>
                                         </div>
                                     </div>
                                 <?php endforeach; ?>
@@ -106,8 +112,7 @@ require_once PARTIAL_PATH . 'navbar.php';
                 </div>
             </div>
         </div>
-
-     <!-- In-Progress Jobs Section -->
+        <!-- In-Progress Jobs Section -->
         <div class="row mt-4" id="in-progress-jobs-section">
             <div class="col-12">
                 <div class="card oxygen-regular">
@@ -117,7 +122,7 @@ require_once PARTIAL_PATH . 'navbar.php';
                             <?php if (!empty($inProgressJobs)): ?>
                                 <?php foreach ($inProgressJobs as $job): ?>
                                     <div class="card mb-4 job-card">
-                                        <div class="card-body d-flex justify-content-between">
+                                        <div class="card-body d-flex justify-content-between align-items-center">
                                             <div>
                                                 <h5 class="card-title oxygen-bold"><?= htmlspecialchars($job['title']); ?></h5>
                                                 <h6 class="mt-3 oxygen-bold">Job Description:</h6>
@@ -126,9 +131,7 @@ require_once PARTIAL_PATH . 'navbar.php';
                                                 <small class="text-muted">Posted on <?= htmlspecialchars($job['date_posted']); ?></small>
                                             </div>
                                             <!-- Button aligned to the bottom-right -->
-                                            <div class="ml-auto">
-                                                <button id="marked-completed-button" class="btn btn-success mark-completed-btn" data-job-id="<?= htmlspecialchars($job['job_id']); ?>">Mark as Completed</button>
-                                            </div>
+                                            <button id="marked-completed-button" class="btn btn-success mark-completed-btn" data-job-id="<?= htmlspecialchars($job['job_id']); ?>">Mark as Completed</button>
                                         </div>
                                     </div>
                                 <?php endforeach; ?>
@@ -141,8 +144,6 @@ require_once PARTIAL_PATH . 'navbar.php';
                 </div>
             </div>
         </div>
-
-
         <!-- Open Jobs Section -->
         <div class="row mt-4" id="open-jobs-section">
             <div class="col-12">
@@ -173,14 +174,12 @@ require_once PARTIAL_PATH . 'navbar.php';
                 </div>
             </div>
         </div>
-
     </div>
 </main>
 
 <?php include PARTIAL_PATH . 'footer.php'; ?>
 
 <!-- Custom JavaScript for Dashboard Page -->
-
 <!-- Mark Job as Completed Button Logic -->
 <script>
     $(document).on('click', '.mark-completed-btn', function () {

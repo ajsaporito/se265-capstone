@@ -222,12 +222,21 @@ hr {
     margin-top: 10px; /* Adds some spacing between button and content */
   }
 }
-
+#review-btn,
 #marked-completed-button {
   margin-left: auto; /* Pushes the button to the right */
   margin-right: 0; /* Ensures there's no extra margin on the right */
   text-align: center;
   white-space: nowrap; /* Prevent text wrapping */
+}
+
+/* Styling for the completed jobs link */
+#completed-jobs-link {
+  color: #000000;
+  text-decoration: none;
+}
+#completed-jobs-link:hover {
+  color: #6643b5;
 }
 
 .card {
@@ -257,6 +266,7 @@ hr {
 }
 
 /* Button hover effect */
+
 #toggle-completed-jobs:hover,
 #toggle-open-jobs:hover,
 #toggle-in-progress-jobs:hover,
@@ -287,3 +297,4 @@ button {
   margin: 0 auto;
   text-align: center;
 }
+
