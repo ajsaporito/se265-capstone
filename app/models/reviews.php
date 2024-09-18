@@ -2,18 +2,11 @@
 
 include CONFIG_PATH . 'db.php';
 
-function renderStars($rating) {
-  $fullStars = str_repeat('★', $rating);
-  $emptyStars = str_repeat('☆', 5 - $rating);
-  return '<span class="stars">' . $fullStars . $emptyStars . '</span>';
-}
-
 function getJobId($id) {
   global $db;
 
   $sql = $db->prepare("SELECT job_id FROM Jobs WHERE posted_by = :id");
   $sql->bindValue(':id', $id, PDO::PARAM_INT);
-
   $sql->execute();
 
   $result = $sql->fetchAll(PDO::FETCH_COLUMN, 0);
@@ -46,10 +39,10 @@ function UpdateReview($review_id, $communication, $time_management, $quality, $p
   $stmt = $db->prepare(
     'UPDATE Reviews
     SET communication = :communication,
-        time_management = :time_management,
-        quality = :quality,
-        professionalism = :professionalism,
-        comments = :comments 
+      time_management = :time_management,
+      quality = :quality,
+      professionalism = :professionalism,
+      comments = :comments 
     WHERE review_id = :review_id');
 
   $stmt->bindParam(':communication', $communication, PDO::PARAM_INT);
@@ -76,10 +69,10 @@ function getReviewsByUserId($user_id) {
   global $db;
 
   $stmt = $db->prepare("
-      SELECT Reviews.*, Users.first_name, Users.last_name
-      FROM Reviews
-      JOIN Users ON Reviews.reviewer_id = Users.user_id
-      WHERE Reviews.contractor_id = :user_id
+    SELECT Reviews.*, Users.first_name, Users.last_name
+    FROM Reviews
+    JOIN Users ON Reviews.reviewer_id = Users.user_id
+    WHERE Reviews.contractor_id = :user_id
   ");
   $stmt->execute([':user_id' => $user_id]);
 
@@ -89,31 +82,31 @@ function getReviewsByUserId($user_id) {
 function getAverageRatingsByUserId($user_id) {
   global $db;
   
-  // Fetch all reviews for the user
   $stmt = $db->prepare("
-      SELECT AVG(communication) AS avg_communication, 
-             AVG(time_management) AS avg_time_management, 
-             AVG(quality) AS avg_quality, 
-             AVG(professionalism) AS avg_professionalism 
-      FROM Reviews
-      WHERE contractor_id = :user_id
+    SELECT AVG(communication) AS avg_communication, 
+          AVG(time_management) AS avg_time_management, 
+          AVG(quality) AS avg_quality, 
+          AVG(professionalism) AS avg_professionalism 
+    FROM Reviews
+    WHERE contractor_id = :user_id
   ");
-  $stmt->execute([':user_id' => $user_id]);
 
+  $stmt->execute([':user_id' => $user_id]);
   $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
   return $result;
 }
 
-function addReview($reviewerId, $communication, $time_management, $quality, $professionalism, $comments) {
+function addReview($reviewerId, $contractorId, $communication, $time_management, $quality, $professionalism, $comments) {
   global $db;
 
   $stmt = $db->prepare(
-    'INSERT INTO Reviews (reviewer_id, communication, time_management, quality, professionalism, comments) 
-    VALUES (:reviewer_id, :communication, :time_management, :quality, :professionalism, :comments)'
+    'INSERT INTO Reviews (reviewer_id, contractor_id, communication, time_management, quality, professionalism, comments) 
+    VALUES (:reviewer_id, :contractor_id, :communication, :time_management, :quality, :professionalism, :comments)'
   );
 
   $stmt->bindParam(':reviewer_id', $reviewerId, PDO::PARAM_INT);
+  $stmt->bindParam(':contractor_id', $contractorId, PDO::PARAM_INT);
   $stmt->bindParam(':communication', $communication, PDO::PARAM_INT);
   $stmt->bindParam(':time_management', $time_management, PDO::PARAM_INT);
   $stmt->bindParam(':quality', $quality, PDO::PARAM_INT);

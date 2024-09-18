@@ -4,7 +4,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-include __DIR__ . '\app\config\helpers.php';
+include __DIR__ . '\app\config\functions.php';
 include __DIR__ . '\app\config\paths.php';
 
 session_start();
@@ -37,8 +37,10 @@ $routes = [
   '/se265-capstone/job-info' => 'jobs-controller@renderJobInfo',
   '/se265-capstone/request-job' => 'jobs-controller@handleJobRequest',
   '/se265-capstone/client-open-jobs' => 'jobs-controller@renderClientOpenJobs',
+  '/se265-capstone/delete-job' => 'jobs-controller@deleteJob',
   '/se265-capstone/handle-job-request' => 'jobs-controller@handleJobRequest',
   '/se265-capstone/client-completed-jobs' => 'jobs-controller@renderClientCompletedJobs',
+  '/se265-capstone/mark-job-complete' => 'jobs-controller@markJobComplete',
   
   '/se265-capstone/add-review' => 'jobs-controller@renderAddReview',
 ];

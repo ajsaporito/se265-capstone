@@ -130,6 +130,7 @@ function renderFindPeople() {
 
 function renderUserProfile () {
   include MODEL_PATH . 'users.php';
+  include MODEL_PATH . 'reviews.php';
 
   if (!isset($_SESSION['user_id'])) {
     header('Location: /se265-capstone/login');
@@ -143,6 +144,24 @@ function renderUserProfile () {
 
   $userId = filter_input(INPUT_GET, 'id');
   $user = getUserById($userId);
+  $completedJobs = getCompletedJobsByUserId($userId);
+
+  foreach ($completedJobs as $index => $job) {
+    $reviews = getReviewsByJobId($job['job_id']);
+    $completedJobs[$index]['reviews'] = $reviews;
+  }
+
+  $averageRatings = getAverageRatingsByUserId($userId);
+
+  // Handle null values for ratings (set default values)
+  $averageRatings = [
+    'avg_communication' => isset($averageRatings['avg_communication']) ? $averageRatings['avg_communication'] : 0,
+    'avg_time_management' => isset($averageRatings['avg_time_management']) ? $averageRatings['avg_time_management'] : 0,
+    'avg_quality' => isset($averageRatings['avg_quality']) ? $averageRatings['avg_quality'] : 0,
+    'avg_professionalism' => isset($averageRatings['avg_professionalism']) ? $averageRatings['avg_professionalism'] : 0,
+  ];
+
+  $userReviews = getReviewsByUserId($userId);
 
   require VIEW_PATH . 'users/user-profile.php';
 }
@@ -164,34 +183,6 @@ function renderEditProfile() {
   $user = getUserRecord($id);
 
   require VIEW_PATH . 'users/edit-profile.php';
-}
-
-function renderSubmitEditProfile() {
-  include MODEL_PATH . 'users.php';
-
-  if (!isset($_SESSION['user_id'])) {
-    header('Location: /se265-capstone/login');
-    exit();
-  }
-
-  if (isset($_GET['id']) &&
-      isset($_GET['firstName']) &&
-      isset($_GET['lastName']) &&
-      isset($_GET['username']) &&
-      isset($_GET['email'])) {
-    $id = $_GET['id'];
-    $firstName = $_GET['firstName'];
-    $lastName = $_GET['lastName'];
-    $username = $_GET['username'];
-    $email = $_GET['email'];
-
-    updateProfile($id, $firstName, $lastName, $username, $email);
-    header('Location: /se265-capstone');
-    exit();
-  } else {
-    header('Location: /se265-capstone/edit-profile');
-    exit();
-  }
 }
 
 // AJAX call
@@ -224,6 +215,34 @@ function renderCheckEditProfile() {
   }
 
   echo json_encode($response);
+}
+
+function renderSubmitEditProfile() {
+  include MODEL_PATH . 'users.php';
+
+  if (!isset($_SESSION['user_id'])) {
+    header('Location: /se265-capstone/login');
+    exit();
+  }
+
+  if (isset($_GET['id']) &&
+      isset($_GET['firstName']) &&
+      isset($_GET['lastName']) &&
+      isset($_GET['username']) &&
+      isset($_GET['email'])) {
+    $id = $_GET['id'];
+    $firstName = $_GET['firstName'];
+    $lastName = $_GET['lastName'];
+    $username = $_GET['username'];
+    $email = $_GET['email'];
+
+    updateProfile($id, $firstName, $lastName, $username, $email);
+    header('Location: /se265-capstone');
+    exit();
+  } else {
+    header('Location: /se265-capstone/edit-profile');
+    exit();
+  }
 }
 
 function renderChangePassword() {

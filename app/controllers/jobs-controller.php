@@ -4,8 +4,8 @@ function renderJobs() {
   include MODEL_PATH . 'jobs.php';
 
   if (!isset($_SESSION['user_id'])) {
-      header('Location: /se265-capstone/login');
-      exit();
+    header('Location: /se265-capstone/login');
+    exit();
   }
 
   // Fetch only open jobs
@@ -130,7 +130,6 @@ function renderAddJob() {
   require VIEW_PATH . 'jobs/add-job.php';
 }
 
-//Job-info.php
 function renderJobInfo() {
   include MODEL_PATH . 'jobs.php';
 
@@ -158,13 +157,12 @@ function renderJobInfo() {
   require VIEW_PATH . 'jobs/job-info.php';
 }
 
-//8/25 added for client-open-jobs.php
 function renderClientOpenJobs() {
   include MODEL_PATH . 'jobs.php';
 
   if (!isset($_SESSION['user_id'])) {
-      header('Location: /se265-capstone/login');
-      exit();
+    header('Location: /se265-capstone/login');
+    exit();
   }
 
   // Retrieve the job ID from the URL
@@ -175,8 +173,8 @@ function renderClientOpenJobs() {
   
   // If the job is not found or doesn't belong to the logged-in user, show an error
   if ($job === false || empty($job) || $job['posted_by'] != $_SESSION['user_id']) {
-      echo "Job not found or you don't have permission to view this job.";
-      return;
+    echo "Job not found or you don't have permission to view this job.";
+    return;
   }
 
   // Calculate pay based on job type
@@ -190,10 +188,8 @@ function renderClientOpenJobs() {
     }
   }
 
-  // Fetch the requests related to this job
   $requests = getJobRequestsByJobId($job_id);
 
-  // Pass the job, pay, and requests to the view
   require VIEW_PATH . 'jobs/client-open-jobs.php';
 }
 
@@ -204,6 +200,8 @@ function handleJobRequest() {
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $job_id = $_POST['job_id'];
     $requested_by = $_POST['requested_by'];
+    $jobs = getJobById($job_id);
+    $posted_by = $jobs['posted_by'];
 
     // Determine if the action is to request or accept a job
     $action = $_POST['action'] ?? 'request';
@@ -233,25 +231,17 @@ function handleJobRequest() {
 // For the client to view job requests @ client-opend-jobs
 function renderClientJobRequests() {
   include MODEL_PATH . 'jobs.php';
-  $client_id = $_SESSION['user_id'];
 
+  $client_id = $_SESSION['user_id'];
   $requests = getJobRequestsByClient($client_id);
-  var_dump($requests);
 
   require VIEW_PATH . 'jobs/client-open-jobs.php';
-}
-
-function getJobRequestsByClient($client_id) {
-  global $db;
-  $stmt = $db->prepare("SELECT * FROM Requests JOIN Jobs ON Requests.job_id = Jobs.job_id WHERE Jobs.posted_by = :client_id");
-  $stmt->execute([':client_id' => $client_id]);
-
-  return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
 //For Client's completed jobs
 function renderClientCompletedJobs () {
   include MODEL_PATH . 'jobs.php';
+  include MODEL_PATH . 'users.php';
 
   if (!isset($_SESSION['user_id'])) {
     header('Location: /se265-capstone/login');
@@ -265,9 +255,9 @@ function renderClientCompletedJobs () {
   $job = getJobById($job_id);
   
   // If the job is not found or doesn't belong to the logged-in user, show an error
-  if ($job === false || empty($job) || $job['posted_by'] != $_SESSION['user_id']) {
-      echo "Job not found or you don't have permission to view this job.";
-      return;
+  if ($job === false || empty($job) || $job['posted_by']) {
+    header('Location: /se265-capstone');
+    exit();
   }
 
   // Calculate pay based on job type
@@ -281,7 +271,33 @@ function renderClientCompletedJobs () {
     }
   }
 
+  $contractor = getUserById($job['contractor_id']);
+
   require VIEW_PATH . 'jobs/client-completed-jobs.php';
+}
+
+function markJobComplete() {
+  include MODEL_PATH . 'jobs.php';
+
+  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $job_id = $_POST['job_id'];
+    markJobAsCompleted($job_id);
+  } else {
+    echo json_encode(['status' => 'error', 'message' => 'Invalid request method.']);
+  }
+  exit();
+}
+
+function deleteJob() {
+  include MODEL_PATH . 'jobs.php';
+
+  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $job_id = $_POST['job_id'];
+    deleteOpenJob($job_id);
+  } else {
+    echo json_encode(['status' => 'error', 'message' => 'Invalid request method.']);
+  }
+  exit();
 }
 
 function renderAddReview() {
@@ -293,6 +309,13 @@ function renderAddReview() {
   }
 
   $professionalism = $quality = $timeManagement = $communication = $comments = '';
+
+  if (isset($_GET['id'])) {
+    $contractorId = $_GET['id'];
+  } else {
+    header('Location: /se265-capstone');
+    exit();
+  }
 
   if (isset($_POST['addReviewBtn'])) {
     if (isset($_POST['professionalism']) &&
@@ -313,7 +336,7 @@ function renderAddReview() {
     if (empty($professionalism) || empty($quality) || empty($timeManagement) || empty($communication)) {
       $errorMsg = 'Please rate all the skills.';
     } else {
-      addReview($reviewerId, $professionalism, $quality, $timeManagement, $communication, $comments);
+      addReview($reviewerId, $contractorId, $professionalism, $quality, $timeManagement, $communication, $comments);
       header('Location: /se265-capstone');
       exit();
     }

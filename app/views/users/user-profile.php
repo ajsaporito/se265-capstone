@@ -3,7 +3,6 @@ $title = 'Public Profile';
 include PARTIAL_PATH . 'header.php';
 include PARTIAL_PATH . 'navbar.php';
 ?>
-
 <main id="contentContainer" class="flex-grow-1">
   <div class="container py-5 oxygen-regular">
     <div class="row">
@@ -14,7 +13,6 @@ include PARTIAL_PATH . 'navbar.php';
             <h5 class="card-title oxygen-bold"><?= htmlspecialchars($user['first_name']) . ' ' . htmlspecialchars($user['last_name']); ?></h5>
             <p class="card-text"><?= htmlspecialchars($user['email']); ?></p>
             <hr>
-
             <!-- Display Average Ratings -->
             <h6 class="oxygen-bold">My Ratings</h6>
             <?php if (!empty($averageRatings)): ?>
@@ -42,14 +40,13 @@ include PARTIAL_PATH . 'navbar.php';
           </div>
         </div>
       </div>
-      
       <!-- Jobs Completed Card -->
       <div class="col-12">
         <div class="card mt-4">
           <div class="card-body">
-              <h5 class="card-title oxygen-bold">Jobs Completed</h5>
-              <hr>
-              <div class="job-feedback mb-4">
+            <h5 class="card-title oxygen-bold">Jobs Completed</h5>
+            <hr>
+            <div class="job-feedback mb-4">
               <?php if (!empty($completedJobs)): ?>
                 <?php foreach ($completedJobs as $job): ?>
                   <div class="card mt-4" style="padding: 35px; margin:35px;">
@@ -57,7 +54,6 @@ include PARTIAL_PATH . 'navbar.php';
                     <small>Date completed: <?= htmlspecialchars($job['estimated_completion_date']); ?></small>
                     <p class="mt-2"><?= htmlspecialchars($job['description']); ?></p>
                     <hr>
-
                     <!-- Display Reviews for the Job -->
                     <?php if (!empty($job['reviews'])): ?>
                       <h6 class="oxygen-bold">Reviews</h6>
@@ -66,19 +62,15 @@ include PARTIAL_PATH . 'navbar.php';
                           <strong>Communication:</strong> 
                           <?= isset($review['communication']) ? renderStars($review['communication']) : 'N/A'; ?>
                           <br>
-
                           <strong>Time Management:</strong> 
                           <?= isset($review['time_management']) ? renderStars($review['time_management']) : 'N/A'; ?>
                           <br>
-
                           <strong>Quality:</strong> 
                           <?= isset($review['quality']) ? renderStars($review['quality']) : 'N/A'; ?>
                           <br>
-
                           <strong>Professionalism:</strong> 
                           <?= isset($review['professionalism']) ? renderStars($review['professionalism']) : 'N/A'; ?>
                           <br>
-
                         <?php endforeach; ?>
                       </ul>
                     <?php else: ?>
@@ -96,6 +88,4 @@ include PARTIAL_PATH . 'navbar.php';
     </div>
   </div>
 </main>
-
 <?php include PARTIAL_PATH . 'footer.php'; ?>
-
