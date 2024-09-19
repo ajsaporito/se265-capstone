@@ -4,32 +4,28 @@ include PARTIAL_PATH . 'header.php';
 include PARTIAL_PATH . 'navbar.php';
 ?>
 <main id="contentContainer" class="flex-grow-1">
-    <div class="container py-5">
-        <h1>Dashboard</h1>
-        
-        <!-- User Information and Bio Section -->
-        <div class="row mt-4">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title"><?= htmlspecialchars($userDetails['last_name']) . ', ' . htmlspecialchars($userDetails['first_name']); ?></h4>
-                        <h6><?= htmlspecialchars($userDetails['email']); ?></h6>
-                        <hr>
-                        <h6>My Ratings</h6>
-                        <?php if (!empty($averageRatings)): ?>
-                        <ul class="list-unstyled">
-                            <li>Communication: <?= number_format($averageRatings['avg_communication'], 1); ?> / 5</li>
-                            <li>Time Management: <?= number_format($averageRatings['avg_time_management'], 1); ?> / 5</li>
-                            <li>Quality: <?= number_format($averageRatings['avg_quality'], 1); ?> / 5</li>
-                            <li>Professionalism: <?= number_format($averageRatings['avg_professionalism'], 1); ?> / 5</li>
-                        </ul>
-                        <?php else: ?>
-                        <p>No ratings available.</p>
-                        <?php endif; ?>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <div class="container py-5">
+    <h1 class="oxygen-bold">My Dashboard</h1>
+    <!-- User Information and Bio Section -->
+    <div class="row mt-4">
+      <div class="col-12">
+        <div class="card oxygen-regular">
+          <div class="card-body" id="bio-card-body">
+            <h4 class="user-name oxygen-bold"><?= htmlspecialchars($userDetails['first_name']) . ', ' . htmlspecialchars($userDetails['last_name']); ?></h4>
+            <h6 class="user-email oxygen-bold"><?= htmlspecialchars($userDetails['email']); ?></h6>
+            <hr class="section-divider">
+            <h6 class="oxygen-bold">My Ratings</h6>
+            <?php if (!empty($averageRatings)): ?>
+              <ul class="list-unstyled ratings-list oxygen-regular">
+                <li>Communication: <?= number_format($averageRatings['avg_communication'], 1); ?> / 5</li>
+                <li>Time Management: <?= number_format($averageRatings['avg_time_management'], 1); ?> / 5</li>
+                <li>Quality: <?= number_format($averageRatings['avg_quality'], 1); ?> / 5</li>
+                <li>Professionalism: <?= number_format($averageRatings['avg_professionalism'], 1); ?> / 5</li>
+              </ul>
+            <?php else: ?>
+              <p>No ratings available.</p>
+            <?php endif; ?>
+          </div>
 
         <!-- Job Feedback Section -->
         <div class="row mt-4">
