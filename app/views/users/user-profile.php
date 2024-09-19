@@ -49,9 +49,9 @@ include PARTIAL_PATH . 'navbar.php';
       <div class="col-12">
         <div class="card mt-4">
           <div class="card-body">
-              <h5 class="card-title oxygen-bold">Jobs Completed</h5>
-              <hr>
-              <div class="job-feedback mb-4">
+            <h5 class="card-title oxygen-bold">Jobs Completed</h5>
+            <hr>
+            <div class="job-feedback mb-4">
               <?php if (!empty($completedJobs)): ?>
                 <?php foreach ($completedJobs as $job): ?>
                   <div class="card mt-4" style="padding: 35px; margin:35px;">

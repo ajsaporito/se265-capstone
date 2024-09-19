@@ -18,6 +18,7 @@ include PARTIAL_PATH . 'navbar.php';
               </div>
             </div>
             <form id="editProfileForm" method="post">
+              <input type="hidden" name="id" id="id" value="<?= $id; ?>">
               <div class="row gy-3 overflow-hidden">
                 <div class="col-12">
                   <div class="form-floating mb-3">
@@ -49,7 +50,7 @@ include PARTIAL_PATH . 'navbar.php';
                 </div>
                 <div class="d-flex">
                   <div class="col-6">
-                    <a style="background-color: #838383;" href="/se265-capstone/change-password" class="btn rounded-4 text-white mb-4" onmouseover="this.style.background='#8f8f8f'" onmouseout="this.style.background='#838383'">Change Password</a>
+                    <a style="background-color: #838383;" href="/se265-capstone/change-password?id=<?= $id; ?>" class="btn rounded-4 text-white mb-4" onmouseover="this.style.background='#8f8f8f'" onmouseout="this.style.background='#838383'">Change Password</a>
                   </div>
                   <div class="col-6">
                     <a style="background-color: red;" href="/se265-capstone/delete-profile?id=<?= $id; ?>" class="btn rounded-4 text-white">Delete Account</a>
@@ -58,6 +59,12 @@ include PARTIAL_PATH . 'navbar.php';
                 <div class="col-12">
                   <div class="row mx-1">
                     <button style="background-color: #6643b5;" class="btn rounded-4 text-white" type="submit" name="updateBtn" onmouseover="this.style.background='#714bc9'" onmouseout="this.style.background='#6643b5'">Update Info</button>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="row mx-1">
+                    <span class="nav justify-content-center border-bottom mt-2 pb-3 mb-3"></span>
+                    <a style="color: #6643b5;" class="text-decoration-none text-center" href="/se265-capstone">Go Back Home</a>
                   </div>
                 </div>
               </div>

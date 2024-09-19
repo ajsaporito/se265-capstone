@@ -171,6 +171,17 @@ function userExistsByEmailEdit($email, $currentId) {
   return ['success' => true, 'message' => ''];
 }
 
+function changePassword($id, $newPassword) {
+  global $db;
+  $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+
+  $stmt = $db->prepare("UPDATE Users SET password = :p WHERE user_id = :id");
+  $stmt->bindValue(':p', $hashedPassword);
+  $stmt->bindValue(':id', $id);
+
+  return $stmt->execute();
+}
+
 function deleteUser($id) {
   global $db;
 
@@ -183,6 +194,29 @@ function deleteUser($id) {
 
   return false;
 }
+
+function searchPeople($search) {
+  global $db;
+
+  $binds = array();
+  $sql = "SELECT * FROM Users WHERE 0 = 0";
+
+  if ($search != "") {
+    $sql .= " AND username LIKE :username";
+    $binds['username'] = $search.'%';
+  }
+
+  $result = array();
+  $stmt = $db->prepare($sql);
+
+  if ($stmt->execute($binds) && $stmt->rowCount() > 0) {
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+  return $result; 
+}
+
+
 
 /* NEW 8/15 for user-profile review section */ 
 function getCompletedJobsByUserId($user_id) {

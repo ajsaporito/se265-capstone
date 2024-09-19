@@ -14,18 +14,15 @@ include PARTIAL_PATH . 'navbar.php';
             <p><strong>Location:</strong> <?= htmlspecialchars($job['location']); ?></p>
             <p><strong>Pay:</strong> <?= htmlspecialchars($pay); ?></p>
           </div>
-          <div class="col-md-4 text-md-right">
-            
+          <div class="col-md-4 text-md-right"> 
             <p><strong>Date Posted:</strong> <?= date('F j, Y', strtotime($job['date_posted'])); ?></p> <!-- Format as "Month day, Year" -->
             <p><strong>Project Deadline:</strong> <?= date('F j, Y', strtotime($job['estimated_completion_date'])); ?></p> <!-- Format as "Month day, Year" -->
           </div>
         </div>
-
         <!-- Job Description -->
         <hr>
         <h5>Job description:</h5>
         <p><?= nl2br(htmlspecialchars($job['description'])); ?></p>
-
         <!-- Skills/Expertise Required -->
         <hr>
         <h5>Skills/Expertise Required:</h5>
@@ -39,39 +36,31 @@ include PARTIAL_PATH . 'navbar.php';
       <div class="card-footer">
         <!-- Request Job Button -->
         <button id="requestJobButton" style="background-color: #6643b5;" class="btn rounded-4 text-white" onmouseover="this.style.background='#714bc9'" onmouseout="this.style.background='#6643b5'">Request Job</button>
-        </div>
       </div>
     </div>
   </div>
-</main>
-
-<script>
+  <script>
     $(document).ready(function() {
-        $('#requestJobButton').on('click', function() {
-            $.ajax({
-                type: 'POST',
-                url: '/se265-capstone/request-job',
-                data: {
-                    job_id: <?= $job['job_id']; ?>,
-                    requested_by: <?= $_SESSION['user_id']; ?>
-                },
-                success: function(response) {
-                    let res = JSON.parse(response);
-                    if (res.status === 'success') {
-                        alert('Job request sent successfully!');
-                    } else if (res.status === 'already_requested') {
-                        alert('You have already requested this job.');
-                    }
-                },
-                error: function() {
-                    alert('There was an error sending the job request.');
-                }
-            });
+      $('#requestJobButton').on('click', function() {
+        $.ajax({
+          type: 'POST',
+          url: '/se265-capstone/request-job',
+          data: {
+            job_id: <?= $job['job_id']; ?>,
+            requested_by: <?= $_SESSION['user_id']; ?>
+          }, success: function(response) {
+            let res = JSON.parse(response);
+            if (res.status === 'success') {
+              alert('Job request sent successfully!');
+            } else if (res.status === 'already_requested') {
+              alert('You have already requested this job.');
+            }
+          }, error: function() {
+            alert('There was an error sending the job request.');
+          }
         });
+      });
     });
-</script>
-
+  </script>
+</main>
 <?php include PARTIAL_PATH . 'footer.php'; ?>
-
-
-

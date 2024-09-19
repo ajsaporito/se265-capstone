@@ -13,7 +13,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a href="" class="nav-link px-2 text-white" target="_blank">
+        <a href="https://pixso.net/app/editor/Woy-xF2Fo1Omh3RwLZUebw?icon_type=1&page-id=16%3A102" class="nav-link px-2 text-white" target="_blank">
           <img src="assets/svgs/figma.svg" alt="Figma" width="20" height="20">
         </a>
       </li>
@@ -21,9 +21,6 @@
   </div>
   <p class="text-center text-white">&copy; 2024 DevSpot</p>
 </footer>
-
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 </body>

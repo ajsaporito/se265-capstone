@@ -23,20 +23,17 @@
   border: 1px solid rgba(220, 53, 69, 0.5) !important;
 }
 
-/* Moved over */
-/*USER CARD STYLES FOR FIND-PEOPLE PAGE*/
 .user-card {
   transition: transform 0.2s, box-shadow 0.2s;
-  border: 5px solid transparent; /* Prepare the border to change color on hover */
+  border: 5px solid transparent;
 }
 
 .user-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 4px 8px rgba(102, 67, 181, 0.7);
-  border-color: purple; /* Purple outline */
+  border-color: rgb(128, 0, 128);
 }
 
-/*card styling for public-profile view page*/
 .card {
   min-height: 100%;
 }
@@ -57,9 +54,7 @@
   outline: none;
   font-size: 15px;
 }
-  
-/* Add a background color to the button if it is clicked on (add the .active class with JS),
-   and when you move the mouse over it (hover) */
+
 .active, .collapsible:hover {
   background-color: #ccc;
 } 
@@ -72,20 +67,18 @@
   background-color: #f1f1f1;
 }
 
-/* Moved over */
-/****************************************************************************************/
 /*CSS styles for FIND-JOBS page:*/
 .job-card {
   transition: transform 0.2s, box-shadow 0.2s;
-  border: 3px solid transparent; /* Prepare the border to change color on hover */
+  border: 3px solid transparent;
 }
 
 .job-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 4px 8px rgba(102, 67, 181, 0.7);
-  border-color: purple; /* Purple outline */
+  border-color: rgb(128, 0, 128);
 }
-/****************************************************************************************/
+
 /*CSS styles for job-info page:*/
 .card-body {
   padding: 20px;
@@ -99,72 +92,124 @@ hr {
   margin: 20px 0;
 }
 
-/* Styling for PILLS on add-job Page*/
-
-  /* Ensure the select box remains responsive and doesn't overflow */
-  .select2-container {
-    width: 100% !important;
-  }
-
-  .select2-selection__choice {
-    background-color: #6643b5 !important;
-    color: #ffffff !important;
-    border: none;
-    border-radius: 50px;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    margin-right: 5px;
-    position: relative;
-    white-space: nowrap; /* Prevent text wrapping inside the pills */
-  }
-
-  .select2-selection__choice__remove {
-    color: #ffffff !important;
-    border: none !important;
-    background: transparent !important;
-    margin-right: 8px;
-    margin-left: 2px;
-    font-size: 1rem;
-    line-height: 1.5rem;
-  }
-
-  .select2-selection__choice__remove:hover {
-    color: #f5f5f5 !important;
-  }
-
-  @media (max-width: 768px) {
-    /* For medium to smaller screens */
-    .select2-container--default .select2-selection--multiple .select2-selection__choice {
-      padding: 0.3rem 0.6rem;
-      font-size: 0.9rem;
-    }
-  }
-
-  @media (max-width: 576px) {
-    /* For smaller screens like phones */
-    .select2-container--default .select2-selection--multiple .select2-selection__choice {
-      padding: 0.2rem 0.4rem;
-      font-size: 0.8rem;
-    }
-  }
-
 #add-job-btn {
   margin-top: 1rem;
-  padding: .5rem 1.4rem;  /* Increased padding for larger pills */
-  font-size: 1.3rem;  /* Larger font size */
+  padding: .5rem 1.4rem; 
+  font-size: 1.3rem;
 }
 
 #requestJobButton {
   margin-top: 2rem;
   margin-left: 4rem;
   margin-bottom: 2.2rem;
-  padding: .5rem 1.4rem;  /* Increased padding for larger pills */
-  font-size: 1.3rem;  /* Larger font size */
+  padding: .5rem 1.4rem;  
+  font-size: 1.3rem; 
 }
 
 .stars {
-  color: rgb(163, 2, 232); /* Make the stars purple */
-  font-size: 20px; /* Adjust the size as needed */
+  color: rgb(163, 2, 232); 
+  font-size: 20px; 
+}
+
+.user-name {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.user-email {
+  font-size: 1rem;
+  font-weight: 400;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.section-divider {
+  margin: 10px 0;
+}
+
+.ratings-list li {
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.ratings-list li:before {
+  content: "\2605"; 
+  color: rgb(163, 2, 232); 
+  margin-right: 5px;
+  font-size: 1.2rem;
+}
+
+#bio-card-body {
+  padding: 20px;
+  text-align: center;
+}
+
+#review-btn,
+#marked-completed-button {
+  margin-left: auto;
+  margin-right: 0;
+  text-align: center;
+  white-space: nowrap;
+}
+
+#completed-jobs-link {
+  color: #000000;
+  text-decoration: none;
+}
+
+#completed-jobs-link:hover {
+  color: #6643b5;
+}
+
+.card {
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+  padding: 1rem;
+}
+
+.job-list .job-card {
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+}
+
+#toggle-completed-jobs,
+#toggle-open-jobs,
+#toggle-in-progress-jobs,
+#toggle-feedback {
+  background-color: #6643b5;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Button hover effect */
+#toggle-completed-jobs:hover,
+#toggle-open-jobs:hover,
+#toggle-in-progress-jobs:hover,
+#toggle-feedback:hover {
+  background-color: #714bc9;
+}
+
+/* Hide the last job card when collapsing */
+.job-list .job-card {
+  display: block;
+}
+
+.job-list .job-card.slideUp, .job-list .job-card.slideDown {
+  transition: all 0.3s ease;
+}
+
+/* Styling to center and space the buttons */
+button {
+  display: block;
+  width: auto;
+  margin: 0 auto;
+  text-align: center;
 }
 
 /* User-bio on Dashboard.php ADDED 9/08/24*/

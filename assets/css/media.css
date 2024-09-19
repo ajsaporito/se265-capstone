@@ -20,24 +20,19 @@
     margin: 5rem 0;
   }
 
-  /* TODO: search results not done */
-  #searchResults {
-    margin-bottom: 3rem !important;
-  }
-
   .search-container input[type="text"] {
     width: 208px;
-  }
-
-  /* TODO: search results not done */
-  #searchResults {
-    width: 152px;
   }
 }
 
 @media (max-width: 576px) {
   .navbar-brand {
     padding: 0 1em;
+  }
+
+  .mark-completed-btn {
+    width: 100%;
+    margin-top: 10px; 
   }
 
   footer .container,

@@ -1,7 +1,5 @@
 @charset "UTF-8";
 
-
-
 #searchBtnBorder {
   border-color: #3c4245 !important;
 }
@@ -17,9 +15,4 @@
 
 .dropdown-item:hover {
   background-color: #ebebeb !important;
-}
-
-/* TODO: search results not done */
-#searchResults {
-  border-radius: 0 0 1rem 1rem !important;
 }

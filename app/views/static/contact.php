@@ -11,6 +11,7 @@ include PARTIAL_PATH . 'navbar.php';
         <p class="lead">There's no offical contact...</p>
         <div class="oxygen-light">
           <p>For more information, view the repository to see the contributors.</p>
+        </div>
       </div>
     </div>
   </div>

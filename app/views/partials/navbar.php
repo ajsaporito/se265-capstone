@@ -36,27 +36,27 @@ function activePage($page) {
           </li>
         </ul>
         <div class="d-flex flex-column flex-lg-row justify-content-center align-items-center gap-3">
-          <form method="post" id="searchForm" class="mx-3">
+          <form method="post" action="/se265-capstone/search" id="searchForm" class="mx-3">
+            <input type="hidden" name="searchType" id="searchType">
             <div class="input-group rounded-4 overflow-hidden search-container">
-              <input id="searchBox" type="text" class="form-control border-0 shadow-none py-1 px-2" placeholder="Search for jobs...">
+              <input id="searchBox" name="search" type="text" class="form-control border-0 shadow-none py-1 px-2" placeholder="Search for jobs...">
               <div id="searchIcon" class="border-0 bg-white shadow-none py-1 px-2">
-                <img src="assets/svgs/magnifying-glass.svg" alt="Search" width="20" height="20" class="m-1">
+                <button style="appearance: none; border: none; background: transparent;" type="submit" name="searchBtn">
+                  <img src="assets/svgs/magnifying-glass.svg" alt="Search" width="20" height="20" class="m-1">
+                </button>
               </div>
               <span id="searchBtnBorder" class="border border-2"></span>
               <button style="background-color: #ebebeb;" type="button" class="border-0 shadow-none py-1 px-2" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false" onmouseover="this.style.background='#dcdcdc'" onmouseout="this.style.background='#ebebeb'">
                 <img src="assets/svgs/caret-down.svg" alt="Drop Down Toggle" width="20" height="20" class="m-1">
               </button>
               <div class="bg-white dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item active" href="">Search for Jobs</a>
-                <a class="dropdown-item" href="">Search for People</a>
+                <a class="dropdown-item active" data-search-type="jobs">Search for Jobs</a>
+                <a class="dropdown-item" data-search-type="people">Search for People</a>
               </div>
             </div>
-            <?php if ($isLoggedIn): ?>
-              <div id="searchResults" class="d-none position-absolute rounded-4 bg-white p-2 overflow-hidden"></div>
-            <?php endif; ?>
           </form>
           <?php if ($isLoggedIn): ?>
-            <a style="background-color: #6643b5;" class="text-white text-decoration-none px-4 py-1 rounded-4 nav-btn" onmouseover="this.style.background='#8f8f8f'" onmouseout="this.style.background='#6643b5'" href="/se265-capstone/logout">Logout</a>
+            <a style="background-color: #6643b5;" class="text-white text-decoration-none px-4 py-1 rounded-4 nav-btn" onmouseover="this.style.background='#714bc9'" onmouseout="this.style.background='#6643b5'" href="/se265-capstone/logout">Logout</a>
           <?php else: ?>
             <a style="background-color: #838383;" class="text-white text-decoration-none px-4 py-1 rounded-4 nav-btn" onmouseover="this.style.background='#8f8f8f'" onmouseout="this.style.background='#838383'" href="/se265-capstone/login">Login</a>
             <a style="background-color: #6643b5;" class="text-white text-decoration-none hover px-3 py-1 rounded-4 nav-btn" onmouseover="this.style.background='#714bc9'" onmouseout="this.style.background='#6643b5'" href="/se265-capstone/signup">Sign Up</a>

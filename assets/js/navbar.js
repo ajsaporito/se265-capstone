@@ -45,37 +45,18 @@ $(document).ready(function () {
     // Update placeholder text based on the selected item
     const selectedText = $(this).text();
     let placeholderText = '';
+    let searchType = '';
 
     if (selectedText === 'Search for Jobs') {
       placeholderText = 'Search for jobs...';
+      searchType = 'jobs';
     } else if (selectedText === 'Search for People') {
       placeholderText = 'Search for people...';
+      searchType = 'people';
     } 
 
     $('#searchBox').attr('placeholder', placeholderText).val('');
+    $('#searchType').val(searchType);
     $('.dropdown-menu').hide().appendTo($('#dropdownMenuButton').parent());
-  });
-
-  $('#searchBox').on('keyup', function (e) {
-    let search = $(this).val();
-
-    if (search !== '') {
-      $.ajax({
-        url: '/se265-capstone/search',
-        type: 'POST',
-        data: { search: search },
-        success: function(response) {
-          $('#searchResults').removeClass('d-none');
-          $('#searchResults').html(response);
-        },
-        error: function(xhr, status, error) {
-          console.log('Status: ' + status);
-          console.log('Error: ' + error);
-          console.log('Response Text: ' + xhr.responseText);
-        }
-      });
-    } else {
-      $('#searchResults').css('display', 'none');
-    }
   });
 });

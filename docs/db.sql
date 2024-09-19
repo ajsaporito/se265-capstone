@@ -62,9 +62,9 @@ CREATE TABLE UserSkills (
 );
 
 CREATE TABLE JobSkills (
-    job_id INT,
-    skill_id INT,
-    PRIMARY KEY (job_id, skill_id),
-    FOREIGN KEY (job_id) REFERENCES Jobs(job_id) ON DELETE CASCADE,
-    FOREIGN KEY (skill_id) REFERENCES Skills(skill_id) ON DELETE CASCADE
+  job_id INT,
+  skill_id INT,
+  PRIMARY KEY (job_id, skill_id),
+  FOREIGN KEY (job_id) REFERENCES Jobs(job_id) ON DELETE CASCADE,
+  FOREIGN KEY (skill_id) REFERENCES Skills(skill_id) ON DELETE CASCADE
 );
