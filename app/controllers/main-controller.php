@@ -1,5 +1,5 @@
 <?php
-/*
+
 function renderDashboard() {
   include MODEL_PATH . 'reviews.php';
   include MODEL_PATH . 'jobs.php';  
