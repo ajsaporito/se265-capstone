@@ -1,3 +1,4 @@
+/*
 $(document).on('click', '.mark-completed-btn', function () {
   let jobId = $(this).data('job-id'); // Get the job ID from the button's data attribute
 
@@ -27,6 +28,56 @@ $(document).on('click', '.mark-completed-btn', function () {
     }
   });
 });
+*/
+
+ $(document).ready(function() {
+    // Use event delegation to handle clicks on dynamically generated buttons
+    $(document).on('click', '.marked-completed-button', function(event) {
+        // Prevent the default action
+        event.preventDefault();
+
+        console.log('Button clicked');
+
+        // Retrieve 'jobId' from the clicked button's data attribute
+        var jobId = $(this).data('job-id');
+        console.log('jobId:', jobId);
+
+        if (!jobId) {
+            alert('Job ID is missing.');
+            return;
+        }
+
+        // Proceed with the AJAX call
+        $.ajax({
+            type: 'POST',
+            url: '/se265-capstone/mark-job-complete',
+            data: { job_id: jobId },
+            success: function(response) {
+                console.log('AJAX request succeeded:', response);
+                try {
+                    if (typeof response !== 'object') {
+                        response = JSON.parse(response);
+                    }
+                    if (response.status === 'success') {
+                        alert('Job marked as completed successfully!');
+                        // Redirect to the add review form
+                        window.location.href = '/se265-capstone/add-review?job_id=' + jobId;
+                    } else {
+                        alert('There was an error marking the job as completed: ' + response.message);
+                    }
+                } catch (e) {
+                    console.error('Error parsing response:', e);
+                    alert('There was an error processing the response.');
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('XHR Error:', error);
+                alert('An error occurred while processing the request.');
+            }
+        });
+    });
+});
+
 
 // Toggle Logic for Job Sections
 $(document).ready(function () {
@@ -97,29 +148,30 @@ $(document).on('click', '.delete-job-btn', function (e) {
   let jobId = $(this).data('job-id');
 
   if (confirm("Are you sure you want to delete this job?")) {
-    $.ajax({
-      type: 'POST',
-      url: '/se265-capstone/delete-job', // The route that handles the deletion
-      data: { job_id: jobId },
-      success: function (response) {
-        try {
-          if (typeof response !== 'object') {
-            response = JSON.parse(response);
+      $.ajax({
+        type: 'POST',
+        url: '/se265-capstone/delete-job', // The route that handles the deletion
+        data: { job_id: jobId },
+        success: function (response) {
+          try {
+            if (typeof response !== 'object') {
+              response = JSON.parse(response);
+            }
+            if (response.status === 'success') {
+              alert('Job deleted successfully!');
+              location.reload(); // Reload the page or update the UI as needed
+            } else {
+              alert('There was an error deleting the job: ' + response.message);
+            }
+          } catch (e) {
+            console.error('Error parsing response: ', e);
+            alert('There was an error processing the response.');
           }
-          if (response.status === 'success') {
-            alert('Job deleted successfully!');
-            location.reload(); // Reload the page or update the UI as needed
-          } else {
-            alert('There was an error deleting the job: ' + response.message);
-          }
-        } catch (e) {
-          console.error('Error parsing response: ', e);
-          alert('There was an error processing the response.');
+        }, error: function (xhr, status, error) {
+          console.error('XHR Error:', xhr, status, error);
+          alert('An error occurred while processing the request.');
         }
-      }, error: function (xhr, status, error) {
-        console.error('XHR Error:', xhr, status, error);
-        alert('An error occurred while processing the request.');
-      }
-    });
-  }
-});
+      });
+    }
+  });
+

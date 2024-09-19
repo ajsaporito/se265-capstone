@@ -3,7 +3,6 @@ $title = 'Public Profile';
 include PARTIAL_PATH . 'header.php';
 include PARTIAL_PATH . 'navbar.php';
 ?>
-
 <main id="contentContainer" class="flex-grow-1">
   <div class="container py-5 oxygen-regular">
     <div class="row">
@@ -13,9 +12,9 @@ include PARTIAL_PATH . 'navbar.php';
           <div class="card-body text-center">
             <h5 class="card-title oxygen-bold"><?= htmlspecialchars($user['first_name']) . ' ' . htmlspecialchars($user['last_name']); ?></h5>
             <p class="card-text oygen-regular">
-                <a id="mail-to-link" href="mailto:<?= htmlspecialchars($user['email']); ?>">
-                  <?= htmlspecialchars($user['email']); ?>
-                </a>
+              <a id="mail-to-link" href="mailto:<?= htmlspecialchars($user['email']); ?>">
+                <?= htmlspecialchars($user['email']); ?>
+              </a>
             </p>
             <hr>
             <!-- Display Average Ratings -->
@@ -93,6 +92,4 @@ include PARTIAL_PATH . 'navbar.php';
     </div>
   </div>
 </main>
-
 <?php include PARTIAL_PATH . 'footer.php'; ?>
-

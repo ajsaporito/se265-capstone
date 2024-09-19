@@ -97,6 +97,41 @@ function getAverageRatingsByUserId($user_id) {
   return $result;
 }
 
+function addReview($reviewerId, $contractorId, $jobId, $communication, $time_management, $quality, $professionalism, $comments) {
+  global $db;
+
+  $stmt = $db->prepare(
+    'INSERT INTO Reviews (reviewer_id, contractor_id, job_id, communication, time_management, quality, professionalism, comments) 
+    VALUES (:reviewer_id, :contractor_id, :job_id, :communication, :time_management, :quality, :professionalism, :comments)'
+  );
+
+  $stmt->bindParam(':reviewer_id', $reviewerId, PDO::PARAM_INT);
+  $stmt->bindParam(':contractor_id', $contractorId, PDO::PARAM_INT);
+  $stmt->bindParam(':job_id', $jobId, PDO::PARAM_INT);
+  $stmt->bindParam(':communication', $communication, PDO::PARAM_INT);
+  $stmt->bindParam(':time_management', $time_management, PDO::PARAM_INT);
+  $stmt->bindParam(':quality', $quality, PDO::PARAM_INT);
+  $stmt->bindParam(':professionalism', $professionalism, PDO::PARAM_INT);
+  $stmt->bindParam(':comments', $comments, PDO::PARAM_STR);
+
+  return $stmt->execute();
+}
+
+function getReviewsByJobId($job_id) {
+  global $db;
+  
+  $stmt = $db->prepare("
+      SELECT * FROM Reviews 
+      WHERE job_id = :job_id
+  ");
+  $stmt->bindParam(':job_id', $job_id, PDO::PARAM_INT);
+  $stmt->execute();
+
+  return $stmt->fetchAll(PDO::FETCH_ASSOC); // Returns all reviews associated with this job
+}
+
+
+/*
 function addReview($reviewerId, $contractorId, $communication, $time_management, $quality, $professionalism, $comments) {
   global $db;
 
@@ -115,3 +150,18 @@ function addReview($reviewerId, $contractorId, $communication, $time_management,
 
   return $stmt->execute();
 }
+
+function getReviewsByJobId($job_id) {
+  global $db;
+  
+  $stmt = $db->prepare("
+      SELECT * FROM Reviews 
+      WHERE job_id = :job_id
+  ");
+  $stmt->bindParam(':job_id', $job_id, PDO::PARAM_INT);
+  $stmt->execute();
+
+  return $stmt->fetchAll(PDO::FETCH_ASSOC); // Returns all reviews associated with this job
+}
+
+*/
