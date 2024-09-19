@@ -7,7 +7,7 @@ include PARTIAL_PATH . 'navbar.php';
     <div class="container py-5">
         <h1>Dashboard</h1>
         
-       <!-- User Information and Bio Section -->
+        <!-- User Information and Bio Section -->
         <div class="row mt-4">
             <div class="col-12">
                 <div class="card">
