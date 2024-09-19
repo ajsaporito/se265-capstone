@@ -182,18 +182,6 @@ function changePassword($id, $newPassword) {
   return $stmt->execute();
 }
 
-function deleteUser($id) {
-  global $db;
-
-  $sql = $db->prepare("DELETE FROM Users WHERE user_id = :id");
-  $sql->bindValue(':id', $id);
-
-  if ($sql->execute() && $sql->rowCount() > 0) {
-    return true;
-  }
-
-  return false;
-}
 
 function searchPeople($search) {
   global $db;
@@ -234,16 +222,3 @@ function getCompletedJobsByUserId($user_id) {
   return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function getReviewsByJobId($job_id) {
-  global $db;
-
-  $stmt = $db->prepare("
-      SELECT *
-      FROM Reviews
-      WHERE job_id = :job_id
-  ");
-  $stmt->bindValue(':job_id', $job_id, PDO::PARAM_INT);
-  $stmt->execute();
-
-  return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}

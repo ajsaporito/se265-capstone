@@ -30,7 +30,6 @@ $routes = [
   '/se265-capstone/check-edit-profile' => 'users-controller@renderCheckEditProfile',
   '/se265-capstone/submit-edit-profile' => 'users-controller@renderSubmitEditProfile',
   '/se265-capstone/change-password' => 'users-controller@renderChangePassword',
-  '/se265-capstone/delete-profile' => 'users-controller@renderDeleteProfile',
 
   '/se265-capstone/jobs' => 'jobs-controller@renderJobs',
   '/se265-capstone/add-job' => 'jobs-controller@renderAddJob',

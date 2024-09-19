@@ -128,6 +128,7 @@ function renderFindPeople() {
   require VIEW_PATH . 'users/find-people.php';
 }
 
+/*
 function renderUserProfile () {
   include MODEL_PATH . 'users.php';
   include MODEL_PATH . 'reviews.php';
@@ -163,6 +164,51 @@ function renderUserProfile () {
 
   $userReviews = getReviewsByUserId($userId);
 
+  require VIEW_PATH . 'users/user-profile.php';
+}
+*/ 
+
+function renderUserProfile() {
+  include MODEL_PATH . 'users.php';
+  include MODEL_PATH . 'reviews.php';
+
+  if (!isset($_SESSION['user_id'])) {
+      header('Location: /se265-capstone/login');
+      exit();
+  }
+
+  if (!isset($_GET['id']) || !userExistsById($_GET['id'])) {
+      header('Location: /se265-capstone/find-people');
+      exit();
+  }
+
+  $userId = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+  $user = getUserById($userId);
+
+  // Fetch completed jobs for this user
+  $completedJobs = getCompletedJobsByUserId($userId);
+
+  foreach ($completedJobs as $index => $job) {
+      // Fetch reviews associated with each job based on the job_id from the Reviews table
+      $reviews = getReviewsByJobId($job['job_id']);
+      $completedJobs[$index]['reviews'] = $reviews; // Attach the reviews to the job
+  }
+
+  // Fetch the overall average ratings for the user
+  $averageRatings = getAverageRatingsByUserId($userId);
+
+  // Handle null values for ratings (set default values)
+  $averageRatings = [
+      'avg_communication' => isset($averageRatings['avg_communication']) ? $averageRatings['avg_communication'] : 0,
+      'avg_time_management' => isset($averageRatings['avg_time_management']) ? $averageRatings['avg_time_management'] : 0,
+      'avg_quality' => isset($averageRatings['avg_quality']) ? $averageRatings['avg_quality'] : 0,
+      'avg_professionalism' => isset($averageRatings['avg_professionalism']) ? $averageRatings['avg_professionalism'] : 0,
+  ];
+
+  // Fetch all individual reviews for the user
+  $userReviews = getReviewsByUserId($userId);
+
+  // Pass data to the view
   require VIEW_PATH . 'users/user-profile.php';
 }
 
@@ -292,28 +338,4 @@ function renderChangePassword() {
   }
 
   require VIEW_PATH . 'users/change-password.php';
-}
-
-function renderDeleteProfile() {
-  include MODEL_PATH . 'users.php';
-
-  if (!isset($_SESSION['user_id'])) {
-    header('Location: /se265-capstone/login');
-    exit();
-  }
-
-  if ($_GET['id'] != $_SESSION['user_id']) {
-    header('Location: /se265-capstone');
-    exit();
-  }
-
-  if (isset($_GET['id'])) {
-    $id = $_GET['id'];
-    deleteUser($id);
-
-    session_unset();
-    session_destroy();
-    header('Location: /se265-capstone/login');
-    exit();
-  }
 }

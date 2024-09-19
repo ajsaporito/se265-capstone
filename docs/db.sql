@@ -21,6 +21,7 @@ CREATE TABLE Jobs (
   estimated_completion_date DATE,
   FOREIGN KEY (posted_by) REFERENCES Users(user_id)
   FOREIGN KEY (contractor_id) REFERENCES Users(user_id)
+  hasReview TINYINT(1) DEFAULT 0;
 );
 
 CREATE TABLE Requests (
@@ -51,14 +52,6 @@ CREATE TABLE Skills (
   skill_id INT AUTO_INCREMENT PRIMARY KEY,
   skill_name VARCHAR(255) NOT NULL,
   skill_category VARCHAR(255)
-);
-
-CREATE TABLE UserSkills (
-  user_id INT,
-  skill_id INT,
-  PRIMARY KEY (user_id, skill_id),
-  FOREIGN KEY (user_id) REFERENCES Users(user_id),
-  FOREIGN KEY (skill_id) REFERENCES Skills(skill_id)
 );
 
 CREATE TABLE JobSkills (

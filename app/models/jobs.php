@@ -1,6 +1,6 @@
 <?php
 
-function getAllJobs(){
+function getAllJobs() {
   global $db;
   $result = [];
 
@@ -113,6 +113,7 @@ function addJobRequest($job_id, $user_id) {
   $stmt = $db->prepare("INSERT INTO Requests (job_id, requested_by, status) VALUES (:job_id, :user_id, 'pending')");
 
   return $stmt->execute([':job_id' => $job_id, ':user_id' => $user_id]);
+  
 }
 
 function getJobRequestsByJobId($job_id) {

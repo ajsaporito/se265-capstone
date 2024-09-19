@@ -8,6 +8,11 @@
   .search-container input[type="text"] {
     width: 152px; 
   }
+
+  #loginBtn,
+  #signUpBtn {
+    font-size: 12px;
+  }
 }
 
 @media (max-width: 991px) {

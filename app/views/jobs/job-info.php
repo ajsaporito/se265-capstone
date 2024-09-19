@@ -41,20 +41,27 @@ include PARTIAL_PATH . 'navbar.php';
   </div>
   <script>
     $(document).ready(function() {
+      const requested_by = <?= $_SESSION['user_id']; ?>;
+      const posted_by = <?= $job['posted_by']; ?>;
       $('#requestJobButton').on('click', function() {
         $.ajax({
           type: 'POST',
           url: '/se265-capstone/request-job',
           data: {
             job_id: <?= $job['job_id']; ?>,
-            requested_by: <?= $_SESSION['user_id']; ?>
+            requested_by: <?= $_SESSION['user_id']; ?>,
+            posted_by: <?= $job['posted_by']; ?>,
           }, success: function(response) {
             let res = JSON.parse(response);
+            if (requested_by == posted_by) {
+              alert('You cannot request your own job.');
+              return;
+            }
             if (res.status === 'success') {
               alert('Job request sent successfully!');
             } else if (res.status === 'already_requested') {
               alert('You have already requested this job.');
-            }
+            } 
           }, error: function() {
             alert('There was an error sending the job request.');
           }

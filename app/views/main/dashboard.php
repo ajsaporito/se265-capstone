@@ -94,8 +94,10 @@ include PARTIAL_PATH . 'navbar.php';
                         <p class="card-text"><?= htmlspecialchars($job['description']); ?></p>
                         <small class="text-muted">Posted on <?= htmlspecialchars($job['date_posted']); ?></small>
                       </div>
-                      <?php if (!empty($reviews)): var_dump($reviews)?>
-                        <a id="review-btn" class="btn btn-success" data-job-id="<?= htmlspecialchars($job['job_id']); ?>" href="/se265-capstone/add-review?id=<?= htmlspecialchars($job['contractor_id']); ?>">Leave a Review</a>
+                      <?php if ($job['hasReview'] === 0): ?>
+                        <a id="review-btn" class="btn btn-success" href="/se265-capstone/add-review?contactor_id=<?= htmlspecialchars($job['contractor_id']); ?>&job_id=<?= htmlspecialchars($job['job_id']); ?>">Leave a Review</a>
+                      <?php else: ?>
+                        <p class="text-muted">Review Submitted</p>
                       <?php endif; ?>
                     </div>
                   </div>
@@ -128,7 +130,7 @@ include PARTIAL_PATH . 'navbar.php';
                         <small class="text-muted">Posted on <?= htmlspecialchars($job['date_posted']); ?></small>
                       </div>
                       <!-- Button aligned to the bottom-right -->
-                      <button id="marked-completed-button" class="btn btn-success mark-completed-btn" data-job-id="<?= htmlspecialchars($job['job_id']); ?>">Mark as Completed</button>
+                      <button class="btn btn-success mark-completed-btn marked-completed-button" data-job-id="<?= htmlspecialchars($job['job_id']); ?>">Mark as Completed</button>
                     </div>
                   </div>
                 <?php endforeach; ?>
@@ -175,3 +177,4 @@ include PARTIAL_PATH . 'navbar.php';
 </main>
 <script src="/se265-capstone/assets/js/dashboard.js"></script>
 <?php include PARTIAL_PATH . 'footer.php'; ?>
+

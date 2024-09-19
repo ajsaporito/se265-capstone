@@ -11,7 +11,11 @@ include PARTIAL_PATH . 'navbar.php';
         <div class="card mb-3">
           <div class="card-body text-center">
             <h5 class="card-title oxygen-bold"><?= htmlspecialchars($user['first_name']) . ' ' . htmlspecialchars($user['last_name']); ?></h5>
-            <p class="card-text"><?= htmlspecialchars($user['email']); ?></p>
+            <p class="card-text oygen-regular">
+              <a id="mail-to-link" href="mailto:<?= htmlspecialchars($user['email']); ?>">
+                <?= htmlspecialchars($user['email']); ?>
+              </a>
+            </p>
             <hr>
             <!-- Display Average Ratings -->
             <h6 class="oxygen-bold">My Ratings</h6>

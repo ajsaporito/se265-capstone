@@ -8,7 +8,7 @@ function renderJobs() {
     exit();
   }
 
-  // Fetch only open jobs
+  // Get only open jobs
   $jobs = getAllOpenJobs();
 
   require VIEW_PATH . 'jobs/jobs.php';
@@ -194,6 +194,7 @@ function renderClientOpenJobs() {
 }
 
 //New Ajax request to request a job or accept a job request
+/*
 function handleJobRequest() {
   include MODEL_PATH . 'jobs.php';
 
@@ -227,6 +228,68 @@ function handleJobRequest() {
   }
   exit();
 }
+*/
+
+function handleJobRequest() {
+  include MODEL_PATH . 'jobs.php';
+  global $db;
+
+  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Clean any previous output
+    ob_clean();
+
+    $job_id = $_POST['job_id'];
+    $requested_by = $_POST['requested_by'];
+    $logged_in_user = $_SESSION['user_id'];
+    
+    
+    $action = $_POST['action'] ?? 'request'; 
+
+      if ($action === 'request') {
+          if (!hasUserRequestedJob($requested_by, $job_id)) {
+            // Add request to the Requests table
+            if (addJobRequest($job_id, $requested_by)) {
+              echo json_encode(['status' => 'success']);
+            } else {
+              echo json_encode(['status' => 'error', 'message' => 'Failed to add job request.']);
+            }
+          } else {
+            echo json_encode(['status' => 'already_requested']);
+          }
+      } elseif ($action === 'accept') {
+          // Handle accepting a job request and updating contractor_id
+          try {
+              $db->beginTransaction();
+
+              // Verify that the requested_by user exists in the Users table
+              $stmt = $db->prepare("SELECT COUNT(*) FROM Users WHERE user_id = :requested_by");
+              $stmt->execute([':requested_by' => $requested_by]);
+
+              if ($stmt->fetchColumn() == 0) {
+                  throw new Exception("User with id $requested_by does not exist.");
+              }
+
+              // Update the contractor_id in the Jobs table and move the job to in-progress
+              $stmt = $db->prepare("UPDATE Jobs SET contractor_id = :requested_by, status = 'in-progress' WHERE job_id = :job_id");
+              $stmt->execute([':requested_by' => $requested_by, ':job_id' => $job_id]);
+
+              // Update the status of the job request to 'accepted'
+              $stmt = $db->prepare("UPDATE Requests SET status = 'accepted' WHERE job_id = :job_id AND requested_by = :requested_by");
+              $stmt->execute([':job_id' => $job_id, ':requested_by' => $requested_by]);
+
+              $db->commit();
+
+              echo json_encode(['status' => 'success']);
+          } catch (Exception $e) {
+              $db->rollBack();
+              echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);
+          }
+    } 
+      exit();
+  } else {
+      echo json_encode(['status' => 'error', 'message' => 'Invalid request method.']);
+  }
+}
 
 // For the client to view job requests @ client-opend-jobs
 function renderClientJobRequests() {
@@ -237,8 +300,8 @@ function renderClientJobRequests() {
 
   require VIEW_PATH . 'jobs/client-open-jobs.php';
 }
-
-//For Client's completed jobs
+/*
+//For Client's completed jobs 
 function renderClientCompletedJobs () {
   include MODEL_PATH . 'jobs.php';
   include MODEL_PATH . 'users.php';
@@ -268,6 +331,44 @@ function renderClientCompletedJobs () {
       $pay = '$' . number_format($job['hourly_rate'], 2) . '/hr';
     } else {
       $pay = 'N/A'; // In case job_type is neither 'fixed' nor 'hourly'
+    }
+  }
+
+  $contractor = getUserById($job['contractor_id']);
+
+  require VIEW_PATH . 'jobs/client-completed-jobs.php';
+}
+*/
+//For Client's completed jobs
+function renderClientCompletedJobs () {
+  include MODEL_PATH . 'jobs.php';
+  include MODEL_PATH . 'users.php';  // Include users model to fetch contractor details
+
+  if (!isset($_SESSION['user_id'])) {
+      header('Location: /se265-capstone/login');
+      exit();
+  }
+
+  // Retrieve the job ID from the URL
+  $job_id = $_GET['job_id'] ?? 0;
+
+  // Fetch the job details based on the job ID
+  $job = getJobById($job_id);
+
+  // If the job is not found or doesn't belong to the logged-in user, show an error
+  if ($job === false || empty($job) || $job['posted_by'] != $_SESSION['user_id']) {
+      echo "Job not found or you don't have permission to view this job.";
+      return;
+  }
+
+  // Calculate pay based on job type
+  if ($job) {
+    if ($job['job_type'] === 'fixed') {
+        $pay = '$' . number_format($job['budget'], 2);
+    } elseif ($job['job_type'] === 'hourly') {
+        $pay = '$' . number_format($job['hourly_rate'], 2) . '/hr';
+    } else {
+        $pay = 'N/A'; // In case job_type is neither 'fixed' nor 'hourly'
     }
   }
 
@@ -310,8 +411,9 @@ function renderAddReview() {
 
   $professionalism = $quality = $timeManagement = $communication = $comments = '';
 
-  if (isset($_GET['id'])) {
-    $contractorId = $_GET['id'];
+  if (isset($_GET['contactor_id'])) {
+    $contractorId = $_GET['contactor_id'];
+    $jobId = $_GET['job_id'];
   } else {
     header('Location: /se265-capstone');
     exit();
@@ -336,7 +438,7 @@ function renderAddReview() {
     if (empty($professionalism) || empty($quality) || empty($timeManagement) || empty($communication)) {
       $errorMsg = 'Please rate all the skills.';
     } else {
-      addReview($reviewerId, $contractorId, $professionalism, $quality, $timeManagement, $communication, $comments);
+      addReview($reviewerId, $contractorId, $jobId, $professionalism, $quality, $timeManagement, $communication, $comments);
       header('Location: /se265-capstone');
       exit();
     }

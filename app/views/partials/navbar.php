@@ -58,8 +58,9 @@ function activePage($page) {
           <?php if ($isLoggedIn): ?>
             <a style="background-color: #6643b5;" class="text-white text-decoration-none px-4 py-1 rounded-4 nav-btn" onmouseover="this.style.background='#714bc9'" onmouseout="this.style.background='#6643b5'" href="/se265-capstone/logout">Logout</a>
           <?php else: ?>
-            <a style="background-color: #838383;" class="text-white text-decoration-none px-4 py-1 rounded-4 nav-btn" onmouseover="this.style.background='#8f8f8f'" onmouseout="this.style.background='#838383'" href="/se265-capstone/login">Login</a>
-            <a style="background-color: #6643b5;" class="text-white text-decoration-none hover px-3 py-1 rounded-4 nav-btn" onmouseover="this.style.background='#714bc9'" onmouseout="this.style.background='#6643b5'" href="/se265-capstone/signup">Sign Up</a>
+            
+            <a style="background-color: #838383;" id="loginBtn" class="text-white text-decoration-none px-4 py-1 rounded-4 nav-btn" onmouseover="this.style.background='#8f8f8f'" onmouseout="this.style.background='#838383'" href="/se265-capstone/login">Login</a>
+            <a style="background-color: #6643b5;" id="signUpBtn" class="text-white text-decoration-none hover px-3 py-1 rounded-4 nav-btn" onmouseover="this.style.background='#714bc9'" onmouseout="this.style.background='#6643b5'" href="/se265-capstone/signup">Sign Up</a>
           <?php endif; ?>
         </div>
       </div>

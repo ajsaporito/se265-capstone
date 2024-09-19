@@ -52,9 +52,6 @@ include PARTIAL_PATH . 'navbar.php';
                   <div class="col-6">
                     <a style="background-color: #838383;" href="/se265-capstone/change-password?id=<?= $id; ?>" class="btn rounded-4 text-white mb-4" onmouseover="this.style.background='#8f8f8f'" onmouseout="this.style.background='#838383'">Change Password</a>
                   </div>
-                  <div class="col-6">
-                    <a style="background-color: red;" href="/se265-capstone/delete-profile?id=<?= $id; ?>" class="btn rounded-4 text-white">Delete Account</a>
-                  </div>
                 </div>
                 <div class="col-12">
                   <div class="row mx-1">

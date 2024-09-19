@@ -61,10 +61,10 @@ include PARTIAL_PATH . 'navbar.php';
               <a href="/se265-capstone/docs/pdfs/erd.pdf" target="_blank">Normalized Database Diagram</a>
             </li>
             <li class="pb-2">
-              <a href="" target="_blank">Screenshots</a>
+              <a href="/se265-capstone/docs/pdfs/screenshots.pdf" target="_blank">Screenshots</a>
             </li>
             <li class="pb-2">
-              <a href="" target="_blank">PowerPoint</a>
+              <a href="/se265-capstone/docs/pdfs/se265-capstone.pdf" target="_blank">PowerPoint</a>
             </li>
         </div>
       </div>

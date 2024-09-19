@@ -27,13 +27,12 @@ function renderDashboard() {
   $openJobs = getJobsByStatus($userId, 'open');
 
   // Get reviews for jobs related to the user (contractor or client)
-  $reviews = getReviewsByUserId($userId); 
+  $reviews = getReviewsByUserId($userId);
 
-  // Check if any reviews exist
   if (empty($reviews)) {
     $resultMessage = "No reviews available for this user.";
   }
-  
+
   require VIEW_PATH . 'main/dashboard.php';
 }
 

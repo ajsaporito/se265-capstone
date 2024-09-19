@@ -211,3 +211,24 @@ button {
   margin: 0 auto;
   text-align: center;
 }
+
+/* Styling for the completed-jobs-link on dashboard.php */ main.css
+
+#completed-jobs-link {
+  color: #000000;
+  text-decoration: none;
+}
+
+#completed-jobs-link:hover {
+  color: #6643b5;
+}
+
+/* Mail-to-link on user-profile.php*/
+#mail-to-link {
+  color: #6643b5;
+  text-decoration: none;
+}
+
+#mail-to-link:hover {
+  font-weight: bold;
+}
