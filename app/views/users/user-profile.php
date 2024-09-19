@@ -12,9 +12,12 @@ include PARTIAL_PATH . 'navbar.php';
         <div class="card mb-3">
           <div class="card-body text-center">
             <h5 class="card-title oxygen-bold"><?= htmlspecialchars($user['first_name']) . ' ' . htmlspecialchars($user['last_name']); ?></h5>
-            <p class="card-text"><?= htmlspecialchars($user['email']); ?></p>
+            <p class="card-text oygen-regular">
+                <a id="mail-to-link" href="mailto:<?= htmlspecialchars($user['email']); ?>">
+                  <?= htmlspecialchars($user['email']); ?>
+                </a>
+            </p>
             <hr>
-
             <!-- Display Average Ratings -->
             <h6 class="oxygen-bold">My Ratings</h6>
             <?php if (!empty($averageRatings)): ?>
@@ -42,7 +45,6 @@ include PARTIAL_PATH . 'navbar.php';
           </div>
         </div>
       </div>
-      
       <!-- Jobs Completed Card -->
       <div class="col-12">
         <div class="card mt-4">
@@ -57,7 +59,6 @@ include PARTIAL_PATH . 'navbar.php';
                     <small>Date completed: <?= htmlspecialchars($job['estimated_completion_date']); ?></small>
                     <p class="mt-2"><?= htmlspecialchars($job['description']); ?></p>
                     <hr>
-
                     <!-- Display Reviews for the Job -->
                     <?php if (!empty($job['reviews'])): ?>
                       <h6 class="oxygen-bold">Reviews</h6>
@@ -66,19 +67,15 @@ include PARTIAL_PATH . 'navbar.php';
                           <strong>Communication:</strong> 
                           <?= isset($review['communication']) ? renderStars($review['communication']) : 'N/A'; ?>
                           <br>
-
                           <strong>Time Management:</strong> 
                           <?= isset($review['time_management']) ? renderStars($review['time_management']) : 'N/A'; ?>
                           <br>
-
                           <strong>Quality:</strong> 
                           <?= isset($review['quality']) ? renderStars($review['quality']) : 'N/A'; ?>
                           <br>
-
                           <strong>Professionalism:</strong> 
                           <?= isset($review['professionalism']) ? renderStars($review['professionalism']) : 'N/A'; ?>
                           <br>
-
                         <?php endforeach; ?>
                       </ul>
                     <?php else: ?>
