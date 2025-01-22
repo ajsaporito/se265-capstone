@@ -42,6 +42,10 @@ $routes = [
   '/se265-capstone/mark-job-complete' => 'jobs-controller@markJobComplete',
   
   '/se265-capstone/add-review' => 'jobs-controller@renderAddReview',
+
+  '/se265-capstone/admin' => 'admin-controller@renderAdmin',
+  '/se265-capstone/admin-jobs' => 'admin-controller@renderAdminJobs',
+  '/se265-capstone/admin-users' => 'admin-controller@renderAdminUsers',
 ];
 
 try {

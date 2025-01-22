@@ -61,3 +61,7 @@ CREATE TABLE JobSkills (
   FOREIGN KEY (job_id) REFERENCES Jobs(job_id) ON DELETE CASCADE,
   FOREIGN KEY (skill_id) REFERENCES Skills(skill_id) ON DELETE CASCADE
 );
+
+-- Admin role for software security: 1/21/2025
+
+ALTER TABLE Users ADD COLUMN is_admin TINYINT(1) DEFAULT 0;

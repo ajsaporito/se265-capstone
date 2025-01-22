@@ -204,8 +204,6 @@ function searchPeople($search) {
   return $result; 
 }
 
-
-
 /* NEW 8/15 for user-profile review section */ 
 function getCompletedJobsByUserId($user_id) {
   global $db;
@@ -222,3 +220,18 @@ function getCompletedJobsByUserId($user_id) {
   return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
+function isAdmin($user_id) {
+  global $db;
+
+  $stmt = $db->prepare("SELECT is_admin FROM Users WHERE user_id = :id");
+  $stmt->bindValue(':id', $user_id);
+  $stmt->execute();
+
+  $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+  if ($result['is_admin'] == 1) {
+    return true;
+  }
+
+  return false;
+}
