@@ -235,3 +235,33 @@ function isAdmin($user_id) {
 
   return false;
 }
+
+// TODO: Fix function so that it deletes all associated records with a user
+
+function deleteUser($id) {
+  global $db;
+
+  $db->beginTransaction();
+
+  $stmt = $db->prepare("DELETE FROM Reviews WHERE reviewer_id = :id OR contractor_id = :id");
+  $stmt->bindValue(':id', $id);
+  $stmt->execute();
+
+  $stmt = $db->prepare("DELETE FROM Jobs WHERE posted_by = :id");
+  $stmt->bindValue(':id', $id);
+  $stmt->execute();
+
+  //$stmt = $db->prepare("DELETE FROM Jobs WHERE contractor_id = :id");
+  //$stmt->bindValue(':id', $id);
+  //$stmt->execute();
+
+  //$stmt = $db->prepare("DELETE FROM Requests WHERE requested_by = :id");
+  //$stmt->bindValue(':id', $id);
+  //$stmt->execute();
+
+  $stmt = $db->prepare("DELETE FROM Users WHERE user_id = :id");
+  $stmt->bindValue(':id', $id);
+  $stmt->execute();
+
+  $db->commit();
+}
