@@ -17,8 +17,9 @@ function renderAdmin() {
 
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['deleteBtn'])) {
-      $user_id = $_POST['user_id'];
+      $user_id = (int) $_POST['user_id'];
       deleteUser($user_id);
+      header('Location: /se265-capstone/admin');
     }
   }
 

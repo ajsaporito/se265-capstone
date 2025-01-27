@@ -236,32 +236,43 @@ function isAdmin($user_id) {
   return false;
 }
 
-// TODO: Fix function so that it deletes all associated records with a user
-
 function deleteUser($id) {
   global $db;
 
-  $db->beginTransaction();
+  try {
+    $db->beginTransaction();
 
-  $stmt = $db->prepare("DELETE FROM Reviews WHERE reviewer_id = :id OR contractor_id = :id");
-  $stmt->bindValue(':id', $id);
-  $stmt->execute();
+    $stmt = $db->prepare("DELETE FROM Reviews WHERE reviewer_id = :id");
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
 
-  $stmt = $db->prepare("DELETE FROM Jobs WHERE posted_by = :id");
-  $stmt->bindValue(':id', $id);
-  $stmt->execute();
+    $stmt = $db->prepare("DELETE FROM Reviews WHERE contractor_id = :id");
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
 
-  //$stmt = $db->prepare("DELETE FROM Jobs WHERE contractor_id = :id");
-  //$stmt->bindValue(':id', $id);
-  //$stmt->execute();
+    $stmt = $db->prepare("DELETE FROM Requests WHERE job_id IN (SELECT job_id FROM Jobs WHERE posted_by = :id)");
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
 
-  //$stmt = $db->prepare("DELETE FROM Requests WHERE requested_by = :id");
-  //$stmt->bindValue(':id', $id);
-  //$stmt->execute();
+    $stmt = $db->prepare("DELETE FROM Requests WHERE requested_by = :id");
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
 
-  $stmt = $db->prepare("DELETE FROM Users WHERE user_id = :id");
-  $stmt->bindValue(':id', $id);
-  $stmt->execute();
+    $stmt = $db->prepare("DELETE FROM Jobs WHERE posted_by = :id");
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
 
-  $db->commit();
+    $stmt = $db->prepare("UPDATE Jobs SET contractor_id = null WHERE contractor_id = :id");
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+
+    $stmt = $db->prepare("DELETE FROM Users WHERE user_id = :id");
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+
+    $db->commit();
+  } catch (Exception $e) {
+    $db->rollBack();
+    debug("Failed to delete user: " . $e->getMessage());
+  }
 }
