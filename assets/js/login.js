@@ -13,14 +13,14 @@ $(document).ready(function() {
           window.location.href = '/se265-capstone';
         } else {
           if (response.usernameError !== '') {
-            $('#usernameError').html(response.usernameError);
+            $('#usernameError').text(response.usernameError);
             $('#username').addClass('signup-input-error');
           } else {
             $('#username').removeClass('signup-input-error');
           }
     
           if (response.passwordError !== '') {
-            $('#passwordError').html(response.passwordError);
+            $('#passwordError').text(response.passwordError);
             $('#password').addClass('signup-input-error');
           } else {
             $('#password').removeClass('signup-input-error');
@@ -32,12 +32,12 @@ $(document).ready(function() {
     // Clear errors when typed in again
     $('#username').on('keyup', function() {
       $(this).removeClass('signup-input-error');
-      $('#usernameError').html('');
+      $('#usernameError').text('');
     });
 
     $('#password').on('keyup', function() {
       $(this).removeClass('signup-input-error');
-      $('#passwordError').html('');
+      $('#passwordError').text('');
     });
   })
 });

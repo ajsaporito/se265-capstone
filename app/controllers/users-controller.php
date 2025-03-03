@@ -240,6 +240,12 @@ function renderCheckEditProfile() {
     exit();
   }
 
+  if (empty($_SERVER['HTTP_X_REQUESTED_WITH']) ||
+      strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) !== 'xmlhttprequest') {
+    header("Location: /se265-capstone");
+    exit();
+}
+
   $username = $_POST['username'];
   $email = $_POST['email'];
 

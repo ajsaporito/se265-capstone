@@ -154,6 +154,11 @@ function renderJobInfo() {
     }
   }
 
+  if (!$job) {
+    header('Location: /se265-capstone/jobs');
+    exit();
+  }
+
   require VIEW_PATH . 'jobs/job-info.php';
 }
 
@@ -173,8 +178,8 @@ function renderClientOpenJobs() {
   
   // If the job is not found or doesn't belong to the logged-in user, show an error
   if ($job === false || empty($job) || $job['posted_by'] != $_SESSION['user_id']) {
-    echo "Job not found or you don't have permission to view this job.";
-    return;
+    header('Location: /se265-capstone');
+    exit();
   }
 
   // Calculate pay based on job type
@@ -287,7 +292,8 @@ function handleJobRequest() {
     } 
       exit();
   } else {
-      echo json_encode(['status' => 'error', 'message' => 'Invalid request method.']);
+      header('Location: /se265-capstone');
+      exit();
   }
 }
 
@@ -357,8 +363,8 @@ function renderClientCompletedJobs () {
 
   // If the job is not found or doesn't belong to the logged-in user, show an error
   if ($job === false || empty($job) || $job['posted_by'] != $_SESSION['user_id']) {
-      echo "Job not found or you don't have permission to view this job.";
-      return;
+      header('Location: /se265-capstone');
+      exit();
   }
 
   // Calculate pay based on job type
@@ -384,7 +390,8 @@ function markJobComplete() {
     $job_id = $_POST['job_id'];
     markJobAsCompleted($job_id);
   } else {
-    echo json_encode(['status' => 'error', 'message' => 'Invalid request method.']);
+    header('Location: /se265-capstone');
+    exit();
   }
   exit();
 }
@@ -396,7 +403,8 @@ function deleteJob() {
     $job_id = $_POST['job_id'];
     deleteOpenJob($job_id);
   } else {
-    echo json_encode(['status' => 'error', 'message' => 'Invalid request method.']);
+    header('Location: /se265-capstone');
+    exit();
   }
   exit();
 }

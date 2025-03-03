@@ -27,15 +27,15 @@ $(document).ready(function() {
       isValid = false;
       firstNameError += 'First name is required';
       $('#firstName').addClass('signup-input-error');
-      $('#firstNameError').html(firstNameError);
+      $('#firstNameError').text(firstNameError);
     } else if (!firstNamePattern.test(firstName)) {
       isValid = false;
       firstNameError += 'First name cannot have special characters';
       $('#firstName').addClass('signup-input-error');
-      $('#firstNameError').html(firstNameError);
+      $('#firstNameError').text(firstNameError);
     } else {
       $('#firstName').removeClass('signup-input-error');
-      $('#firstNameError').html('');
+      $('#firstNameError').text('');
     }
 
     // Validate last name
@@ -43,15 +43,15 @@ $(document).ready(function() {
       isValid = false;
       lastNameError += 'Last name is required';
       $('#lastName').addClass('signup-input-error');
-      $('#lastNameError').html(lastNameError);
+      $('#lastNameError').text(lastNameError);
     } else if (!lastNamePattern.test(lastName)) {
       isValid = false;
       lastNameError += 'Last name cannot have special characters';
       $('#lastName').addClass('signup-input-error');
-      $('#lastNameError').html(lastNameError);
+      $('#lastNameError').text(lastNameError);
     } else {
       $('#lastName').removeClass('signup-input-error');
-      $('#lastNameError').html('');
+      $('#lastNameError').text('');
     }
 
     // Validate username
@@ -59,15 +59,15 @@ $(document).ready(function() {
       isValid = false;
       usernameError += 'Username is required';
       $('#username').addClass('signup-input-error');
-      $('#usernameError').html(usernameError);
+      $('#usernameError').text(usernameError);
     } else if (!usernamePattern.test(username)) {
       isValid = false;
       usernameError += 'Username must be between 3-20 characters (cannot start with or end with ".")';
       $('#username').addClass('signup-input-error');
-      $('#usernameError').html(usernameError);
+      $('#usernameError').text(usernameError);
     } else {
       $('#username').removeClass('signup-input-error');
-      $('#usernameError').html('');
+      $('#usernameError').text('');
     }
 
     // Validate email
@@ -75,15 +75,15 @@ $(document).ready(function() {
       isValid = false;
       emailError += 'Email is required';
       $('#email').addClass('signup-input-error');
-      $('#emailError').html(emailError);
+      $('#emailError').text(emailError);
     } else if (!emailPattern.test(email)) {
       isValid = false;
       emailError += 'Please enter a valid email address';
       $('#email').addClass('signup-input-error');
-      $('#emailError').html(emailError);
+      $('#emailError').text(emailError);
     } else {
       $('#email').removeClass('signup-input-error');
-      $('#emailError').html('');
+      $('#emailError').text('');
     }
 
     // Validate password
@@ -91,15 +91,15 @@ $(document).ready(function() {
       isValid = false;
       passwordError += 'Password is required';
       $('#password').addClass('signup-input-error');
-      $('#passwordError').html(passwordError);
+      $('#passwordError').text(passwordError);
     } else if (!passwordPattern.test(password)) {
       isValid = false;
       passwordError += 'Password must be at least 8 characters with 1 number and 1 special character';
       $('#password').addClass('signup-input-error');
-      $('#passwordError').html(passwordError);
+      $('#passwordError').text(passwordError);
     } else {
       $('#password').removeClass('signup-input-error');
-      $('#passwordError').html('');
+      $('#passwordError').text('');
     }
 
     // Validate confirm password
@@ -107,15 +107,15 @@ $(document).ready(function() {
       isValid = false;
       confirmPasswordError += 'Confirm password is required';
       $('#confirmPassword').addClass('signup-input-error');
-      $('#confirmPasswordError').html(confirmPasswordError);
+      $('#confirmPasswordError').text(confirmPasswordError);
     } else if (password !== confirmPassword) {
       isValid = false;
       confirmPasswordError += 'Passwords do not match';
       $('#confirmPassword').addClass('signup-input-error');
-      $('#confirmPasswordError').html(confirmPasswordError);
+      $('#confirmPasswordError').text(confirmPasswordError);
     } else {
       $('#confirmPassword').removeClass('signup-input-error');
-      $('#confirmPasswordError').html('');
+      $('#confirmPasswordError').text('');
     }
 
     // Check if username and email are already taken
@@ -128,12 +128,12 @@ $(document).ready(function() {
         success: function (response) {
           if (!response.success) {
             if (response.usernameError !== undefined) {
-              $('#usernameError').html(response.usernameError);
+              $('#usernameError').text(response.usernameError);
               $('#username').addClass('signup-input-error');
             }
       
             if (response.emailError !== undefined) {
-              $('#emailError').html(response.emailError);
+              $('#emailError').text(response.emailError);
               $('#email').addClass('signup-input-error');
             }
           } else {
@@ -149,42 +149,42 @@ $(document).ready(function() {
     $('#firstName').on('keyup', function() {
       if ($(this).hasClass('signup-input-error')) {
         $(this).removeClass('signup-input-error');
-        $('#firstNameError').html('');
+        $('#firstNameError').text('');
       }
     });
   
     $('#lastName').on('keyup', function() {
       if ($(this).hasClass('signup-input-error')) {
         $(this).removeClass('signup-input-error');
-        $('#lastNameError').html('');
+        $('#lastNameError').text('');
       }
     });
   
     $('#username').on('keyup', function() {
       if ($(this).hasClass('signup-input-error')) {
         $(this).removeClass('signup-input-error');
-        $('#usernameError').html('');
+        $('#usernameError').text('');
       }
     });
   
     $('#email').on('keyup', function() {
       if ($(this).hasClass('signup-input-error')) {
         $(this).removeClass('signup-input-error');
-        $('#emailError').html('');
+        $('#emailError').text('');
       }
     });
   
     $('#password').on('keyup', function() {
       if ($(this).hasClass('signup-input-error')) {
         $(this).removeClass('signup-input-error');
-        $('#passwordError').html('');
+        $('#passwordError').text('');
       }
     });
   
     $('#confirmPassword').on('keyup', function() {
       if ($(this).hasClass('signup-input-error')) {
         $(this).removeClass('signup-input-error');
-        $('#confirmPasswordError').html('');
+        $('#confirmPasswordError').text('');
       }
     });
   });

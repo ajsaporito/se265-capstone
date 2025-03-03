@@ -1,11 +1,13 @@
 <?php
 
-function debug($data) {
+/*function debug($data) {
   echo '<pre>';
   var_dump($data);
   echo '</pre>';
   die();
-}
+}*/
+
+// Commented out to disable ability to use
 
 // Destroy login session after 15 minutes of no page refresh
 function checkInactivity() {

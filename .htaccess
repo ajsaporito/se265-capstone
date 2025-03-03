@@ -10,6 +10,12 @@
   # Block access to files starting with a '.'
   RewriteRule ^\. - [F,L]
 
+  # Explicitly block access to .ini files
+  <FilesMatch "\.(ini)$">
+      Order Deny,Allow
+      Deny from all
+  </FilesMatch>
+
   # Allow loading of files and directories
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d

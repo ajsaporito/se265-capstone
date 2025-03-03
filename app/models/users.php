@@ -186,16 +186,15 @@ function changePassword($id, $newPassword) {
 function searchPeople($search) {
   global $db;
 
-  $binds = array();
-  $sql = "SELECT * FROM Users WHERE 0 = 0";
-
-  if ($search != "") {
-    $sql .= " AND username LIKE :username";
-    $binds['username'] = $search.'%';
+  if (empty(trim($search))) {
+    return [];
   }
 
-  $result = array();
+  $sql = "SELECT * FROM Users WHERE username LIKE :username";
+  $binds = ['username' => $search . '%'];
+
   $stmt = $db->prepare($sql);
+  $result = [];
 
   if ($stmt->execute($binds) && $stmt->rowCount() > 0) {
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -273,6 +272,6 @@ function deleteUser($id) {
     $db->commit();
   } catch (Exception $e) {
     $db->rollBack();
-    debug("Failed to delete user: " . $e->getMessage());
+    //$e->getMessage();
   }
 }

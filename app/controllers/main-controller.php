@@ -41,23 +41,25 @@ function renderSearch() {
     header('Location: /se265-capstone/login');
     exit();
   }
+
+  // Prevent XXS in the search input
   
   if (isset($_POST['searchBtn'])) {
-    $search = $_POST['search'];
-    $searchType = $_POST['searchType'];
+    $search = trim(filter_input(INPUT_POST, 'search', FILTER_SANITIZE_STRING));
+    $searchType = trim(filter_input(INPUT_POST, 'searchType', FILTER_SANITIZE_STRING));
 
     if ($searchType === 'jobs') {
       require VIEW_PATH . 'jobs/search-jobs.php';
     } elseif ($searchType === 'people') {
       include MODEL_PATH . 'users.php';
 
-      $users = searchPeople($search);
+      $users = searchPeople(htmlspecialchars($search, ENT_QUOTES, 'UTF-8'));
 
       require VIEW_PATH . 'users/search-people.php';
     } else {
       include MODEL_PATH . 'jobs.php';
 
-      $jobs = searchJobs($search);
+      $jobs = searchJobs(htmlspecialchars($search, ENT_QUOTES, 'UTF-8'));
 
       require VIEW_PATH . 'jobs/search-jobs.php';
     }

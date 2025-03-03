@@ -1,8 +1,21 @@
 <?php
 
-ini_set('display_errors', 1);
+/* ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+error_reporting(E_ALL); */
+
+// Changed to not expose sensitive information
+
+ini_set('display_errors', 0);
+ini_set('display_startup_errors', 0);
+error_reporting(0);
+
+// Prevent XSS and restrict resource loading to the same origin
+header("Content-Security-Policy: 
+  default-src 'self'; 
+  script-src 'self' https://code.jquery.com https://cdn.jsdelivr.net; 
+  style-src 'self' https://cdn.jsdelivr.net; 
+  object-src 'none';");
 
 include __DIR__ . '\app\config\functions.php';
 include __DIR__ . '\app\config\paths.php';
@@ -57,6 +70,7 @@ try {
         $function($_GET);
       } 
     }
+    // Return correct HTTP error codes
   } else {
     http_response_code(404);
     require VIEW_PATH . 'static/404.php';
@@ -64,4 +78,4 @@ try {
 } catch (Exception $e) {
   http_response_code(500);
   echo $e->getMessage();
-} 
+}
